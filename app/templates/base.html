@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ali Mahmoud | IT Linux Engineer{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Ali Mahmoud - calm, elegant, professional portfolio for IT, DevOps, and cybersecurity.{% endblock %}">
+    <meta name="keywords" content="Ali Mahmoud, Linux Engineer, DevOps, Cybersecurity, portfolio">
+    <meta name="author" content="Ali Mahmoud">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                {% if profile %}
+                    <span class="navbar-logo">{{ profile.logo_text }}</span>
+                {% else %}
+                    <span class="navbar-logo">AM</span>
+                {% endif %}
+            </div>
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="{% url 'identity:home' %}" class="nav-link">Home</a></li>
+                <li><a href="{% url 'identity:home' %}#about" class="nav-link">About</a></li>
+                <li><a href="{% url 'identity:home' %}#skills" class="nav-link">Skills</a></li>
+                <li><a href="{% url 'identity:home' %}#projects" class="nav-link">Projects</a></li>
+                <li><a href="{% url 'identity:home' %}#timeline" class="nav-link">Timeline</a></li>
+                <li><a href="{% url 'tasks:task_list' %}" class="nav-link">Tasks</a></li>
+                <li><a href="{% url 'identity:home' %}#contact" class="nav-link">Contact</a></li>
+                {% if user.is_authenticated %}
+                    <li><form method="post" action="{% url "logout" %}" style="display:inline">{% csrf_token %}<button type="submit" class="nav-link" style="background:none;border:none;cursor:pointer;font:inherit;color:inherit">Logout</button></form></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+                {% endif %}
+            </ul>
+            <div class="navbar-right">
+                <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="hamburger" id="hamburgerBtn" title="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} fade-in visible">
+                    {{ message }}
+                    <button class="alert-close" onclick="this.parentElement.remove()">&times;</button>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container footer-bar">
+            <p>&copy; 2026 Ali Mahmoud</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/darkmode.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

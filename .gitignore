@@ -1,0 +1,13 @@
+# Database
+db.sqlite3
+db.sqlite3-journal
+
+# Environments & Python cache
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Uploaded Media & Secrets
+media/
+.env

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Task - Task Manager{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'tasks/css/tasks.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="tasks-section fade-in visible">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-trash"></i> Delete Task</h2>
+        </div>
+
+        <div class="form-card delete-card">
+            <div class="delete-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Are you sure?</h3>
+            <p class="delete-text">You are about to delete "<strong>{{ task.title }}</strong>". This action cannot be undone.</p>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-actions">
+                    <a href="{% url 'tasks:task_list' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Cancel
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

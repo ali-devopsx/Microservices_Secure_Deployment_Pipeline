@@ -1,0 +1,264 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ali Mahmoud | IT Linux Engineer</title>
+    <meta name="description" content="Ali Mahmoud - calm, elegant, professional portfolio for IT, DevOps, and cybersecurity.">
+    <meta name="keywords" content="Ali Mahmoud, Linux Engineer, DevOps, Cybersecurity, portfolio">
+    <meta name="author" content="Ali Mahmoud">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- ===== NAVIGATION BAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <!-- Logo/Brand -->
+            <div class="navbar-brand">
+                {% if profile %}
+                    <span class="navbar-logo">{{ profile.logo_text }}</span>
+                {% else %}
+                    <span class="navbar-logo">AM</span>
+                {% endif %}
+            </div>
+
+            <!-- Navbar Links -->
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="#hero" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#timeline" class="nav-link">Timeline</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+
+            <!-- Dark Mode Toggle & Hamburger Menu -->
+            <div class="navbar-right">
+                <!-- Dark Mode Toggle Button -->
+                <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <!-- Hamburger Menu Button (Mobile) -->
+                <button class="hamburger" id="hamburgerBtn" title="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- ===== HERO SECTION ===== -->
+        <section id="hero" class="fade-in">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <p class="eyebrow">Hello, I'm</p>
+                    <h1>Ali Mahmoud</h1>
+                    {% if profile %}
+                        <div class="hero-subtitle" id="typed-subtitle" data-text="{{ profile.subtitle }}"></div>
+                        <p class="hero-bio">{{ profile.bio_strong }}</p>
+                    {% endif %}
+                    <a href="#contact" class="btn btn-primary">Email Me</a>
+                </div>
+                <div class="hero-visual">
+                    {% if profile and profile.profile_image %}
+                        <img src="{{ profile.profile_image.url }}" alt="Ali Mahmoud portrait">
+                    {% else %}
+                        <div class="hero-placeholder">
+                            <span>AM</span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ABOUT SECTION ===== -->
+        <section id="about" class="fade-in">
+            <div class="container">
+                <div class="section-header">
+                    <h2>About</h2>
+                    <p class="section-copy">A calm and thoughtful technology leader. I build dependable systems with security at the center.</p>
+                </div>
+                <div class="about-text">
+                    {% if profile %}
+                        {% for line in profile.journey_lines %}
+                            <p>{{ line }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PROJECTS SECTION ===== -->
+        <section id="projects" class="fade-in">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Projects</h2>
+                    <p class="section-copy">Selected work that blends stability, automation, and security.</p>
+                </div>
+                <div class="projects-grid">
+                    {% if page_obj.object_list %}
+                        {% for project in page_obj.object_list %}
+                            <article class="project-card">
+                                {% if project.image %}
+                                    <div class="project-image">
+                                        <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                                    </div>
+                                {% endif %}
+                                <div class="project-body">
+                                    <div class="project-copy">
+                                        <h3>{{ project.title }}</h3>
+                                        {% if project.summary %}
+                                            <p class="project-summary">{{ project.summary }}</p>
+                                        {% endif %}
+                                        <p class="project-description">{{ project.description }}</p>
+                                    </div>
+                                    <div class="project-footer">
+                                        <div class="project-tags">
+                                            {% for tech in project.tech_tags %}
+                                                <span>{{ tech }}</span>
+                                            {% endfor %}
+                                        </div>
+                                        {% if project.github_url %}
+                                            <a href="{{ project.github_url }}" target="_blank" class="btn btn-secondary">GitHub</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    {% else %}
+                        <p>No projects available yet.</p>
+                    {% endif %}
+                </div>
+
+                <!-- ===== PAGINATION ===== -->
+                {% if page_obj.has_other_pages %}
+                    <div class="pagination">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1" class="pagination-link" title="First page">«</a>
+                            <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link" title="Previous">‹</a>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <span class="pagination-current">{{ num }}</span>
+                            {% else %}
+                                <a href="?page={{ num }}" class="pagination-link">{{ num }}</a>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}" class="pagination-link" title="Next">›</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link" title="Last page">»</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- ===== SKILLS SECTION ===== -->
+        <section id="skills" class="fade-in">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Skills</h2>
+                    <p class="section-copy">Technologies and tools I use to keep systems secure, reliable, and efficient.</p>
+                </div>
+                <div class="skills-grid">
+                    {% if skills %}
+                        {% for skill in skills %}
+                            <div class="skill-card">
+                                <i class="fas {{ skill.icon_class }}"></i>
+                                <span>{{ skill.name }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No skills available yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TIMELINE SECTION ===== -->
+        <section id="timeline" class="fade-in">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Timeline</h2>
+                    <p class="section-copy">A quiet view of the milestones that guided my career.</p>
+                </div>
+                <div class="timeline-list">
+                    {% if timeline_events %}
+                        {% for event in timeline_events %}
+                            <div class="timeline-event">
+                                <span class="timeline-year">{{ event.year }}</span>
+                                <div>
+                                    <h3>{{ event.title }}</h3>
+                                    <p>{{ event.description }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No timeline events available yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTACT SECTION ===== -->
+        <section id="contact" class="fade-in">
+            <div class="container contact-panel">
+                <div>
+                    <h2>Contact</h2>
+                    {% if profile %}
+                        <p class="contact-copy">{{ profile.contact_phrase }} <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></p>
+                    {% else %}
+                        <p class="contact-copy">Interested in working together? Reach out by email.</p>
+                    {% endif %}
+
+                    <!-- Social Icons -->
+                    <div class="social-icons">
+                        {% if profile.youtube_url %}
+                            <a href="{{ profile.youtube_url }}" target="_blank" class="social-link" title="YouTube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        {% endif %}
+                        {% if profile.facebook_url %}
+                            <a href="{{ profile.facebook_url }}" target="_blank" class="social-link" title="Facebook">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        {% endif %}
+                        {% if profile.github_url %}
+                            <a href="{{ profile.github_url }}" target="_blank" class="social-link" title="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        {% endif %}
+                        {% if profile.linkedin_url %}
+                            <a href="{{ profile.linkedin_url }}" target="_blank" class="social-link" title="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        {% endif %}
+                        <a href="mailto:{{ profile.email }}" class="social-link" title="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container footer-bar">
+            <p>&copy; 2026 Ali Mahmoud. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT INCLUDES ===== -->
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/darkmode.js' %}"></script>
+</body>
+</html>

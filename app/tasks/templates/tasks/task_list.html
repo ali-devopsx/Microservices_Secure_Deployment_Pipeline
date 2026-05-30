@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Task Manager - Ali Mahmoud{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'tasks/css/tasks.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="tasks-section fade-in visible">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-tasks"></i> Task Manager</h2>
+            <p class="section-copy">Organize your tasks with priority tracking.</p>
+        </div>
+
+        <div class="task-stats">
+            <div class="stat-card">
+                <span class="stat-number">{{ status_counts.total }}</span>
+                <span class="stat-label">Total</span>
+            </div>
+            <div class="stat-card stat-pending">
+                <span class="stat-number">{{ status_counts.pending }}</span>
+                <span class="stat-label">Pending</span>
+            </div>
+            <div class="stat-card stat-progress">
+                <span class="stat-number">{{ status_counts.in_progress }}</span>
+                <span class="stat-label">In Progress</span>
+            </div>
+            <div class="stat-card stat-done">
+                <span class="stat-number">{{ status_counts.completed }}</span>
+                <span class="stat-label">Completed</span>
+            </div>
+            <div class="stat-card stat-high">
+                <span class="stat-number">{{ status_counts.high_priority }}</span>
+                <span class="stat-label">High Priority</span>
+            </div>
+        </div>
+
+        <div class="task-toolbar">
+            <a href="{% url 'tasks:task_create' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> New Task
+            </a>
+        </div>
+
+        {% if tasks %}
+        <div class="task-grid">
+            {% for task in tasks %}
+            <div class="task-card priority-{{ task.priority }}">
+                <div class="task-header">
+                    <h3 class="task-title">{{ task.title }}</h3>
+                    <span class="task-priority priority-badge-{{ task.priority }}">
+                        {% if task.priority == 'critical' %}<i class="fas fa-exclamation-triangle"></i>{% endif %}
+                        {% if task.priority == 'high' %}<i class="fas fa-arrow-up"></i>{% endif %}
+                        {% if task.priority == 'medium' %}<i class="fas fa-minus"></i>{% endif %}
+                        {% if task.priority == 'low' %}<i class="fas fa-arrow-down"></i>{% endif %}
+                        {{ task.get_priority_display }}
+                    </span>
+                </div>
+
+                <div class="task-body">
+                    {% if task.description %}
+                    <p class="task-description">{{ task.description|truncatechars:150 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="task-meta">
+                    <span class="task-status status-{{ task.status }}">
+                        <i class="fas 
+                            {% if task.status == 'pending' %}fa-clock{% endif %}
+                            {% if task.status == 'in_progress' %}fa-spinner fa-spin{% endif %}
+                            {% if task.status == 'completed' %}fa-check-circle{% endif %}
+                            {% if task.status == 'cancelled' %}fa-ban{% endif %}">
+                        </i>
+                        {{ task.get_status_display }}
+                    </span>
+                    {% if task.due_date %}
+                    <span class="task-due">
+                        <i class="fas fa-calendar-alt"></i> {{ task.due_date|date:"M d, Y" }}
+                    </span>
+                    {% endif %}
+                </div>
+
+                <div class="task-actions">
+                    <form method="post" action="{% url 'tasks:task_toggle' task.pk %}" class="inline-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-icon toggle-btn" title="Toggle completion">
+                            {% if task.status == 'completed' %}
+                                <i class="fas fa-redo"></i>
+                            {% else %}
+                                <i class="fas fa-check"></i>
+                            {% endif %}
+                        </button>
+                    </form>
+
+                    <a href="{% url 'tasks:task_update' task.pk %}" class="btn-icon" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </a>
+
+                    <a href="{% url 'tasks:task_delete' task.pk %}" class="btn-icon btn-icon-danger" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </a>
+
+                    <span class="task-date">{{ task.created_at|date:"M d, Y" }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if page_obj.has_other_pages %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="pagination-link" title="First">«</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link" title="Previous">‹</a>
+            {% endif %}
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <span class="pagination-current">{{ num }}</span>
+                {% else %}
+                    <a href="?page={{ num }}" class="pagination-link">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="pagination-link" title="Next">›</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link" title="Last">»</a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-clipboard-list"></i>
+            <h3>No tasks yet</h3>
+            <p>Create your first task to get started.</p>
+            <a href="{% url 'tasks:task_create' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Create Task
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'tasks/js/tasks.js' %}"></script>
+{% endblock %}
