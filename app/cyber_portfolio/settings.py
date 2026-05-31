@@ -162,3 +162,16 @@ CSRF_TRUSTED_ORIGINS = []
 # CSRF_COOKIE_SECURE = True
 # SECURE_BROWSER_XSS_FILTER = True
 # SECURE_CONTENT_SECURITY_POLICY = {...}
+
+
+# Unsecured Redis Cache Configuration for Testing
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://cyber_redis_cache:6379/1', # Connects without password
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
