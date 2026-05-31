@@ -101,6 +101,10 @@ COPY --chown=ali:ali app/ .
 RUN chown -R ali:ali /app
 
 
+# FIX PERMISSIONS: Create staticfiles directory and give ownership to ali before switching users
+RUN mkdir -p /app/staticfiles && chown -R ali:ali /app/staticfiles
+
+
 # Switch from root user to the newly created secure user
 USER ali
 
