@@ -13,14 +13,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # In production, use environment variables to store this
-SECRET_KEY = 'django-insecure-your-secret-key-change-this-in-production-12345!@#$%^&*()'
+SECRET_KEY = 'my_ultra_secret_production_key_2026'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Set to False when deploying to production
 DEBUG = True
 
 # In production, add your domain here (e.g., 'example.com', 'www.example.com')
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1,ali-devsecops-app").split(",")
+
 
 # ===== INSTALLED APPS =====
 # Add 'identity' app to handle the portfolio
@@ -78,12 +80,29 @@ WSGI_APPLICATION = 'cyber_portfolio.wsgi.application'
 # ===== DATABASE =====
 # Using SQLite database for development
 # In production, switch to PostgreSQL or MySQL
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
+
+
+# Database configuration for Production (PostgreSQL)
+# We fetch credentials securely from environment variables
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', 'cyber_db'),
+        'USER': os.environ.get('DB_USER', 'cyber_user'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'cyber_pass'),
+        'HOST': os.environ.get('DB_HOST', 'db'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
+
+
+
 
 # ===== PASSWORD VALIDATION =====
 # Password validators for user authentication (not used in this portfolio, but good practice)

@@ -1,0 +1,114 @@
+# Define the version of docker compose file format
+version: '3.8'
+
+
+# NETWORKS: Create isolated virtual wires for security
+
+networks:
+
+  # Public network that connects the web server to the outside world
+  frontend_net:
+    driver: bridge # Standard network type for standalone containers
+
+  # Private network that is completely locked down and secure
+  backend_net:
+    driver: bridge # Use the standard bridge driver for connection
+
+    internal: true # Block this network from reaching the public internet
+
+
+
+
+# VOLUMES: Virtual hard drives to save data permanently
+
+volumes:
+  # Hard drive folder to keep PostgreSQL data safe on the server
+  postgres_data:
+
+  # Shared folder to hold Django static files (CSS, JS) for Nginx
+  static_volume:
+
+
+
+# SERVICES: Define the containers we want to run together
+
+services:
+
+  # 1. Database Service (PostgreSQL Container)
+  db:
+    image: postgres:15-alpine  # Use lightweight official PostgreSQL image
+    container_name: cyber_postgres_db  # Give a specific name to the container
+    restart: unless-stopped # Automatically restart the database if it crashes or server reboots
+
+
+    # Secure Injection of database credentials from .env file
+    environment:
+      POSTGRES_DB: ${DB_NAME}  # Reads DB_NAME from .env file
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      #POSTGRES_HOST: ${DB_HOST}
+      #POSTGRES_PORT: ${DB_PORT}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    # Place the database inside the hidden secure network only
+    networks:
+      - backend_net
+
+    # Make port 5432 available inside the docker network, not to the internet
+    expose:
+      - "5432"
+
+
+
+  # 2. Application Layer Service (Django Web Container)
+  web:
+    build:
+      context: .  # Look for files in the current folder where we stand
+      dockerfile: Dockerfile  # Use customized secure Dockerfile
+    container_name: ali-devsecops-app  # set container name
+    restart: unless-stopped
+#    port:
+ #    - "8000:8000"
+
+    # Pass configuration variables into Django code from .env file safely
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - SECRET_KEY=${DJANGO_SECRET_KEY} # Securely inject production secret key
+      - DEBUG=${DJANGO_DEBUG}  # Inject debug mode status (True/False) dynamically
+
+      # Link the shared static files volume to this container
+    volumes:
+      - static_volume:/app/staticfiles  # Destination path where Django saves collected assets
+
+      # Connect Django container to both networks (bridge between front and back)
+    networks:
+      - frontend_net  # To talk to the web proxy
+      - backend_net  # To talk to the PostgreSQL database safely
+
+      # Ensure Django container starts only after the database is completely ready
+    depends_on:
+      - db
+
+  # 3. Web Server & Reverse Proxy Service (Nginx Container)
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: nginx_web_server
+    restart: unless-stopped
+    ports:
+      - "80:80"   # Open public HTTP port 80 to your browser
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf  # Copy configurations
+
+      - static_volume:/app/staticfiles  # Link shared static files directory
+
+    networks:
+
+      - frontend_net  # Put Nginx inside frontend network only to take traffic
+
+    depends_on:
+      - web  # Nginx will wait for Django application to start up first

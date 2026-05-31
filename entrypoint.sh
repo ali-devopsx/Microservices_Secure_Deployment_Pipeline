@@ -10,6 +10,16 @@ echo "🚀 Starting Entrypoint script Execution..."
 echo "================================================"
 
 
+echo "⏳ Waiting for PostgreSQL database to start on ${DB_HOST}:${DB_PORT}..."
+
+#while ! nc -z "$DB_HOST" "$DB_PORT"; do
+#  sleep 1
+#done
+
+sleep 10
+
+echo "✅ PostgreSQL is up and running! Proceeding..."
+
 # 1. Apply database migrations
 echo "🎨 [1/3] Applying database migrations..."
 python manage.py migrate --no-input
