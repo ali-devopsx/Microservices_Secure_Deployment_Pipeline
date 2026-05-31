@@ -1,0 +1,137 @@
+```yaml
+# Docker Compose file version
+version: '3.8'
+
+# =========================
+# NETWORKS
+# =========================
+networks:
+  # Public network for external access (used by Nginx)
+  frontend_net:
+    driver: bridge  # default Docker network type
+
+  # Private network (no internet access)
+  backend_net:
+    driver: bridge
+    internal: true  # block internet access (secure network)
+
+
+# =========================
+# VOLUMES (save data)
+# =========================
+volumes:
+  postgres_data:    # store PostgreSQL database files
+  static_volume:    # store Django static files (CSS, JS)
+  redis_data:       # store Redis data (optional)
+
+
+# =========================
+# SERVICES (containers)
+# =========================
+services:
+
+  # -------------------------
+  # 1. PostgreSQL Database
+  # -------------------------
+  db:
+    image: postgres:15-alpine   # lightweight PostgreSQL image
+    container_name: cyber_postgres_db
+    restart: unless-stopped     # restart if container stops
+
+    # database environment variables
+    environment:
+      POSTGRES_DB: ${DB_NAME}        # database name
+      POSTGRES_USER: ${DB_USER}      # database user
+      POSTGRES_PASSWORD: ${DB_PASSWORD}  # database password
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # save DB data
+
+    networks:
+      - backend_net   # only inside private network
+
+    expose:
+      - "5432"  # open port only inside Docker network
+
+
+  # -------------------------
+  # 2. Django Application
+  # -------------------------
+  web:
+    build:
+      context: .              # current folder
+      dockerfile: Dockerfile  # use this Dockerfile
+
+    container_name: ali-devsecops-app
+    restart: unless-stopped
+
+    # environment variables for Django
+    environment:
+      DB_NAME: ${DB_NAME}          # DB name
+      DB_USER: ${DB_USER}          # DB user
+      DB_PASSWORD: ${DB_PASSWORD}  # DB password
+
+      DB_HOST: db     # service name (important!)
+      DB_PORT: 5432   # default PostgreSQL port
+
+      SECRET_KEY: ${DJANGO_SECRET_KEY}  # Django secret key
+      DEBUG: ${DJANGO_DEBUG}            # debug mode (True/False)
+
+      REDIS_HOST: redis   # Redis service name
+      REDIS_PORT: 6379    # Redis port
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+
+    volumes:
+      - static_volume:/app/staticfiles  # shared static files folder
+
+    networks:
+      - frontend_net   # connect to nginx
+      - backend_net    # connect to db + redis
+
+    depends_on:
+      - db     # start after database
+      - redis  # start after redis
+
+
+  # -------------------------
+  # 3. Nginx (Web Server)
+  # -------------------------
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: nginx_web_server
+    restart: unless-stopped
+
+    ports:
+      - "80:80"   # open port 80 to browser
+
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf  # nginx config file
+      - static_volume:/app/staticfiles  # static files from Django
+
+    networks:
+      - frontend_net  # public network only
+
+    depends_on:
+      - web  # start after Django
+
+
+  # -------------------------
+  # 4. Redis (Cache)
+  # -------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: cyber_redis_cache
+    restart: unless-stopped
+
+    # start Redis with password
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+
+    volumes:
+      - redis_data:/data  # save Redis data
+
+    networks:
+      - backend_net  # private network
+
+    expose:
+      - "6379"  # internal port only
+```

@@ -11,3 +11,4 @@ __pycache__/
 # Uploaded Media & Secrets
 media/
 .env
+trash/
