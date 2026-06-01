@@ -12,3 +12,4 @@ __pycache__/
 media/
 .env
 trash/
+compose.yml
