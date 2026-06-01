@@ -5,6 +5,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, V
 from django.shortcuts import get_object_or_404, redirect
 from .models import Task
 from .forms import TaskForm
+from celery import shared_task
 
 
 class TaskListView(LoginRequiredMixin, ListView):
@@ -79,3 +80,9 @@ class TaskToggleView(LoginRequiredMixin, View):
         task.save()
         messages.success(request, f'Task "{task.title}" marked as {task.get_status_display().lower()}.')
         return redirect('tasks:task_list')
+
+
+
+@shared_task
+def test_task():
+    print("Celery is working 🔥")

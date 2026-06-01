@@ -169,9 +169,25 @@ CSRF_TRUSTED_ORIGINS = []
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://cyber_redis_cache:6379/1',
+        'LOCATION': f'redis://:{os.environ.get("REDIS_PASSWORD", "")}@redis:6379/1',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
     }
 }
+
+
+
+# =========================
+# Celery Configuration
+# =========================
+
+# Redis connection (message broker)
+CELERY_BROKER_URL = f'redis://:{os.environ.get("REDIS_PASSWORD", "")}@redis:6379/0'
+
+# Store task results
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+
+# Data format
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
