@@ -169,7 +169,7 @@ CSRF_TRUSTED_ORIGINS = []
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://cyber_redis_cache:6379/1', # Connects without password
+        'LOCATION': 'redis://cyber_redis_cache:6379/1',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
