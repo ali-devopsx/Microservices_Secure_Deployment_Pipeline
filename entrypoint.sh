@@ -15,8 +15,12 @@ echo "================================================"
 echo "Waiting for PostgreSQL database to start on ${DB_HOST}:${DB_PORT}..."
 
 # Wait for PostgreSQL to be ready
-sleep 10
+#sleep 10
 
+# Loop until netcat (nc) can successfully connect to the database port
+while ! nc -z "$DB_HOST" "$DB_PORT"; do
+  sleep 1
+done
 echo "PostgreSQL should be up. Proceeding..."
 
 echo "[1/3] Applying database migrations..."

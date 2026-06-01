@@ -176,3 +176,44 @@ services:
       timeout: 5s
       # Try 5 times maximum
       retries: 5
+
+
+  # Background task worker service
+  celery:
+    # Build from same Django image
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Custom container name
+    container_name: celery_worker
+
+    # Restart policy
+    restart: unless-stopped
+
+    # Environment variables
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+
+    # Connect to backend network
+    networks:
+      - backend_net
+
+    # Wait for redis before start
+    depends_on:
+      redis:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+
+    # Run celery worker
+    entrypoint: []
+
+    command: celery -A cyber_portfolio worker --loglevel=info
