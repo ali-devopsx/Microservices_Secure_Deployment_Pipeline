@@ -154,7 +154,8 @@ LOGOUT_REDIRECT_URL = 'identity:home'
 # ===== SECURITY SETTINGS =====
 # These settings should be reviewed and adjusted for production
 # For development, these are set to permissive values
-CSRF_TRUSTED_ORIGINS = []
+# Add trusted origins for CSRF (e.g., http://localhost, http://127.0.0.1, your-domain.com)
+CSRF_TRUSTED_ORIGINS = os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS", "http://localhost,http://127.0.0.1").split(",")
 
 # In production, set these to True:
 # SECURE_SSL_REDIRECT = True
