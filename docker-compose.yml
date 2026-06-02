@@ -96,6 +96,9 @@ services:
       - REDIS_PORT=${REDIS_PORT}
       # Link redis cache password
       - REDIS_PASSWORD=${REDIS_PASSWORD}
+
+      - DJANGO_CSRF_TRUSTED_ORIGINS=${DJANGO_CSRF_TRUSTED_ORIGINS}   # Link CSRF trusted origins
+
     # Bind shared files folder
     volumes:
       # Share folder for CSS/JS
@@ -183,7 +186,7 @@ services:
     # Build from same Django image
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.celery
 
     # Custom container name
     container_name: celery_worker
@@ -214,6 +217,12 @@ services:
         condition: service_healthy
 
     # Run celery worker
-    entrypoint: []
+    #entrypoint: []
 
-    command: celery -A cyber_portfolio worker --loglevel=info
+    #command: celery -A cyber_portfolio worker --loglevel=info
+
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A cyber_portfolio status || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

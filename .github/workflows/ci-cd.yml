@@ -11,7 +11,7 @@ env:
   IMAGE_NAME: cyber-portfolio
 
 jobs:
-  security-scan:
+  security-scan:                 # Bandit Scan Project vulnerabilities
     name: Security Scan (Bandit)
     runs-on: ubuntu-latest
     steps:
@@ -27,7 +27,7 @@ jobs:
         run: |
           pip install bandit
 
-      - name: Run Bandit scan
+      - name: Run Bandit scan   # Scan Code in app/
         run: |
           bandit -r app/ -x app/venv,app/env,app/tests --severity-level high
 

@@ -7,6 +7,9 @@ venv/
 env/
 __pycache__/
 *.pyc
+.env
+.env.dev
+.env.prod
 
 # Uploaded Media & Secrets
 media/
