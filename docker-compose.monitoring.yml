@@ -1,0 +1,74 @@
+# =========================
+# MONITORING STACK
+# =========================
+# شغلها مع المشروع: docker compose -f docker-compose.yml -f docker-compose.monitoring.yml up -d
+
+networks:
+  monitoring_net:
+    driver: bridge
+
+services:
+
+  # ===== Prometheus (يلم metrics) =====
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus_server
+    restart: unless-stopped
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - backend_net
+      - monitoring_net
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+
+  # ===== cAdvisor (يراقب الحاويات) =====
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor_monitor
+    restart: unless-stopped
+    privileged: true
+    devices:
+      - /dev/kmsg
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    networks:
+      - monitoring_net
+    expose:
+      - 8080
+    ports:
+      - "8080:8080"
+
+  # ===== Grafana (يعرض dashboards) =====
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana_dashboard
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    networks:
+      - monitoring_net
+      - frontend_net
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+volumes:
+  prometheus_data:
+  grafana_data:
