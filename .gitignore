@@ -16,3 +16,4 @@ media/
 .env
 trash/
 compose.yml
+compose.yml.bak
