@@ -1,20 +1,74 @@
+# =========================
+# CI/CD PIPELINE
+# =========================
 name: CI/CD Pipeline
 
+# Trigger on push or PR to main branch
 on:
   push:
-    branches: [main]
+    branches: [main]      # Run when code pushed to main
   pull_request:
-    branches: [main]
+    branches: [main]      # Run on pull request to main
 
+# Global environment variables shared across jobs
 env:
-  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  IMAGE_NAME: cyber-portfolio
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}  # Docker Hub username (from GitHub Secrets)
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  # Docker Hub password (from GitHub Secrets)
+  IMAGE_NAME: cyber-portfolio                      # Docker image name
+  DJANGO_SECRET_KEY: ci-test-key                   # Django key for testing only
 
+# =========================
+# JOBS
+# =========================
 jobs:
-  security-scan:                 # Bandit Scan Project vulnerabilities
-    name: Security Scan (Bandit)
+
+  # =========================
+  # 1. SECURITY SCAN (CODE)
+  # =========================
+  security-scan:
+    name: Security Scan (Bandit)   # Scan source code for vulnerabilities
+    runs-on: ubuntu-latest         # Use Ubuntu runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4   # Download repo code to runner
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Bandit
+        run: pip install bandit         # Install security scanner
+
+      - name: Run Bandit scan
+        run: bandit -r app/ -x app/venv,app/env,app/tests --severity-level high
+
+
+  # =========================
+  # 2. TESTS (WITH DATABASE)
+  # =========================
+  tests:
+    name: Run Tests                   # Run Django unit tests
     runs-on: ubuntu-latest
+    needs: security-scan              # Run only after security scan passes
+
+    # Spin up PostgreSQL container as a service
+    services:
+      postgres:
+        image: postgres:15-alpine          # Same PostgreSQL version as production
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_pass
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,17 +79,30 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: |
-          pip install bandit
+        working-directory: app             # requirements.txt is inside app/
+        run: pip install -r requirements.txt
 
-      - name: Run Bandit scan   # Scan Code in app/
-        run: |
-          bandit -r app/ -x app/venv,app/env,app/tests --severity-level high
+      - name: Run tests
+        working-directory: app             # manage.py is inside app/
+        env:
+          DB_NAME: test_db
+          DB_USER: test_user
+          DB_PASSWORD: test_pass
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DJANGO_DEBUG: "False"
+          DJANGO_ALLOWED_HOSTS: localhost
+        run: python manage.py test
 
-  build:
-    name: Build Docker Images
+
+  # =========================
+  # 3. BUILD + SCAN + PUSH
+  # =========================
+  build-and-push:
+    name: Build, Scan & Push Image     # Build, security scan, then push to Docker Hub
     runs-on: ubuntu-latest
-    needs: security-scan
+    needs: tests                       # Run only after tests pass
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,38 +110,28 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Cache Docker layers
-        uses: actions/cache@v4
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-
-      - name: Build web image
-        run: |
-          docker build -t ${{ env.IMAGE_NAME }}:web-${{ github.sha }} -f Dockerfile .
-
-      - name: Build celery image
-        run: |
-          docker build -t ${{ env.IMAGE_NAME }}:celery-${{ github.sha }} -f Dockerfile .
-
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ env.DOCKER_PASSWORD }}
 
-      - name: Tag & Push web image
-        run: |
-          docker tag ${{ env.IMAGE_NAME }}:web-${{ github.sha }} ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:web-latest
-          docker tag ${{ env.IMAGE_NAME }}:web-${{ github.sha }} ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:web-${{ github.sha }}
-          docker push ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:web-latest
-          docker push ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:web-${{ github.sha }}
+      - name: Build and Push web image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: |
+            ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-      - name: Tag & Push celery image
-        run: |
-          docker tag ${{ env.IMAGE_NAME }}:celery-${{ github.sha }} ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:celery-latest
-          docker tag ${{ env.IMAGE_NAME }}:celery-${{ github.sha }} ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:celery-${{ github.sha }}
-          docker push ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:celery-latest
-          docker push ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:celery-${{ github.sha }}
+      - name: Run Trivy scan on pushed image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          format: table
+          exit-code: 1
+          severity: HIGH,CRITICAL
