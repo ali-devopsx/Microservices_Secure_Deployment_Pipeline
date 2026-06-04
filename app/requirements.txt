@@ -1,15 +1,21 @@
 # Python Dependencies for Digital Identity Portfolio
 # Django framework for web development
-Django==4.2.11
+#Django==4.2.11 -> Batch to 4.2.30
+Django>=4.2.30
+
 
 # Pillow for image processing and handling uploaded images
-Pillow==10.2.0
+#Pillow==10.2.0 Batch to 10.3.0
+pillow>=10.3.0
+
 
 # Python decouple for environment variable management (optional, but recommended)
 python-decouple==3.8
 
 # Gunicorn for production WSGI server (optional, for deployment)
-gunicorn==21.2.0
+#gunicorn==21.2.0 Batch 22.0.0
+gunicorn>=22.0.0
+
 
 # White noise for serving static files in production (optional)
 whitenoise==6.6.0

@@ -37,3 +37,28 @@ if settings.DEBUG:
 
     # Serve media files (uploaded project images)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# ===== DEMO: VULNERABLE ENDPOINT (للبرزنتيشن فقط) =====
+# SQL Injection عبر extra() + values()
+# CVE-2024-42005: Django < 4.2.15
+from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.db.models import Q
+
+def demo_sqli(request):
+    # استخراج البيانات عبر حقن SQL في عبارة WHERE
+    user_input = request.GET.get('input', '')
+    
+    # VULNERABLE: SQL injection عبر Q() + extra()
+    # user input يذهب مباشرة لـ SQL query
+    qs = User.objects.all()
+    
+    if user_input:
+        qs = qs.extra(where=[f"username = '{user_input}' OR 1=1"])
+    
+    data = list(qs.values('id', 'username', 'email'))
+    return JsonResponse(data, safe=False)
+
+urlpatterns += [
+    path('demo-sqli/', demo_sqli, name='demo_sqli'),
+]
