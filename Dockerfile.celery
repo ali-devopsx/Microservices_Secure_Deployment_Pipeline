@@ -5,15 +5,20 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
     libpq5 \
     && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get purge -y perl-base && apt-get autoremove -y
 
 COPY app/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app/ .
+
 RUN useradd -u 8888 -m ali && chown -R ali:ali /app
+
 USER ali
 
 CMD ["celery", "-A", "cyber_portfolio", "worker", "--loglevel=info"]

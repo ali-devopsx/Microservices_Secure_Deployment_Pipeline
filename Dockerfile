@@ -14,8 +14,9 @@ ENV PYTHONUNBUFFERED=1
 # Set the working directory inside the container for stage 1
 WORKDIR /app
 
-# Install system dependencies needed to compile some Python packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# 🔥 Upgrade apt-get update && apt-get upgrade (fix vulnerabilities) & Install system dependencies needed to compile some Python packages
+RUN apt-get update && apt-get upgrade -y --no-install-recommends && \ 
+    apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
@@ -24,9 +25,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY app/requirements.txt .
 
 
+# 🔥 Upgrade build tools FIRST (fix vulnerabilities)
+RUN pip install --upgrade pip==25.3 wheel==0.46.2 setuptools
+
+
 # Build Python packages and install bandit (Security Tool) + Gunicorn
 RUN pip install --no-cache-dir -r requirements.txt && \
     pip install --no-cache-dir bandit gunicorn
+
+
 
 # Copy all source code to stage 1 so bandit can check it
 COPY app/ .
@@ -50,9 +57,13 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # Set the official working directory for the application
 WORKDIR /app
 
+# 🔥 FIX SECURITY: upgrade runtime tools
+RUN pip install --upgrade pip==25.3 wheel==0.46.2 setuptools
 
-# Install only minimal runtime libraries needed for PostgreSQL database
-RUN apt-get update && apt-get install -y --no-install-recommends \
+
+# 🔥 Upgrade apt-get update && apt-get upgrade (fix vulnerabilities) & Install only minimal runtime libraries needed for PostgreSQL database
+RUN apt-get update && apt-get upgrade -y --no-install-recommends && \ 
+    apt-get install -y --no-install-recommends \
     libpq5 \
     netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
