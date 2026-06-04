@@ -30,3 +30,7 @@ django-celery-results
 # redis
 redis>=5.0.0
 django-redis>=5.4.0
+
+
+wheel>=0.46.2
+jaraco.context>=6.1.0
