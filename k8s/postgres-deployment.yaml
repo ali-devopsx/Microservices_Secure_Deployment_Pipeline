@@ -1,0 +1,89 @@
+# === Service (stable network address) ===
+# API version
+apiVersion: v1
+# Resource type: Service (gives a fixed IP/name to reach our pods)
+kind: Service
+# Info about this service
+metadata:
+  # Name other apps use to connect to Postgres
+  name: postgres-service
+  # Put in production namespace
+  namespace: cyber-prod-env
+# How this service works
+spec:
+  # Find pods with label "app: postgres"
+  selector:
+    app: postgres
+  # Ports this service listens on
+  ports:
+    # Standard Postgres port
+    - port: 5432
+  # ClusterIP = only reachable inside the cluster
+  type: ClusterIP
+
+---
+# === Deployment (manages Postgres pod) ===
+# API version for managing apps
+apiVersion: apps/v1
+# Resource type: Deployment (keeps pod running)
+kind: Deployment
+# Info about this deployment
+metadata:
+  # Name of this deployment
+  name: postgres-deployment
+  # Put in production namespace
+  namespace: cyber-prod-env
+# How this deployment should run
+spec:
+  # Run exactly 1 copy of the pod
+  replicas: 1
+  # Which pods this deployment controls
+  selector:
+    matchLabels:
+      app: postgres
+  # Template to create new pods
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      # Container(s) to run in the pod
+      containers:
+        # Name of this container
+        - name: postgres
+          # Use official Postgres image
+          image: postgres:15-alpine
+          # Environment variables (database settings)
+          env:
+            # Database name
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: cyber-app-secrets
+                  key: db-name
+            # Database user
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: cyber-app-secrets
+                  key: db-user
+            # Database password
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cyber-app-secrets
+                  key: db-password
+          # Ports the container opens
+          ports:
+            - containerPort: 5432
+          # Mount persistent storage
+          volumeMounts:
+            # Postgres saves data here
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-storage-link
+      # Storage volumes for the pod
+      volumes:
+        # Link to the PVC we created
+        - name: postgres-storage-link
+          persistentVolumeClaim:
+            claimName: pvc-postgres
