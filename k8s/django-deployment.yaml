@@ -1,68 +1,83 @@
-# === Service (stable network address) ===
-# API version
-apiVersion: v1
-# Resource type: Service (gives a fixed IP/name to reach Django)
-kind: Service
-# Info about this service
-metadata:
-  # Name used by Ingress to reach Django
-  name: django-service
-  # Put in production namespace
-  namespace: cyber-prod-env
-# How this service works
-spec:
-  # Find pods with label "app: django-web"
-  selector:
-    app: django-web
-  # Ports this service listens on
-  ports:
-    # Django web port
-    - port: 8000
-  # ClusterIP = only reachable inside the cluster
-  type: ClusterIP
+# =====================================================================
+# Service: gives a fixed address so Ingress can find Django
 
 ---
-# === Deployment (manages Django web pod) ===
-# API version for managing apps
-apiVersion: apps/v1
-# Resource type: Deployment (keeps pod running)
-kind: Deployment
-# Info about this deployment
+# =====================================================================
+# API version for basic Kubernetes objects
+apiVersion: v1
+# Type of resource: Service creates a stable network address
+kind: Service
+# Information about this Service
 metadata:
-  # Name of this deployment
-  name: django-deployment
-  # Put in production namespace
+  # Name that the Ingress uses to reach Django
+  name: django-service
+  # Put this Service in the production namespace
   namespace: cyber-prod-env
-# How this deployment should run
+# How this Service works
 spec:
-  # Run 2 copies for high availability
+  # Find pods with label "app: django-web" and send traffic to them
+  selector:
+    app: django-web
+  # List of ports this Service listens on
+  ports:
+    # Django web server port
+    - port: 8000
+  # ClusterIP: this Service is only reachable inside the cluster
+  type: ClusterIP
+---
+
+---
+# =====================================================================
+# Deployment: keeps the Django web pods running
+
+---
+# =====================================================================
+# API version for managing applications
+apiVersion: apps/v1
+# Type of resource: Deployment makes sure pods stay running
+kind: Deployment
+# Information about this Deployment
+metadata:
+  # Name of this Deployment
+  name: django-deployment
+  # Put it in the production namespace
+  namespace: cyber-prod-env
+# How this Deployment should behave
+spec:
+  # Run 2 copies of the pod for high availability
   replicas: 2
-  # Which pods this deployment controls
+  # Which pods this Deployment is responsible for
   selector:
     matchLabels:
       app: django-web
-  # Template to create new pods
+  # Blueprint for creating new pods
   template:
+    # Labels for the pod
     metadata:
       labels:
         app: django-web
+    # Pod specification
     spec:
+      # List of containers in this pod
       containers:
         # Name of this container
         - name: django
-          # Use your custom Django image
+          # Use your custom Django image built locally
           image: django-secure-app:latest
-          # Use local image (don't pull from Docker Hub)
+          # Never pull from Docker Hub, use the local image
           imagePullPolicy: Never
           # Environment variables for Django
           env:
-            # Database name
+            # Database name for Django to connect
             - name: DB_NAME
+              # Get value from the Secret
               valueFrom:
                 secretKeyRef:
+                  # Name of the Secret object
                   name: cyber-app-secrets
+                  # Key inside the Secret
                   key: db-name
-            # Database user
+            # Database username
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
@@ -74,16 +89,126 @@ spec:
                 secretKeyRef:
                   name: cyber-app-secrets
                   key: db-password
-            # Allowed hosts (security: only these domains can connect)
+            # Allowed hosts: security setting, only these domains can connect
             - name: DJANGO_ALLOWED_HOSTS
+              # Comma-separated list of allowed domains
               value: "localhost,127.0.0.1,ali-devsecops-app,ali-devsecops.local"
-            # Database host (use the service name)
+            # Database host: use the Service name of Postgres
+            - name: DB_HOST
+              value: "postgres-service"
+            # Database port: Postgres default
+            - name: DB_PORT
+              value: "5432"
+            # Redis host: use the Service name of Redis
+            - name: REDIS_HOST
+              value: "redis-service"
+            # Redis port: Redis default
+            - name: REDIS_PORT
+              value: "6379"
+            # Redis password for authentication
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cyber-app-secrets
+                  key: redis-password
+          # Ports that this container opens
+          ports:
+            # Django runs on port 8000
+            - containerPort: 8000
+          # Resource limits to prevent the pod from using too much memory/CPU
+          resources:
+            # Minimum guaranteed resources
+            requests:
+              memory: 128Mi
+              cpu: 100m
+            # Maximum allowed resources
+            limits:
+              memory: 256Mi
+              cpu: 200m
+          # Mount shared storage for uploaded files
+          volumeMounts:
+            # Use the volume named "media-storage"
+            - name: media-storage
+              # Mount it at the /app/media path in the container
+              mountPath: /app/media
+      # Volumes available to all containers in this pod
+      volumes:
+        # Volume named "media-storage" for shared media files
+        - name: media-storage
+          # This volume uses a PersistentVolumeClaim
+          persistentVolumeClaim:
+            # Name of the PVC we created for media
+            claimName: pvc-media
+
+---
+# =====================================================================
+# Deployment: keeps the Celery worker pod running
+
+---
+# =====================================================================
+# API version for managing applications
+apiVersion: apps/v1
+# Type of resource: Deployment makes sure pods stay running
+kind: Deployment
+# Information about this Deployment
+metadata:
+  # Name of this Deployment
+  name: celery-deployment
+  # Put it in the production namespace
+  namespace: cyber-prod-env
+# How this Deployment should behave
+spec:
+  # Run 1 copy of the Celery worker pod
+  replicas: 1
+  # Which pods this Deployment is responsible for
+  selector:
+    matchLabels:
+      app: celery-worker
+  # Blueprint for creating new pods
+  template:
+    # Labels for the pod
+    metadata:
+      labels:
+        app: celery-worker
+    # Pod specification
+    spec:
+      # List of containers in this pod
+      containers:
+        # Name of this container
+        - name: celery
+          # Use the same Django image but run a different command
+          image: django-secure-app:latest
+          # Use local image, do not pull from Docker Hub
+          imagePullPolicy: Never
+          # Override the default command: start Celery worker instead of Django
+          command: ["/usr/local/bin/celery", "-A", "cyber_portfolio", "worker", "--loglevel=info"]
+          # Environment variables (same as Django web)
+          env:
+            # Database name
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: cyber-app-secrets
+                  key: db-name
+            # Database username
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: cyber-app-secrets
+                  key: db-user
+            # Database password
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cyber-app-secrets
+                  key: db-password
+            # Database host: use the Postgres Service name
             - name: DB_HOST
               value: "postgres-service"
             # Database port
             - name: DB_PORT
               value: "5432"
-            # Redis host (use the service name)
+            # Redis host: use the Redis Service name
             - name: REDIS_HOST
               value: "redis-service"
             # Redis port
@@ -95,72 +220,4 @@ spec:
                 secretKeyRef:
                   name: cyber-app-secrets
                   key: redis-password
-          # Ports the container opens
-          ports:
-            - containerPort: 8000
 
----
-# === Deployment (manages Celery worker) ===
-# API version for managing apps
-apiVersion: apps/v1
-# Resource type: Deployment (keeps pod running)
-kind: Deployment
-# Info about this deployment
-metadata:
-  # Name of this deployment
-  name: celery-deployment
-  # Put in production namespace
-  namespace: cyber-prod-env
-# How this deployment should run
-spec:
-  # Run 1 background worker
-  replicas: 1
-  # Which pods this deployment controls
-  selector:
-    matchLabels:
-      app: celery-worker
-  # Template to create new pods
-  template:
-    metadata:
-      labels:
-        app: celery-worker
-    spec:
-      containers:
-        # Name of this container
-        - name: celery
-          # Use the same Django image but run a different command
-          image: django-secure-app:latest
-          # Use local image
-          imagePullPolicy: Never
-          # Override the default command: run Celery worker
-          command: ["/usr/local/bin/celery", "-A", "cyber_portfolio", "worker", "--loglevel=info"]
-          # Environment variables (same as Django)
-          env:
-            - name: DB_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: cyber-app-secrets
-                  key: db-name
-            - name: DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: cyber-app-secrets
-                  key: db-user
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: cyber-app-secrets
-                  key: db-password
-            - name: DB_HOST
-              value: "postgres-service"
-            - name: DB_PORT
-              value: "5432"
-            - name: REDIS_HOST
-              value: "redis-service"
-            - name: REDIS_PORT
-              value: "6379"
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: cyber-app-secrets
-                  key: redis-password

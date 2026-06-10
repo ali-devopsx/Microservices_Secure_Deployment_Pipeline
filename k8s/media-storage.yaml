@@ -1,0 +1,22 @@
+# API version
+apiVersion: v1
+# Resource type: PersistentVolumeClaim (asks for storage space)
+kind: PersistentVolumeClaim
+
+# Info about this storage request
+metadata:
+  # Name of this storage claim
+  name: pvc-media
+  # Put it in the production namespace
+  namespace: cyber-prod-env
+
+# What kind of storage we need
+spec:
+  # ReadWriteOnce = only one pod can write at a time (minikube single-node OK)
+  accessModes:
+    - ReadWriteOnce
+  # How much storage we need
+  resources:
+    requests:
+      # 1 Gigabyte of disk space
+      storage: 1Gi

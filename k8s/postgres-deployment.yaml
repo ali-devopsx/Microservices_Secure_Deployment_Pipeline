@@ -1,89 +1,148 @@
-# === Service (stable network address) ===
-# API version
+# =====================================================================
+# Service: gives a fixed address so Django can find Postgres
+
+---
+# =====================================================================
+# API version for basic Kubernetes objects
 apiVersion: v1
-# Resource type: Service (gives a fixed IP/name to reach our pods)
+# Type of resource: Service creates a stable network address
 kind: Service
-# Info about this service
+# Information about this Service
 metadata:
-  # Name other apps use to connect to Postgres
+  # Name that Django uses to connect to Postgres
   name: postgres-service
-  # Put in production namespace
+  # Put this Service in the production namespace
   namespace: cyber-prod-env
-# How this service works
+# How this Service works
 spec:
-  # Find pods with label "app: postgres"
+  # Find pods with label "app: postgres" and send traffic to them
   selector:
     app: postgres
-  # Ports this service listens on
+  # List of ports this Service listens on
   ports:
-    # Standard Postgres port
+    # Standard Postgres port number
     - port: 5432
-  # ClusterIP = only reachable inside the cluster
+  # ClusterIP: this Service is only reachable inside the cluster
   type: ClusterIP
 
 ---
-# === Deployment (manages Postgres pod) ===
-# API version for managing apps
+# =====================================================================
+# Deployment: keeps the Postgres pod running
+
+---
+# =====================================================================
+# API version for managing applications
 apiVersion: apps/v1
-# Resource type: Deployment (keeps pod running)
+# Type of resource: Deployment makes sure pods stay running
 kind: Deployment
-# Info about this deployment
+# Information about this Deployment
 metadata:
-  # Name of this deployment
+  # Name of this Deployment
   name: postgres-deployment
-  # Put in production namespace
+  # Put it in the production namespace
   namespace: cyber-prod-env
-# How this deployment should run
+# How this Deployment should behave
 spec:
-  # Run exactly 1 copy of the pod
+  # Run exactly 1 copy of the pod (stateful database should be single)
   replicas: 1
-  # Which pods this deployment controls
+  # Which pods this Deployment is responsible for
   selector:
     matchLabels:
       app: postgres
-  # Template to create new pods
+  # Blueprint for creating new pods
   template:
+    # Labels for the pod
     metadata:
       labels:
         app: postgres
+    # Pod specification
     spec:
-      # Container(s) to run in the pod
+      # List of containers in this pod
       containers:
         # Name of this container
         - name: postgres
-          # Use official Postgres image
+          # Use the official Postgres image version 15 on Alpine Linux
           image: postgres:15-alpine
-          # Environment variables (database settings)
+          # Environment variables for database configuration
           env:
-            # Database name
+            # Variable: POSTGRES_DB sets the name of the database to create
             - name: POSTGRES_DB
+              # Get value from the Kubernetes Secret
               valueFrom:
                 secretKeyRef:
+                  # Name of the Secret object
                   name: cyber-app-secrets
+                  # Key inside the Secret
                   key: db-name
-            # Database user
+            # Variable: POSTGRES_USER sets the database admin username
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   name: cyber-app-secrets
                   key: db-user
-            # Database password
+            # Variable: POSTGRES_PASSWORD sets the database admin password
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: cyber-app-secrets
                   key: db-password
-          # Ports the container opens
+          # Liveness probe: checks if Postgres is still alive (restarts if dead)
+          livenessProbe:
+            # Run a command inside the container to check health
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - ali
+                - -d
+                - cyber_db
+            # Wait 120 seconds after start before first check (allows crash recovery)
+            initialDelaySeconds: 120
+            # Check every 30 seconds
+            periodSeconds: 30
+            # Mark as dead if no response within 10 seconds
+            timeoutSeconds: 10
+          # Readiness probe: checks if Postgres is ready to accept connections
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - ali
+                - -d
+                - cyber_db
+            # Wait 30 seconds after start before first check
+            initialDelaySeconds: 30
+            # Check every 10 seconds
+            periodSeconds: 10
+            # Mark as not ready if no response within 5 seconds
+            timeoutSeconds: 5
+          # Resource limits to prevent out-of-memory crashes
+          resources:
+            # Minimum guaranteed resources
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            # Maximum allowed resources
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          # Ports that this container opens
           ports:
+            # Postgres listens on port 5432
             - containerPort: 5432
-          # Mount persistent storage
+          # Mount persistent storage so data survives pod restarts
           volumeMounts:
-            # Postgres saves data here
+            # Mount the volume at the Postgres data directory
             - mountPath: /var/lib/postgresql/data
+              # Name of the volume to use
               name: postgres-storage-link
-      # Storage volumes for the pod
+      # Storage volumes available to the pod
       volumes:
-        # Link to the PVC we created
+        # Volume named "postgres-storage-link"
         - name: postgres-storage-link
+          # This volume uses a PersistentVolumeClaim
           persistentVolumeClaim:
+            # Name of the PVC we created for Postgres data
             claimName: pvc-postgres
+
