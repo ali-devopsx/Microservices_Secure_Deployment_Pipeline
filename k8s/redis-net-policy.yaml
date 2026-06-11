@@ -1,0 +1,44 @@
+# Set version for network rules
+apiVersion: networking.k8s.io/v1
+# Define resource as firewall rule
+kind: NetworkPolicy
+# Metadata block for identity details
+metadata:
+  # Name of cache network rule
+  name: redis-net-policy
+  # Run inside isolated namespace room
+  namespace: cyber-prod-env
+# Traffic filter rules configuration specifications
+spec:
+  # Target matching pods using labels
+  podSelector:
+    # Match labels on target containers
+    matchLabels:
+      # Protect redis cache storage container
+      app: redis
+  # Define network filtering direction type
+  policyTypes:
+    # Filter incoming traffic into pod
+    - Ingress
+  # List of allowed incoming connections
+  ingress:
+    # Specify authorized source containers list
+    - from:
+        # First container allowed to connect
+        - podSelector:
+            # Check target incoming pod labels
+            matchLabels:
+              # Allow django web app container
+              app: django-web
+        # Second container allowed to connect
+        - podSelector:
+            # Check target incoming pod labels
+            matchLabels:
+              # Allow celery background worker container
+              app: celery-worker
+      # Specify allowed network port interfaces
+      ports:
+        # Define port constraint for connection
+        - port: 6379
+          # Use standard secure communication protocol
+          protocol: TCP
