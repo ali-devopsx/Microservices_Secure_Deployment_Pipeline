@@ -89,22 +89,50 @@ spec:
                 secretKeyRef:
                   name: cyber-app-secrets
                   key: db-password
-            # Allowed hosts: security setting, only these domains can connect
-            - name: DJANGO_ALLOWED_HOSTS
-              # Comma-separated list of allowed domains
-              value: "localhost,127.0.0.1,ali-devsecops-app,ali-devsecops.local"
-            # Database host: use the Service name of Postgres
+
+
             - name: DB_HOST
-              value: "postgres-service"
-            # Database port: Postgres default
+              valueFrom:
+                configMapKeyRef:
+                  name: cyber-app-config
+                  key: DB_HOST
             - name: DB_PORT
-              value: "5432"
-            # Redis host: use the Service name of Redis
+              valueFrom:
+                configMapKeyRef:
+                  name: cyber-app-config
+                  key: DB_PORT
+
+
+
             - name: REDIS_HOST
-              value: "redis-service"
-            # Redis port: Redis default
+              valueFrom:
+                configMapKeyRef:
+                  name: cyber-app-config
+                  key: REDIS_HOST
             - name: REDIS_PORT
-              value: "6379"
+              valueFrom:
+                configMapKeyRef:
+                  name: cyber-app-config
+
+                  key: REDIS_PORT
+
+
+           # Allowed hosts: security setting, only these domains can connect
+#            - name: DJANGO_ALLOWED_HOSTS
+              # Comma-separated list of allowed domains
+#              value: "localhost,127.0.0.1,ali-devsecops-app,ali-devsecops.local"
+            # Database host: use the Service name of Postgres
+#            - name: DB_HOST
+#              value: "postgres-service"
+            # Database port: Postgres default
+#            - name: DB_PORT
+#              value: "5432"
+            # Redis host: use the Service name of Redis
+#            - name: REDIS_HOST
+#              value: "redis-service"
+            # Redis port: Redis default
+#            - name: REDIS_PORT
+#              value: "6379"
             # Redis password for authentication
             - name: REDIS_PASSWORD
               valueFrom:
@@ -115,6 +143,24 @@ spec:
           ports:
             # Django runs on port 8000
             - containerPort: 8000
+          # Automated check to see if the container is still alive
+          livenessProbe:
+            httpGet:
+              path: /          # Check the homepage url
+              port: 8000       # On Django internal port
+            initialDelaySeconds: 20  # Wait 20 seconds after launch before checking
+            periodSeconds: 10        # Re-check every 10 seconds
+
+
+          # Automated check to see if Django is fully ready to take users
+          readinessProbe:
+            httpGet:
+              path: /       # Test hitting the application directly
+              port: 8000
+            initialDelaySeconds: 15  # Start checking after 15 seconds
+            periodSeconds: 5         # Check very fast every 5 seconds
+
+
           # Resource limits to prevent the pod from using too much memory/CPU
           resources:
             # Minimum guaranteed resources
