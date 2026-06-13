@@ -91,31 +91,66 @@ spec:
                   key: db-password
 
 
+            # Environment variable name for database host
             - name: DB_HOST
+              # Reference source for the value
               valueFrom:
+                # Read from a ConfigMap resource
                 configMapKeyRef:
+                  # Name of the target ConfigMap
                   name: cyber-app-config
+                  # Key inside the ConfigMap to extract
                   key: DB_HOST
+            # Environment variable name for database port
             - name: DB_PORT
+              # Reference source for the value
               valueFrom:
+                # Read from a ConfigMap resource
                 configMapKeyRef:
+                  # Name of the target ConfigMap
                   name: cyber-app-config
+                  # Key inside the ConfigMap to extract
                   key: DB_PORT
-
-
-
+            # Environment variable name for Redis host
             - name: REDIS_HOST
+              # Reference source for the value
               valueFrom:
+                # Read from a ConfigMap resource
                 configMapKeyRef:
+                  # Name of the target ConfigMap
                   name: cyber-app-config
+                  # Key inside the ConfigMap to extract
                   key: REDIS_HOST
+            # Environment variable name for Redis port
             - name: REDIS_PORT
+              # Reference source for the value
               valueFrom:
+                # Read from a ConfigMap resource
                 configMapKeyRef:
+                  # Name of the target ConfigMap
                   name: cyber-app-config
-
+                  # Key inside the ConfigMap to extract
                   key: REDIS_PORT
-
+            # Environment variable name for Django debug
+            - name: DEBUG
+              # Reference source for the value
+              valueFrom:
+                # Read from a ConfigMap resource
+                configMapKeyRef:
+                  # Name of the target ConfigMap
+                  name: cyber-app-config
+                  # Key inside the ConfigMap to extract
+                  key: DJANGO_DEBUG
+            # Environment variable name for allowed hosts
+            - name: DJANGO_ALLOWED_HOSTS
+              # Reference source for the value
+              valueFrom:
+                # Read from a ConfigMap resource
+                configMapKeyRef:
+                  # Name of the target ConfigMap
+                  name: cyber-app-config
+                  # Key inside the ConfigMap to extract
+                  key: DJANGO_ALLOWED_HOSTS
 
            # Allowed hosts: security setting, only these domains can connect
 #            - name: DJANGO_ALLOWED_HOSTS
