@@ -82,3 +82,43 @@ spec:
             # Redis listens on port 6379
             - containerPort: 6379
 
+
+
+
+
+          # Check if container is alive
+          livenessProbe:
+            # Run command inside container
+            exec:
+              command:
+                # CLI tool for Redis
+                - "redis-cli"
+                # Password flag
+                - "-a"
+                # Use stored password variable
+                - "$(REDIS_PASSWORD)"
+                # Send ping request
+                - "ping"
+            # Wait 15 seconds before first check
+            initialDelaySeconds: 15
+            # Repeat check every 10 seconds
+            periodSeconds: 10
+
+          # Check if container is ready for traffic
+          readinessProbe:
+            # Run command inside container
+            exec:
+              command:
+                # CLI tool for Redis
+                - "redis-cli"
+                # Password flag
+                - "-a"
+                # Use stored password variable
+                - "$(POSTGRES_PASSWORD)"
+                # Send ping request
+                - "ping"
+            # Wait 5 seconds before first check
+            initialDelaySeconds: 5
+            # Repeat check every 5 seconds
+            periodSeconds: 5
+

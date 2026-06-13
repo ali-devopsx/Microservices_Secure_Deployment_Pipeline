@@ -91,10 +91,10 @@ spec:
             # Run a command inside the container to check health
             exec:
               command:
-                - pg_isready
-                - -U
+                - pg_isready  # Built-in Postgres connection check tool
+                - -U  # UserName flag
                 - ali
-                - -d
+                - -d  #Databaser Name Flag
                 - cyber_db
             # Wait 120 seconds after start before first check (allows crash recovery)
             initialDelaySeconds: 120
@@ -106,7 +106,7 @@ spec:
           readinessProbe:
             exec:
               command:
-                - pg_isready
+                - pg_isready  # Built-in Postgres connection check tool
                 - -U
                 - ali
                 - -d
