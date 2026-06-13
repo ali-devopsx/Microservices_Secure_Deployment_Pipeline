@@ -11,12 +11,17 @@ metadata:
   # Production environment room
   namespace: cyber-prod-env
 
+
+
 # Configuration keys and values
 data:
+
   # Database server address
   DB_HOST: "postgres-service"
   # Database port number
   DB_PORT: "5432"
+
+
   # Redis cache server address
   REDIS_HOST: "redis-service"
   # Redis cache port number
