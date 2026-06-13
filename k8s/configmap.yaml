@@ -1,0 +1,28 @@
+# Kubernetes API version
+apiVersion: v1
+
+# Resource type for configuration
+kind: ConfigMap
+
+# Resource identification data
+metadata:
+  # Name of this config board
+  name: cyber-app-config
+  # Production environment room
+  namespace: cyber-prod-env
+
+# Configuration keys and values
+data:
+  # Database server address
+  DB_HOST: "postgres-service"
+  # Database port number
+  DB_PORT: "5432"
+  # Redis cache server address
+  REDIS_HOST: "redis-service"
+  # Redis cache port number
+  REDIS_PORT: "6379"
+  # Disable debug for security
+  DJANGO_DEBUG: "False"
+  # Allowed domain names
+  DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1,ali-devsecops.local"
+
