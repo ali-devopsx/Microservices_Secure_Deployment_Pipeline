@@ -183,6 +183,12 @@ spec:
             httpGet:
               path: /          # Check the homepage url
               port: 8000       # On Django internal port
+              # Custom request headers configuration
+              httpHeaders:
+                # HTTP header name attribute
+                - name: Host
+                  # Virtual host domain mapping string
+                  value: "ali-devsecops.local"
             initialDelaySeconds: 20  # Wait 20 seconds after launch before checking
             periodSeconds: 10        # Re-check every 10 seconds
 
@@ -192,6 +198,11 @@ spec:
             httpGet:
               path: /       # Test hitting the application directly
               port: 8000
+              # Custom request headers configuration
+              httpHeaders:
+                - name: Host
+                  value: "ali-devsecops.local"
+
             initialDelaySeconds: 15  # Start checking after 15 seconds
             periodSeconds: 5         # Check very fast every 5 seconds
 
