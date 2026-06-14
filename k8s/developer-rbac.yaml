@@ -1,0 +1,45 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+
+metadata:
+  name: developer-restricted-role
+  namespace: cyber-prod-env
+
+rules:
+
+  - apiGroups: [""]
+    resources: ["pods", "services", "pods/log"]
+    verbs: ["get", "list", "watch"]
+
+
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "update", "patch"]
+
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+
+metadata:
+  name: bind-developer-to-restricted-role
+  namespace: cyber-prod-env
+
+subjects:
+
+  - kind: User
+
+    name: "ahmed-developer"
+
+    apiGroup: rbac.authorization.k8s.io
+
+
+
+roleRef:
+
+  kind: Role
+
+  name: developer-restricted-role
+
+  apiGroup: rbac.authorization.k8s.io
