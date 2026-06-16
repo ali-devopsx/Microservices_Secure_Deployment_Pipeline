@@ -1,0 +1,40 @@
+# API version for autoscaling
+apiVersion: autoscaling/v2
+
+# Tool name to scale pods
+kind: HorizontalPodAutoscaler
+
+# Identification data
+metadata:
+  # Name of this scaler
+  name: django-hpa
+  # App environment folder
+  namespace: cyber-prod-env
+
+# Settings for scaling
+spec:
+  # Target app to monitor
+  scaleTargetRef:
+    # Target API group
+    apiVersion: apps/v1
+    # Target resource type
+    kind: Deployment
+    # Target app name
+    name: django-deployment
+  # Lowest number of pods
+  minReplicas: 2
+  # Highest number of pods
+  maxReplicas: 5
+  # Rule to trigger scaling
+  metrics:
+    # Scale by resource use
+    - type: Resource
+      resource:
+        # Monitor CPU usage
+        name: cpu
+        target:
+          # Use percentage calculation
+          type: Utilization
+          # Scale up if usage hits sixty percent
+          averageUtilization: 60
+
