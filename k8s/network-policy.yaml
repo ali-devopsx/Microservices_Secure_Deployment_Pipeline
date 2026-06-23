@@ -1,45 +1,39 @@
-# Set version for network rules
+# API version for network policies
 apiVersion: networking.k8s.io/v1
-# Define resource as firewall rule
+# NetworkPolicy = firewall rules between pods
 kind: NetworkPolicy
-# Metadata block for identity details
+# Info about this policy
 metadata:
-  # Name of database network rule
+  # Name: controls access to postgres
   name: postgres-net-policy
-  # Run inside isolated namespace room
+  # Namespace for production
   namespace: cyber-prod-env
-# Traffic filter rules configuration specifications
+# Policy rules
 spec:
-  # Target matching pods using labels
+  # Apply this policy to pods with matching labels
   podSelector:
-    # Match labels on target containers
     matchLabels:
-      # Protect postgres database application container
+      # Target: postgres pods
       app: postgres
-  # Define network filtering direction type
+  # What type of traffic to filter
   policyTypes:
-    # Filter incoming traffic into pod
+    # Block incoming traffic by default
     - Ingress
-  # List of allowed incoming connections
+  # Allow some incoming traffic
   ingress:
-    # Specify authorized source containers list
+    # List of allowed sources
     - from:
-        # First container allowed to connect
+        # First allowed source: django
         - podSelector:
-            # Check target incoming pod labels
             matchLabels:
-              # Allow django web app container
               app: django-web
-        # Second container allowed to connect
+        # Second allowed source: celery
         - podSelector:
-            # Check target incoming pod labels
             matchLabels:
-              # Allow celery background worker container
               app: celery-worker
-      # Specify allowed network port interfaces
+      # Which ports can be accessed
       ports:
-        # Define port constraint for connection
+        # Port 5432 = postgres default
         - port: 5432
-          # Use standard secure communication protocol
+          # TCP only
           protocol: TCP
-
