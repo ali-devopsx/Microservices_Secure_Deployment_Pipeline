@@ -28,7 +28,7 @@ spec:
 
 ---
 # =====================================================================
-# Deployment: keeps the Django web pods running
+# Deployment: runs the Django web pods
 
 ---
 # =====================================================================
@@ -63,7 +63,7 @@ spec:
         # Name of this container
         - name: django
           # Use your custom Django image built locally
-          image: django-secure-app:latest
+          image: django_full_app:latest
           # Never pull from Docker Hub, use the local image
           imagePullPolicy: Never
           # Environment variables for Django
@@ -89,7 +89,6 @@ spec:
                 secretKeyRef:
                   name: cyber-app-secrets
                   key: db-password
-
 
             # Environment variable name for database host
             - name: DB_HOST
@@ -181,51 +180,44 @@ spec:
           # Automated check to see if the container is still alive
           livenessProbe:
             httpGet:
-              path: /          # Check the homepage url
-              port: 8000       # On Django internal port
-              # Custom request headers configuration
+              path: /
+              port: 8000
               httpHeaders:
-                # HTTP header name attribute
                 - name: Host
-                  # Virtual host domain mapping string
                   value: "ali-devsecops.local"
-            initialDelaySeconds: 20  # Wait 20 seconds after launch before checking
-            periodSeconds: 10        # Re-check every 10 seconds
+            initialDelaySeconds: 60
+            periodSeconds: 10
 
-
-          # Automated check to see if Django is fully ready to take users
+          # Automated check to see if Django is fully ready
           readinessProbe:
             httpGet:
-              path: /       # Test hitting the application directly
+              path: /
               port: 8000
-              # Custom request headers configuration
               httpHeaders:
                 - name: Host
                   value: "ali-devsecops.local"
+            initialDelaySeconds: 30
+            periodSeconds: 5         # Check every 5 seconds
 
-            initialDelaySeconds: 15  # Start checking after 15 seconds
-            periodSeconds: 5         # Check very fast every 5 seconds
-
-
-          # Resource limits to prevent the pod from using too much memory/CPU
+          # Resource limits to prevent using too much memory/CPU
           resources:
             # Minimum guaranteed resources
             requests:
-              memory: 128Mi
+              memory: 228Mi
               cpu: 100m
             # Maximum allowed resources
             limits:
-              memory: 256Mi
+              memory: 300Mi
               cpu: 200m
           # Mount shared storage for uploaded files
           volumeMounts:
-            # Use the volume named "media-storage"
+            # Use the volume named media-storage
             - name: media-storage
-              # Mount it at the /app/media path in the container
+              # Mount it at the /app/media path
               mountPath: /app/media
       # Volumes available to all containers in this pod
       volumes:
-        # Volume named "media-storage" for shared media files
+        # Volume named media-storage for shared media files
         - name: media-storage
           # This volume uses a PersistentVolumeClaim
           persistentVolumeClaim:
@@ -234,7 +226,7 @@ spec:
 
 ---
 # =====================================================================
-# Deployment: keeps the Celery worker pod running
+# Deployment: runs the Celery worker pod
 
 ---
 # =====================================================================
@@ -269,10 +261,10 @@ spec:
         # Name of this container
         - name: celery
           # Use the same Django image but run a different command
-          image: django-secure-app:latest
+          image: django_full_app:latest
           # Use local image, do not pull from Docker Hub
           imagePullPolicy: Never
-          # Override the default command: start Celery worker instead of Django
+          # Override default: start Celery worker instead of Django
           command: ["/usr/local/bin/celery", "-A", "cyber_portfolio", "worker", "--loglevel=info"]
           # Environment variables (same as Django web)
           env:
@@ -312,4 +304,3 @@ spec:
                 secretKeyRef:
                   name: cyber-app-secrets
                   key: redis-password
-

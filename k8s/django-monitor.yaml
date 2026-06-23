@@ -1,0 +1,26 @@
+# API version for monitoring
+apiVersion: monitoring.coreos.com/v1
+# PodMonitor = tells Prometheus which pods to scrape
+kind: PodMonitor
+# Info
+metadata:
+  # Name
+  name: django-pod-monitor
+  # Namespace
+  namespace: cyber-prod-env
+  # Labels so Prometheus can find it
+  labels:
+    release: my-monitor-app
+# What to monitor
+spec:
+  # Which endpoints to scrape
+  podMetricsEndpoints:
+    # Port named http-metrics
+    - port: http-metrics
+      # Scrape every 15 seconds
+      interval: 15s
+  # Which pods to target
+  selector:
+    matchLabels:
+      # Target: django-web pods
+      app: django-web

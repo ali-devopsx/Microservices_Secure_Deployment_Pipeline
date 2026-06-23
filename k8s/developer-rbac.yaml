@@ -1,45 +1,57 @@
+# API version for RBAC
 apiVersion: rbac.authorization.k8s.io/v1
+# Role = set of permissions inside a namespace
 kind: Role
 
+# Info
 metadata:
+  # Name of this role
   name: developer-restricted-role
+  # Namespace
   namespace: cyber-prod-env
 
+# Permission rules
 rules:
-
+  # For core API group
   - apiGroups: [""]
+    # Resources the user can access
     resources: ["pods", "services", "pods/log"]
+    # Allowed actions (read only)
     verbs: ["get", "list", "watch"]
 
-
+  # For apps API group
   - apiGroups: ["apps"]
+    # Deployments
     resources: ["deployments"]
+    # Allowed with write access
     verbs: ["get", "list", "update", "patch"]
-
 
 ---
 
+# API version for RBAC
 apiVersion: rbac.authorization.k8s.io/v1
+# RoleBinding = connects a user to a Role
 kind: RoleBinding
 
+# Info
 metadata:
+  # Name of this binding
   name: bind-developer-to-restricted-role
+  # Namespace
   namespace: cyber-prod-env
 
+# Who gets the permissions
 subjects:
-
+  # Type: User
   - kind: User
-
+    # Developer username
     name: "ahmed-developer"
-
+    # API group for users
     apiGroup: rbac.authorization.k8s.io
 
-
-
+# Which role to give
 roleRef:
-
   kind: Role
-
+  # Role name
   name: developer-restricted-role
-
   apiGroup: rbac.authorization.k8s.io

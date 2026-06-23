@@ -1,41 +1,39 @@
-# Version of the Kubernetes API for networking objects
+# API version for networking objects
 apiVersion: networking.k8s.io/v1
-# Empty line for readability
-# Type of resource: Ingress opens a door for outside traffic to reach your app
+# Ingress = opens a door from outside the cluster to your app
 kind: Ingress
-# Empty line for readability
-# Information about this Ingress resource
+
+# Info about this Ingress
 metadata:
-  # The name we give to this Ingress
+  # Name
   name: cyber-app-ingress
-  # Which namespace it belongs to
+  # Production namespace
   namespace: cyber-prod-env
-  # Extra settings (annotations) to control how Nginx handles traffic
+  # Extra settings for Nginx
   annotations:
-    # Max size for file uploads: 10 megabytes
+    # Max upload size: 10 MB
     nginx.ingress.kubernetes.io/proxy-body-size: "10m"
-# Empty line for readability
-# Main configuration for this Ingress
+
+# Main config
 spec:
-  # List of traffic rules
+  # Traffic rules
   rules:
-    # Rule for a specific domain name
+    # Rule for this domain
     - host: ali-devsecops.local
-      # HTTP-specific settings for this host
+      # HTTP rules
       http:
-        # List of URL path rules
+        # URL path matching
         paths:
-          # This rule matches all URLs starting with "/"
+          # Match all URLs starting with /
           - path: /
-            # Prefix means "starts with this path"
+            # Prefix = starts with this path
             pathType: Prefix
-            # Where to send matching traffic
+            # Where to send traffic
             backend:
-              # Points to a Service inside the cluster
+              # Points to a Service
               service:
-                # Name of the Service
+                # Service name
                 name: django-service
-                # Port number on that Service
+                # Port number
                 port:
-                  # Django listens on port 8000
                   number: 8000

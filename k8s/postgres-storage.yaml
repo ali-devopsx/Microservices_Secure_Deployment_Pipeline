@@ -1,22 +1,22 @@
 # API version
 apiVersion: v1
-# Resource type: PersistentVolumeClaim (asks for storage space)
+# PersistentVolumeClaim = ask Kubernetes for disk space
 kind: PersistentVolumeClaim
 
-# Info about this storage request
+# Info about this claim
 metadata:
   # Name of this storage claim
   name: pvc-postgres
-  # Put it in the production namespace
+  # Namespace for production
   namespace: cyber-prod-env
 
 # What kind of storage we need
 spec:
-  # ReadWriteOnce = only one pod can write at a time
+  # ReadWriteOnce = one pod can read/write
   accessModes:
     - ReadWriteOnce
-  # How much storage we need
+  # How much space
   resources:
     requests:
-      # 1 Gigabyte of disk space
+      # 1 Gigabyte
       storage: 1Gi

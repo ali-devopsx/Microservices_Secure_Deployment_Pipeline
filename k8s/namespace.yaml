@@ -1,9 +1,9 @@
-# API version
+# API version for basic objects
 apiVersion: v1
-# Resource type: Namespace (like a folder for resources)
+# Namespace = logical folder to group resources
 kind: Namespace
 
-# Info about this namespace
+# Info about this object
 metadata:
-  # Name of this namespace
+  # Name of the namespace
   name: cyber-prod-env

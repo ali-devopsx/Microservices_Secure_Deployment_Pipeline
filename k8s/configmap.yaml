@@ -1,33 +1,30 @@
-# Kubernetes API version
+# API version
 apiVersion: v1
 
-# Resource type for configuration
+# ConfigMap = stores non-sensitive config data
 kind: ConfigMap
 
-# Resource identification data
+# Info about this configmap
 metadata:
-  # Name of this config board
+  # Name of this configmap
   name: cyber-app-config
-  # Production environment room
+  # Namespace for production
   namespace: cyber-prod-env
 
-
-
-# Configuration keys and values
+# Key-value pairs
+# Note: these are plain text, not encoded
 data:
 
-  # Database server address
+  # Hostname of the Postgres service
   DB_HOST: "postgres-service"
-  # Database port number
+  # Port for Postgres
   DB_PORT: "5432"
 
-
-  # Redis cache server address
+  # Hostname of the Redis service
   REDIS_HOST: "redis-service"
-  # Redis cache port number
+  # Port for Redis
   REDIS_PORT: "6379"
-  # Disable debug for security
+  # Turn off debug in production
   DJANGO_DEBUG: "False"
-  # Allowed domain names
+  # Which domains are allowed to connect
   DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1,ali-devsecops.local"
-

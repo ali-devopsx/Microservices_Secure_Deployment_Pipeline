@@ -1,0 +1,793 @@
+
+==> Audit <==
+┌────────────┬─────────────────────────────────────────┬──────────┬──────┬─────────┬─────────────────────┬─────────────────────┐
+│  COMMAND   │                  ARGS                   │ PROFILE  │ USER │ VERSION │     START TIME      │      END TIME       │
+├────────────┼─────────────────────────────────────────┼──────────┼──────┼─────────┼─────────────────────┼─────────────────────┤
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 25 May 26 15:43 PDT │ 25 May 26 15:47 PDT │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 26 May 26 05:15 PDT │                     │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 26 May 26 05:15 PDT │ 26 May 26 05:19 PDT │
+│ docker-env │ minikube docker-env                     │ minikube │ ali  │ v1.38.1 │ 26 May 26 06:04 PDT │ 26 May 26 06:04 PDT │
+│ docker-env │ minikube docker-env                     │ minikube │ ali  │ v1.38.1 │ 26 May 26 06:14 PDT │ 26 May 26 06:14 PDT │
+│ docker-env │ minikube docker-env                     │ minikube │ ali  │ v1.38.1 │ 26 May 26 06:26 PDT │ 26 May 26 06:26 PDT │
+│ ssh        │ sudo rm -rf /tmp/hostpath-provisioner/* │ minikube │ ali  │ v1.38.1 │ 26 May 26 06:46 PDT │ 26 May 26 06:46 PDT │
+│ service    │ django-service -n django-prod --url     │ minikube │ ali  │ v1.38.1 │ 26 May 26 06:54 PDT │                     │
+│ ip         │                                         │ minikube │ ali  │ v1.38.1 │ 26 May 26 06:56 PDT │ 26 May 26 06:56 PDT │
+│ service    │ django-service -n django-prod --url     │ minikube │ ali  │ v1.38.1 │ 26 May 26 07:15 PDT │                     │
+│ start      │ driver=docker                           │ minikube │ ali  │ v1.38.1 │ 06 Jun 26 07:03 PDT │ 06 Jun 26 07:07 PDT │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 06 Jun 26 13:59 PDT │ 06 Jun 26 14:04 PDT │
+│ docker-env │                                         │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 09:57 PDT │                     │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 11:36 PDT │ 07 Jun 26 11:43 PDT │
+│ docker-env │                                         │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 12:06 PDT │ 07 Jun 26 12:06 PDT │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 14:32 PDT │ 07 Jun 26 14:39 PDT │
+│ docker-env │                                         │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 15:09 PDT │ 07 Jun 26 15:09 PDT │
+│ image      │ load django-secure-app:latest           │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 15:16 PDT │                     │
+│ image      │ load django-secure-app:latest           │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 15:21 PDT │                     │
+│ docker-env │                                         │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 15:27 PDT │ 07 Jun 26 15:27 PDT │
+│ docker-env │                                         │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 15:27 PDT │ 07 Jun 26 15:27 PDT │
+│ image      │ load django-secure-app:latest           │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 16:00 PDT │ 07 Jun 26 16:06 PDT │
+│ addons     │ enable ingress                          │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 16:11 PDT │                     │
+│ addons     │ disable ingress                         │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 16:40 PDT │ 07 Jun 26 16:40 PDT │
+│ addons     │ enable ingress                          │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 16:41 PDT │ 07 Jun 26 16:41 PDT │
+│ tunnel     │                                         │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 16:47 PDT │                     │
+│ docker-env │                                         │ minikube │ ali  │ v1.38.1 │ 07 Jun 26 16:58 PDT │ 07 Jun 26 16:58 PDT │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 08 Jun 26 11:28 PDT │ 08 Jun 26 11:36 PDT │
+│ tunnel     │                                         │ minikube │ ali  │ v1.38.1 │ 08 Jun 26 12:05 PDT │                     │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 08 Jun 26 14:50 PDT │ 08 Jun 26 14:56 PDT │
+│ tunnel     │                                         │ minikube │ ali  │ v1.38.1 │ 08 Jun 26 14:58 PDT │                     │
+│ stop       │                                         │ minikube │ ali  │ v1.38.1 │ 09 Jun 26 05:44 PDT │ 09 Jun 26 05:49 PDT │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 09 Jun 26 07:08 PDT │ 09 Jun 26 07:13 PDT │
+│ stop       │                                         │ minikube │ ali  │ v1.38.1 │ 09 Jun 26 07:18 PDT │ 09 Jun 26 07:19 PDT │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 09 Jun 26 09:15 PDT │ 09 Jun 26 09:22 PDT │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 10 Jun 26 06:48 PDT │ 10 Jun 26 06:54 PDT │
+│ tunnel     │                                         │ minikube │ ali  │ v1.38.1 │ 10 Jun 26 08:27 PDT │                     │
+│ stop       │                                         │ minikube │ ali  │ v1.38.1 │ 10 Jun 26 14:20 PDT │ 10 Jun 26 14:25 PDT │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 10 Jun 26 15:49 PDT │ 10 Jun 26 15:53 PDT │
+│ stop       │                                         │ minikube │ ali  │ v1.38.1 │ 10 Jun 26 16:14 PDT │ 10 Jun 26 16:16 PDT │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 11 Jun 26 14:06 PDT │ 11 Jun 26 14:14 PDT │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 12 Jun 26 15:18 PDT │                     │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 12 Jun 26 15:44 PDT │                     │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 12 Jun 26 15:44 PDT │                     │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 12 Jun 26 18:08 PDT │ 12 Jun 26 18:15 PDT │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 12 Jun 26 22:21 PDT │ 12 Jun 26 22:32 PDT │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 14 Jun 26 02:56 PDT │                     │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 14 Jun 26 02:57 PDT │                     │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 14 Jun 26 08:28 PDT │                     │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 14 Jun 26 08:45 PDT │ 14 Jun 26 08:52 PDT │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 14 Jun 26 21:57 PDT │ 14 Jun 26 22:01 PDT │
+│ tunnel     │                                         │ minikube │ ali  │ v1.38.1 │ 14 Jun 26 22:43 PDT │                     │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 15 Jun 26 08:16 PDT │ 15 Jun 26 08:27 PDT │
+│ start      │                                         │ minikube │ ali  │ v1.38.1 │ 15 Jun 26 14:07 PDT │                     │
+│ start      │                                         │ minikube │ ali  │ v1.38.1 │ 15 Jun 26 17:22 PDT │ 15 Jun 26 17:28 PDT │
+│ start      │                                         │ minikube │ ali  │ v1.38.1 │ 16 Jun 26 11:54 PDT │ 16 Jun 26 11:59 PDT │
+│ start      │                                         │ minikube │ ali  │ v1.38.1 │ 16 Jun 26 13:00 PDT │                     │
+│ start      │                                         │ minikube │ ali  │ v1.38.1 │ 16 Jun 26 13:01 PDT │                     │
+│ start      │ --driver=docker                         │ minikube │ ali  │ v1.38.1 │ 16 Jun 26 13:02 PDT │                     │
+│ start      │                                         │ minikube │ ali  │ v1.38.1 │ 16 Jun 26 13:12 PDT │                     │
+└────────────┴─────────────────────────────────────────┴──────────┴──────┴─────────┴─────────────────────┴─────────────────────┘
+
+
+==> Last Start <==
+Log file created at: 2026/06/16 13:12:07
+Running on machine: DESKTOP-E0LSRFM
+Binary: Built with gc go1.25.5 for linux/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0616 13:12:07.246522   13242 out.go:360] Setting OutFile to fd 1 ...
+I0616 13:12:07.246707   13242 out.go:374] Setting ErrFile to fd 2...
+I0616 13:12:07.246910   13242 root.go:338] Updating PATH: /home/ali/.minikube/bin
+I0616 13:12:07.247378   13242 out.go:368] Setting JSON to false
+I0616 13:12:07.260624   13242 start.go:134] hostinfo: {"hostname":"DESKTOP-E0LSRFM","uptime":914,"bootTime":1781639814,"procs":124,"os":"linux","platform":"debian","platformFamily":"debian","platformVersion":"kali-rolling","kernelVersion":"6.6.87.2-microsoft-standard-WSL2","kernelArch":"x86_64","virtualizationSystem":"","virtualizationRole":"guest","hostId":"5e911186-3572-4e4b-a187-e0e1e063b8f2"}
+I0616 13:12:07.260696   13242 start.go:144] virtualization:  guest
+I0616 13:12:09.287787   13242 out.go:179] 😄  minikube v1.38.1 on Debian kali-rolling (amd64)
+I0616 13:12:09.986942   13242 notify.go:220] Checking for updates...
+I0616 13:12:09.987621   13242 config.go:183] Loaded profile config "minikube": Driver=docker, ContainerRuntime=docker, KubernetesVersion=v1.35.1
+I0616 13:12:09.987800   13242 driver.go:422] Setting default libvirt URI to qemu:///system
+I0616 13:12:10.032563   13242 docker.go:125] docker version: linux-28.5.2+dfsg4:
+I0616 13:12:10.032761   13242 cli_runner.go:164] Run: docker system info --format "{{json .}}"
+I0616 13:12:10.311784   13242 info.go:266] docker info: {ID:5c9320b4-b281-4e06-9896-20b421ab5098 Containers:39 ContainersRunning:1 ContainersPaused:0 ContainersStopped:38 Images:101 Driver:overlay2 DriverStatus:[[Backing Filesystem extfs] [Supports d_type true] [Using metacopy false] [Native Overlay Diff true] [userxattr false]] SystemStatus:<nil> Plugins:{Volume:[local] Network:[bridge host ipvlan macvlan null overlay] Authorization:<nil> Log:[awslogs fluentd gelf journald json-file local splunk syslog]} MemoryLimit:true SwapLimit:true KernelMemory:false KernelMemoryTCP:false CPUCfsPeriod:true CPUCfsQuota:true CPUShares:true CPUSet:true PidsLimit:true IPv4Forwarding:true BridgeNfIptables:false BridgeNfIP6Tables:false Debug:false NFd:36 OomKillDisable:false NGoroutines:52 SystemTime:2026-06-16 13:12:10.296923278 -0700 PDT LoggingDriver:json-file CgroupDriver:systemd NEventsListener:0 KernelVersion:6.6.87.2-microsoft-standard-WSL2 OperatingSystem:Kali GNU/Linux Rolling OSType:linux Architecture:x86_64 IndexServerAddress:https://index.docker.io/v1/ RegistryConfig:{AllowNondistributableArtifactsCIDRs:[] AllowNondistributableArtifactsHostnames:[] InsecureRegistryCIDRs:[::1/128 127.0.0.0/8] IndexConfigs:{DockerIo:{Name:docker.io Mirrors:[] Secure:true Official:true}} Mirrors:[]} NCPU:4 MemTotal:4071862272 GenericResources:<nil> DockerRootDir:/var/lib/docker HTTPProxy: HTTPSProxy: NoProxy: Name:DESKTOP-E0LSRFM Labels:[] ExperimentalBuild:false ServerVersion:28.5.2+dfsg4 ClusterStore: ClusterAdvertise: Runtimes:{Runc:{Path:runc}} DefaultRuntime:runc Swarm:{NodeID: NodeAddr: LocalNodeState:inactive ControlAvailable:false Error: RemoteManagers:<nil>} LiveRestoreEnabled:false Isolation: InitBinary:docker-init ContainerdCommit:{ID: Expected:} RuncCommit:{ID:1.3.5+ds1-1 Expected:} InitCommit:{ID: Expected:} SecurityOptions:[name=seccomp,profile=builtin name=cgroupns] ProductLicense: Warnings:<nil> ServerErrors:[] ClientInfo:{Debug:false Plugins:[map[Name:buildx Path:/usr/libexec/docker/cli-plugins/docker-buildx SchemaVersion:0.1.0 ShortDescription:Docker Buildx Vendor:Docker Inc. Version:v0.33.0] map[Name:compose Path:/usr/libexec/docker/cli-plugins/docker-compose SchemaVersion:0.1.0 ShortDescription:Docker Compose Vendor:Docker Inc. Version:2.40.3-3]] Warnings:<nil>}}
+I0616 13:12:10.311884   13242 docker.go:320] overlay module found
+I0616 13:12:10.619967   13242 out.go:179] ✨  Using the docker driver based on existing profile
+I0616 13:12:11.384575   13242 start.go:310] selected driver: docker
+I0616 13:12:11.384597   13242 start.go:935] validating driver "docker" against &{Name:minikube KeepContext:false EmbedCerts:false MinikubeISO: KicBaseImage:gcr.io/k8s-minikube/kicbase:v0.0.50@sha256:eb4fec00e8ad70adf8e6436f195cc429825ffb85f95afcdb5d8d9deb576f3e93 Memory:2048 CPUs:2 DiskSize:20000 Driver:docker HyperkitVpnKitSock: HyperkitVSockPorts:[] DockerEnv:[] ContainerVolumeMounts:[] InsecureRegistry:[] RegistryMirror:[] HostOnlyCIDR:192.168.59.1/24 HypervVirtualSwitch: HypervUseExternalSwitch:false HypervExternalAdapter: KVMNetwork:default KVMQemuURI:qemu:///system KVMGPU:false KVMHidden:false KVMNUMACount:1 APIServerPort:8443 DockerOpt:[] DisableDriverMounts:false NFSShare:[] NFSSharesRoot:/nfsshares UUID: NoVTXCheck:false DNSProxy:false HostDNSResolver:true HostOnlyNicType:virtio NatNicType:virtio SSHIPAddress: SSHUser:root SSHKey: SSHPort:22 KubernetesConfig:{KubernetesVersion:v1.35.1 ClusterName:minikube Namespace:default APIServerHAVIP: APIServerName:minikubeCA APIServerNames:[] APIServerIPs:[] DNSDomain:cluster.local ContainerRuntime:docker CRISocket: NetworkPlugin:cni FeatureGates: ServiceCIDR:10.96.0.0/12 ImageRepository: LoadBalancerStartIP: LoadBalancerEndIP: CustomIngressCert: RegistryAliases: ExtraOptions:[] ShouldLoadCachedImages:true EnableDefaultCNI:false CNI:} Nodes:[{Name: IP:192.168.49.2 Port:8443 KubernetesVersion:v1.35.1 ContainerRuntime:docker ControlPlane:true Worker:true}] Addons:map[default-storageclass:true ingress:true storage-provisioner:true] CustomAddonImages:map[] CustomAddonRegistries:map[] VerifyComponents:map[apiserver:true system_pods:true] StartHostTimeout:6m0s ScheduledStop:<nil> ExposedPorts:[] ListenAddress: Network: Subnet: MultiNodeRequested:false ExtraDisks:0 CertExpiration:26280h0m0s MountString: Mount9PVersion:9p2000.L MountGID:docker MountIP: MountMSize:262144 MountOptions:[] MountPort:0 MountType:9p MountUID:docker BinaryMirror: DisableOptimizations:false DisableMetrics:false DisableCoreDNSLog:false CustomQemuFirmwarePath: SocketVMnetClientPath: SocketVMnetPath: StaticIP: SSHAuthSock: SSHAgentPID:0 GPUs: AutoPauseInterval:1m0s Rosetta:false}
+I0616 13:12:11.384985   13242 start.go:946] status for docker: {Installed:true Healthy:true Running:false NeedsImprovement:false Error:<nil> Reason: Fix: Doc: Version:}
+I0616 13:12:11.385220   13242 cli_runner.go:164] Run: docker system info --format "{{json .}}"
+I0616 13:12:11.603804   13242 info.go:266] docker info: {ID:5c9320b4-b281-4e06-9896-20b421ab5098 Containers:39 ContainersRunning:1 ContainersPaused:0 ContainersStopped:38 Images:101 Driver:overlay2 DriverStatus:[[Backing Filesystem extfs] [Supports d_type true] [Using metacopy false] [Native Overlay Diff true] [userxattr false]] SystemStatus:<nil> Plugins:{Volume:[local] Network:[bridge host ipvlan macvlan null overlay] Authorization:<nil> Log:[awslogs fluentd gelf journald json-file local splunk syslog]} MemoryLimit:true SwapLimit:true KernelMemory:false KernelMemoryTCP:false CPUCfsPeriod:true CPUCfsQuota:true CPUShares:true CPUSet:true PidsLimit:true IPv4Forwarding:true BridgeNfIptables:false BridgeNfIP6Tables:false Debug:false NFd:36 OomKillDisable:false NGoroutines:52 SystemTime:2026-06-16 13:12:11.588980701 -0700 PDT LoggingDriver:json-file CgroupDriver:systemd NEventsListener:0 KernelVersion:6.6.87.2-microsoft-standard-WSL2 OperatingSystem:Kali GNU/Linux Rolling OSType:linux Architecture:x86_64 IndexServerAddress:https://index.docker.io/v1/ RegistryConfig:{AllowNondistributableArtifactsCIDRs:[] AllowNondistributableArtifactsHostnames:[] InsecureRegistryCIDRs:[::1/128 127.0.0.0/8] IndexConfigs:{DockerIo:{Name:docker.io Mirrors:[] Secure:true Official:true}} Mirrors:[]} NCPU:4 MemTotal:4071862272 GenericResources:<nil> DockerRootDir:/var/lib/docker HTTPProxy: HTTPSProxy: NoProxy: Name:DESKTOP-E0LSRFM Labels:[] ExperimentalBuild:false ServerVersion:28.5.2+dfsg4 ClusterStore: ClusterAdvertise: Runtimes:{Runc:{Path:runc}} DefaultRuntime:runc Swarm:{NodeID: NodeAddr: LocalNodeState:inactive ControlAvailable:false Error: RemoteManagers:<nil>} LiveRestoreEnabled:false Isolation: InitBinary:docker-init ContainerdCommit:{ID: Expected:} RuncCommit:{ID:1.3.5+ds1-1 Expected:} InitCommit:{ID: Expected:} SecurityOptions:[name=seccomp,profile=builtin name=cgroupns] ProductLicense: Warnings:<nil> ServerErrors:[] ClientInfo:{Debug:false Plugins:[map[Name:buildx Path:/usr/libexec/docker/cli-plugins/docker-buildx SchemaVersion:0.1.0 ShortDescription:Docker Buildx Vendor:Docker Inc. Version:v0.33.0] map[Name:compose Path:/usr/libexec/docker/cli-plugins/docker-compose SchemaVersion:0.1.0 ShortDescription:Docker Compose Vendor:Docker Inc. Version:2.40.3-3]] Warnings:<nil>}}
+I0616 13:12:11.604792   13242 cni.go:83] Creating CNI manager for ""
+I0616 13:12:11.604888   13242 cni.go:157] "docker" driver + "docker" container runtime found on kubernetes v1.24+, recommending bridge
+I0616 13:12:11.604967   13242 start.go:358] cluster config:
+{Name:minikube KeepContext:false EmbedCerts:false MinikubeISO: KicBaseImage:gcr.io/k8s-minikube/kicbase:v0.0.50@sha256:eb4fec00e8ad70adf8e6436f195cc429825ffb85f95afcdb5d8d9deb576f3e93 Memory:2048 CPUs:2 DiskSize:20000 Driver:docker HyperkitVpnKitSock: HyperkitVSockPorts:[] DockerEnv:[] ContainerVolumeMounts:[] InsecureRegistry:[] RegistryMirror:[] HostOnlyCIDR:192.168.59.1/24 HypervVirtualSwitch: HypervUseExternalSwitch:false HypervExternalAdapter: KVMNetwork:default KVMQemuURI:qemu:///system KVMGPU:false KVMHidden:false KVMNUMACount:1 APIServerPort:8443 DockerOpt:[] DisableDriverMounts:false NFSShare:[] NFSSharesRoot:/nfsshares UUID: NoVTXCheck:false DNSProxy:false HostDNSResolver:true HostOnlyNicType:virtio NatNicType:virtio SSHIPAddress: SSHUser:root SSHKey: SSHPort:22 KubernetesConfig:{KubernetesVersion:v1.35.1 ClusterName:minikube Namespace:default APIServerHAVIP: APIServerName:minikubeCA APIServerNames:[] APIServerIPs:[] DNSDomain:cluster.local ContainerRuntime:docker CRISocket: NetworkPlugin:cni FeatureGates: ServiceCIDR:10.96.0.0/12 ImageRepository: LoadBalancerStartIP: LoadBalancerEndIP: CustomIngressCert: RegistryAliases: ExtraOptions:[] ShouldLoadCachedImages:true EnableDefaultCNI:false CNI:} Nodes:[{Name: IP:192.168.49.2 Port:8443 KubernetesVersion:v1.35.1 ContainerRuntime:docker ControlPlane:true Worker:true}] Addons:map[default-storageclass:true ingress:true storage-provisioner:true] CustomAddonImages:map[] CustomAddonRegistries:map[] VerifyComponents:map[apiserver:true system_pods:true] StartHostTimeout:6m0s ScheduledStop:<nil> ExposedPorts:[] ListenAddress: Network: Subnet: MultiNodeRequested:false ExtraDisks:0 CertExpiration:26280h0m0s MountString: Mount9PVersion:9p2000.L MountGID:docker MountIP: MountMSize:262144 MountOptions:[] MountPort:0 MountType:9p MountUID:docker BinaryMirror: DisableOptimizations:false DisableMetrics:false DisableCoreDNSLog:false CustomQemuFirmwarePath: SocketVMnetClientPath: SocketVMnetPath: StaticIP: SSHAuthSock: SSHAgentPID:0 GPUs: AutoPauseInterval:1m0s Rosetta:false}
+I0616 13:12:12.697617   13242 out.go:179] 👍  Starting "minikube" primary control-plane node in "minikube" cluster
+I0616 13:12:13.198166   13242 cache.go:135] Beginning downloading kic base image for docker with docker
+I0616 13:12:14.575493   13242 out.go:179] 🚜  Pulling base image v0.0.50 ...
+I0616 13:12:15.687586   13242 image.go:82] Checking for gcr.io/k8s-minikube/kicbase:v0.0.50@sha256:eb4fec00e8ad70adf8e6436f195cc429825ffb85f95afcdb5d8d9deb576f3e93 in local docker daemon
+I0616 13:12:15.687615   13242 preload.go:187] Checking if preload exists for k8s version v1.35.1 and runtime docker
+I0616 13:12:15.687671   13242 preload.go:202] Found local preload: /home/ali/.minikube/cache/preloaded-tarball/preloaded-images-k8s-v18-v1.35.1-docker-overlay2-amd64.tar.lz4
+I0616 13:12:15.687688   13242 cache.go:66] Caching tarball of preloaded images
+I0616 13:12:15.687882   13242 preload.go:250] Found /home/ali/.minikube/cache/preloaded-tarball/preloaded-images-k8s-v18-v1.35.1-docker-overlay2-amd64.tar.lz4 in cache, skipping download
+I0616 13:12:15.687906   13242 cache.go:69] Finished verifying existence of preloaded tar for v1.35.1 on docker
+I0616 13:12:15.688096   13242 profile.go:143] Saving config to /home/ali/.minikube/profiles/minikube/config.json ...
+I0616 13:12:15.764576   13242 image.go:101] Found gcr.io/k8s-minikube/kicbase:v0.0.50@sha256:eb4fec00e8ad70adf8e6436f195cc429825ffb85f95afcdb5d8d9deb576f3e93 in local docker daemon, skipping pull
+I0616 13:12:15.764592   13242 cache.go:159] gcr.io/k8s-minikube/kicbase:v0.0.50@sha256:eb4fec00e8ad70adf8e6436f195cc429825ffb85f95afcdb5d8d9deb576f3e93 exists in daemon, skipping load
+I0616 13:12:16.250760   13242 cache.go:244] Successfully downloaded all kic artifacts
+I0616 13:12:16.250831   13242 start.go:359] acquireMachinesLock for minikube: {Name:mk86bc0d7ea055b83af815e68fffc7e057e31dd8 Timeout:10m0s Delay:500ms}
+I0616 13:12:16.250945   13242 start.go:363] duration metric: took 87.9µs to acquireMachinesLock for "minikube"
+I0616 13:12:16.250977   13242 start.go:95] Skipping create...Using existing machine configuration
+I0616 13:12:16.250986   13242 fix.go:53] fixHost starting: 
+I0616 13:12:16.251340   13242 cli_runner.go:164] Run: docker container inspect minikube --format={{.State.Status}}
+I0616 13:12:16.280091   13242 fix.go:111] recreateIfNeeded on minikube: state=Running err=<nil>
+I0616 13:12:17.853896   13242 out.go:252] 🏃  Updating the running docker "minikube" container ...
+I0616 13:12:17.854052   13242 machine.go:96] provisionDockerMachine start ...
+I0616 13:12:17.854228   13242 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0616 13:12:17.881486   13242 main.go:144] libmachine: Using SSH client type: native
+I0616 13:12:17.881767   13242 main.go:144] libmachine: &{{{<nil> 0 [] [] []} docker [0x906360] 0x909000 <nil>  [] 0s} 127.0.0.1 32768 <nil> <nil>}
+I0616 13:12:17.881775   13242 main.go:144] libmachine: About to run SSH command:
+hostname
+I0616 13:12:21.706827   13242 main.go:144] libmachine: SSH cmd err, output: <nil>: minikube
+
+I0616 13:12:21.706871   13242 ubuntu.go:182] provisioning hostname "minikube"
+I0616 13:12:21.706970   13242 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0616 13:12:21.735007   13242 main.go:144] libmachine: Using SSH client type: native
+I0616 13:12:21.735289   13242 main.go:144] libmachine: &{{{<nil> 0 [] [] []} docker [0x906360] 0x909000 <nil>  [] 0s} 127.0.0.1 32768 <nil> <nil>}
+I0616 13:12:21.735299   13242 main.go:144] libmachine: About to run SSH command:
+sudo hostname minikube && echo "minikube" | sudo tee /etc/hostname
+I0616 13:12:22.566997   13242 main.go:144] libmachine: SSH cmd err, output: <nil>: minikube
+
+I0616 13:12:22.567143   13242 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0616 13:12:22.633839   13242 main.go:144] libmachine: Using SSH client type: native
+I0616 13:12:22.634345   13242 main.go:144] libmachine: &{{{<nil> 0 [] [] []} docker [0x906360] 0x909000 <nil>  [] 0s} 127.0.0.1 32768 <nil> <nil>}
+I0616 13:12:22.634375   13242 main.go:144] libmachine: About to run SSH command:
+
+		if ! grep -xq '.*\sminikube' /etc/hosts; then
+			if grep -xq '127.0.1.1\s.*' /etc/hosts; then
+				sudo sed -i 's/^127.0.1.1\s.*/127.0.1.1 minikube/g' /etc/hosts;
+			else 
+				echo '127.0.1.1 minikube' | sudo tee -a /etc/hosts; 
+			fi
+		fi
+I0616 13:12:22.869199   13242 main.go:144] libmachine: SSH cmd err, output: <nil>: 
+I0616 13:12:22.869226   13242 ubuntu.go:188] set auth options {CertDir:/home/ali/.minikube CaCertPath:/home/ali/.minikube/certs/ca.pem CaPrivateKeyPath:/home/ali/.minikube/certs/ca-key.pem CaCertRemotePath:/etc/docker/ca.pem ServerCertPath:/home/ali/.minikube/machines/server.pem ServerKeyPath:/home/ali/.minikube/machines/server-key.pem ClientKeyPath:/home/ali/.minikube/certs/key.pem ServerCertRemotePath:/etc/docker/server.pem ServerKeyRemotePath:/etc/docker/server-key.pem ClientCertPath:/home/ali/.minikube/certs/cert.pem ServerCertSANs:[] StorePath:/home/ali/.minikube}
+I0616 13:12:22.869280   13242 ubuntu.go:190] setting up certificates
+I0616 13:12:22.869296   13242 provision.go:83] configureAuth start
+I0616 13:12:22.869409   13242 cli_runner.go:164] Run: docker container inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}},{{.GlobalIPv6Address}}{{end}}" minikube
+I0616 13:12:22.902937   13242 provision.go:142] copyHostCerts
+I0616 13:12:22.903037   13242 exec_runner.go:143] found /home/ali/.minikube/ca.pem, removing ...
+I0616 13:12:22.903053   13242 exec_runner.go:202] rm: /home/ali/.minikube/ca.pem
+I0616 13:12:22.903182   13242 exec_runner.go:150] cp: /home/ali/.minikube/certs/ca.pem --> /home/ali/.minikube/ca.pem (1070 bytes)
+I0616 13:12:22.903404   13242 exec_runner.go:143] found /home/ali/.minikube/cert.pem, removing ...
+I0616 13:12:22.903410   13242 exec_runner.go:202] rm: /home/ali/.minikube/cert.pem
+I0616 13:12:22.903480   13242 exec_runner.go:150] cp: /home/ali/.minikube/certs/cert.pem --> /home/ali/.minikube/cert.pem (1111 bytes)
+I0616 13:12:22.903625   13242 exec_runner.go:143] found /home/ali/.minikube/key.pem, removing ...
+I0616 13:12:22.903631   13242 exec_runner.go:202] rm: /home/ali/.minikube/key.pem
+I0616 13:12:22.903693   13242 exec_runner.go:150] cp: /home/ali/.minikube/certs/key.pem --> /home/ali/.minikube/key.pem (1675 bytes)
+I0616 13:12:22.903812   13242 provision.go:116] generating server cert: /home/ali/.minikube/machines/server.pem ca-key=/home/ali/.minikube/certs/ca.pem private-key=/home/ali/.minikube/certs/ca-key.pem org=ali.minikube san=[127.0.0.1 192.168.49.2 localhost minikube]
+I0616 13:12:22.985372   13242 provision.go:176] copyRemoteCerts
+I0616 13:12:22.985464   13242 ssh_runner.go:194] Run: sudo mkdir -p /etc/docker /etc/docker /etc/docker
+I0616 13:12:22.985577   13242 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0616 13:12:23.020296   13242 sshutil.go:53] new ssh client: &{IP:127.0.0.1 Port:32768 SSHKeyPath:/home/ali/.minikube/machines/minikube/id_rsa Username:docker}
+I0616 13:12:23.171918   13242 ssh_runner.go:361] scp /home/ali/.minikube/certs/ca.pem --> /etc/docker/ca.pem (1070 bytes)
+I0616 13:12:23.546105   13242 ssh_runner.go:361] scp /home/ali/.minikube/machines/server.pem --> /etc/docker/server.pem (1172 bytes)
+I0616 13:12:23.594666   13242 ssh_runner.go:361] scp /home/ali/.minikube/machines/server-key.pem --> /etc/docker/server-key.pem (1679 bytes)
+I0616 13:12:23.632382   13242 provision.go:86] duration metric: took 763.053518ms to configureAuth
+I0616 13:12:23.632406   13242 ubuntu.go:206] setting minikube options for container-runtime
+I0616 13:12:23.632627   13242 config.go:183] Loaded profile config "minikube": Driver=docker, ContainerRuntime=docker, KubernetesVersion=v1.35.1
+I0616 13:12:23.632800   13242 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0616 13:12:23.659728   13242 main.go:144] libmachine: Using SSH client type: native
+I0616 13:12:23.660130   13242 main.go:144] libmachine: &{{{<nil> 0 [] [] []} docker [0x906360] 0x909000 <nil>  [] 0s} 127.0.0.1 32768 <nil> <nil>}
+I0616 13:12:23.660140   13242 main.go:144] libmachine: About to run SSH command:
+df --output=fstype / | tail -n 1
+I0616 13:12:23.944161   13242 main.go:144] libmachine: SSH cmd err, output: <nil>: overlay
+
+I0616 13:12:23.944208   13242 ubuntu.go:71] root file system type: overlay
+I0616 13:12:23.944360   13242 provision.go:313] Updating docker unit: /lib/systemd/system/docker.service ...
+I0616 13:12:23.944452   13242 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0616 13:12:23.970661   13242 main.go:144] libmachine: Using SSH client type: native
+I0616 13:12:23.970957   13242 main.go:144] libmachine: &{{{<nil> 0 [] [] []} docker [0x906360] 0x909000 <nil>  [] 0s} 127.0.0.1 32768 <nil> <nil>}
+I0616 13:12:23.971049   13242 main.go:144] libmachine: About to run SSH command:
+sudo mkdir -p /lib/systemd/system && printf %s "[Unit]
+Description=Docker Application Container Engine
+Documentation=https://docs.docker.com
+After=network-online.target nss-lookup.target docker.socket firewalld.service containerd.service time-set.target
+Wants=network-online.target containerd.service
+Requires=docker.socket
+StartLimitBurst=3
+StartLimitIntervalSec=60
+
+[Service]
+Type=notify
+Restart=always
+
+
+
+# This file is a systemd drop-in unit that inherits from the base dockerd configuration.
+# The base configuration already specifies an 'ExecStart=...' command. The first directive
+# here is to clear out that command inherited from the base configuration. Without this,
+# the command from the base configuration and the command specified here are treated as
+# a sequence of commands, which is not the desired behavior, nor is it valid -- systemd
+# will catch this invalid input and refuse to start the service with an error like:
+#  Service has more than one ExecStart= setting, which is only allowed for Type=oneshot services.
+
+# NOTE: default-ulimit=nofile is set to an arbitrary number for consistency with other
+# container runtimes. If left unlimited, it may result in OOM issues with MySQL.
+ExecStart=
+ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2376 \
+	-H fd:// --containerd=/run/containerd/containerd.sock \
+	-H unix:///var/run/docker.sock \
+	--default-ulimit=nofile=1048576:1048576 \
+	--tlsverify \
+	--tlscacert /etc/docker/ca.pem \
+	--tlscert /etc/docker/server.pem \
+	--tlskey /etc/docker/server-key.pem --label provider=docker --insecure-registry 10.96.0.0/12 
+ExecReload=/bin/kill -s HUP \$MAINPID
+
+# Having non-zero Limit*s causes performance problems due to accounting overhead
+# in the kernel. We recommend using cgroups to do container-local accounting.
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
+
+# Uncomment TasksMax if your systemd version supports it.
+# Only systemd 226 and above support this version.
+TasksMax=infinity
+TimeoutStartSec=0
+
+# set delegate yes so that systemd does not reset the cgroups of docker containers
+Delegate=yes
+
+# kill only the docker process, not all processes in the cgroup
+KillMode=process
+OOMScoreAdjust=-500
+
+[Install]
+WantedBy=multi-user.target
+" | sudo tee /lib/systemd/system/docker.service.new
+I0616 13:12:24.153669   13242 main.go:144] libmachine: SSH cmd err, output: <nil>: [Unit]
+Description=Docker Application Container Engine
+Documentation=https://docs.docker.com
+After=network-online.target nss-lookup.target docker.socket firewalld.service containerd.service time-set.target
+Wants=network-online.target containerd.service
+Requires=docker.socket
+StartLimitBurst=3
+StartLimitIntervalSec=60
+
+[Service]
+Type=notify
+Restart=always
+
+
+
+# This file is a systemd drop-in unit that inherits from the base dockerd configuration.
+# The base configuration already specifies an 'ExecStart=...' command. The first directive
+# here is to clear out that command inherited from the base configuration. Without this,
+# the command from the base configuration and the command specified here are treated as
+# a sequence of commands, which is not the desired behavior, nor is it valid -- systemd
+# will catch this invalid input and refuse to start the service with an error like:
+#  Service has more than one ExecStart= setting, which is only allowed for Type=oneshot services.
+
+# NOTE: default-ulimit=nofile is set to an arbitrary number for consistency with other
+# container runtimes. If left unlimited, it may result in OOM issues with MySQL.
+ExecStart=
+ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2376 	-H fd:// --containerd=/run/containerd/containerd.sock 	-H unix:///var/run/docker.sock 	--default-ulimit=nofile=1048576:1048576 	--tlsverify 	--tlscacert /etc/docker/ca.pem 	--tlscert /etc/docker/server.pem 	--tlskey /etc/docker/server-key.pem --label provider=docker --insecure-registry 10.96.0.0/12 
+ExecReload=/bin/kill -s HUP $MAINPID
+
+# Having non-zero Limit*s causes performance problems due to accounting overhead
+# in the kernel. We recommend using cgroups to do container-local accounting.
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
+
+# Uncomment TasksMax if your systemd version supports it.
+# Only systemd 226 and above support this version.
+TasksMax=infinity
+TimeoutStartSec=0
+
+# set delegate yes so that systemd does not reset the cgroups of docker containers
+Delegate=yes
+
+# kill only the docker process, not all processes in the cgroup
+KillMode=process
+OOMScoreAdjust=-500
+
+[Install]
+WantedBy=multi-user.target
+
+I0616 13:12:24.153779   13242 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0616 13:12:24.182008   13242 main.go:144] libmachine: Using SSH client type: native
+I0616 13:12:24.182255   13242 main.go:144] libmachine: &{{{<nil> 0 [] [] []} docker [0x906360] 0x909000 <nil>  [] 0s} 127.0.0.1 32768 <nil> <nil>}
+I0616 13:12:24.182270   13242 main.go:144] libmachine: About to run SSH command:
+sudo diff -u /lib/systemd/system/docker.service /lib/systemd/system/docker.service.new || { sudo mv /lib/systemd/system/docker.service.new /lib/systemd/system/docker.service; sudo systemctl -f daemon-reload && sudo systemctl -f enable docker && sudo systemctl -f restart docker; }
+I0616 13:12:24.856224   13242 main.go:144] libmachine: SSH cmd err, output: <nil>: 
+I0616 13:12:24.856244   13242 machine.go:99] duration metric: took 7.002181119s to provisionDockerMachine
+I0616 13:12:24.856264   13242 start.go:292] postStartSetup for "minikube" (driver="docker")
+I0616 13:12:24.856279   13242 start.go:321] creating required directories: [/etc/kubernetes/addons /etc/kubernetes/manifests /var/tmp/minikube /var/lib/minikube /var/lib/minikube/certs /var/lib/minikube/images /var/lib/minikube/binaries /tmp/gvisor /usr/share/ca-certificates /etc/ssl/certs]
+I0616 13:12:24.856395   13242 ssh_runner.go:194] Run: sudo mkdir -p /etc/kubernetes/addons /etc/kubernetes/manifests /var/tmp/minikube /var/lib/minikube /var/lib/minikube/certs /var/lib/minikube/images /var/lib/minikube/binaries /tmp/gvisor /usr/share/ca-certificates /etc/ssl/certs
+I0616 13:12:24.856560   13242 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0616 13:12:24.901327   13242 sshutil.go:53] new ssh client: &{IP:127.0.0.1 Port:32768 SSHKeyPath:/home/ali/.minikube/machines/minikube/id_rsa Username:docker}
+I0616 13:12:25.015331   13242 ssh_runner.go:194] Run: cat /etc/os-release
+I0616 13:12:25.022974   13242 main.go:144] libmachine: Couldn't set key VERSION_CODENAME, no corresponding struct field found
+I0616 13:12:25.023009   13242 info.go:137] Remote host: Debian GNU/Linux 12 (bookworm)
+I0616 13:12:25.023062   13242 filesync.go:125] Scanning /home/ali/.minikube/addons for local assets ...
+I0616 13:12:25.023173   13242 filesync.go:125] Scanning /home/ali/.minikube/files for local assets ...
+I0616 13:12:25.023235   13242 start.go:295] duration metric: took 166.962104ms for postStartSetup
+I0616 13:12:25.023333   13242 ssh_runner.go:194] Run: sh -c "df -h /var | awk 'NR==2{print $5}'"
+I0616 13:12:25.023420   13242 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0616 13:12:25.051486   13242 sshutil.go:53] new ssh client: &{IP:127.0.0.1 Port:32768 SSHKeyPath:/home/ali/.minikube/machines/minikube/id_rsa Username:docker}
+I0616 13:12:25.378793   13242 ssh_runner.go:194] Run: sh -c "df -BG /var | awk 'NR==2{print $4}'"
+I0616 13:12:25.389209   13242 fix.go:55] duration metric: took 9.138216611s for fixHost
+I0616 13:12:25.389230   13242 start.go:82] releasing machines lock for "minikube", held for 9.138273311s
+I0616 13:12:25.389347   13242 cli_runner.go:164] Run: docker container inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}},{{.GlobalIPv6Address}}{{end}}" minikube
+I0616 13:12:25.414930   13242 ssh_runner.go:194] Run: cat /version.json
+I0616 13:12:25.414985   13242 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0616 13:12:25.415172   13242 ssh_runner.go:194] Run: curl -sS -m 2 https://registry.k8s.io/
+I0616 13:12:25.415329   13242 cli_runner.go:164] Run: docker container inspect -f "'{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}'" minikube
+I0616 13:12:25.444005   13242 sshutil.go:53] new ssh client: &{IP:127.0.0.1 Port:32768 SSHKeyPath:/home/ali/.minikube/machines/minikube/id_rsa Username:docker}
+I0616 13:12:25.445012   13242 sshutil.go:53] new ssh client: &{IP:127.0.0.1 Port:32768 SSHKeyPath:/home/ali/.minikube/machines/minikube/id_rsa Username:docker}
+I0616 13:12:34.188395   13242 ssh_runner.go:234] Completed: curl -sS -m 2 https://registry.k8s.io/: (8.773194194s)
+I0616 13:12:34.188580   13242 ssh_runner.go:234] Completed: cat /version.json: (8.773627994s)
+I0616 13:12:34.188874   13242 ssh_runner.go:194] Run: systemctl --version
+I0616 13:12:34.297304   13242 ssh_runner.go:194] Run: sh -c "stat /etc/cni/net.d/*loopback.conf*"
+W0616 13:12:34.305435   13242 cni.go:208] loopback cni configuration skipped: "/etc/cni/net.d/*loopback.conf*" not found
+I0616 13:12:34.305519   13242 ssh_runner.go:194] Run: sudo find /etc/cni/net.d -maxdepth 1 -type f ( ( -name *bridge* -or -name *podman* ) -and -not -name *.mk_disabled ) -printf "%p, " -exec sh -c "sudo mv {} {}.mk_disabled" ;
+I0616 13:12:34.320156   13242 cni.go:258] no active bridge cni configs found in "/etc/cni/net.d" - nothing to disable
+I0616 13:12:34.320178   13242 start.go:497] detecting cgroup driver to use...
+I0616 13:12:34.320228   13242 detect.go:178] detected "systemd" cgroup driver on host os
+I0616 13:12:34.320403   13242 ssh_runner.go:194] Run: /bin/bash -c "sudo mkdir -p /etc && printf %s "runtime-endpoint: unix:///run/containerd/containerd.sock
+" | sudo tee /etc/crictl.yaml"
+I0616 13:12:34.473515   13242 ssh_runner.go:194] Run: sh -c "sudo sed -i -r 's|^( *)sandbox_image = .*$|\1sandbox_image = "registry.k8s.io/pause:3.10.1"|' /etc/containerd/config.toml"
+I0616 13:12:34.781804   13242 ssh_runner.go:194] Run: sh -c "sudo sed -i -r 's|^( *)restrict_oom_score_adj = .*$|\1restrict_oom_score_adj = false|' /etc/containerd/config.toml"
+I0616 13:12:34.932810   13242 containerd.go:146] configuring containerd to use "systemd" as cgroup driver...
+I0616 13:12:34.932910   13242 ssh_runner.go:194] Run: sh -c "sudo sed -i -r 's|^( *)SystemdCgroup = .*$|\1SystemdCgroup = true|g' /etc/containerd/config.toml"
+I0616 13:12:34.950753   13242 ssh_runner.go:194] Run: sh -c "sudo sed -i 's|"io.containerd.runtime.v1.linux"|"io.containerd.runc.v2"|g' /etc/containerd/config.toml"
+I0616 13:12:35.047396   13242 ssh_runner.go:194] Run: sh -c "sudo sed -i '/systemd_cgroup/d' /etc/containerd/config.toml"
+I0616 13:12:35.065967   13242 ssh_runner.go:194] Run: sh -c "sudo sed -i 's|"io.containerd.runc.v1"|"io.containerd.runc.v2"|g' /etc/containerd/config.toml"
+I0616 13:12:35.268589   13242 ssh_runner.go:194] Run: sh -c "sudo rm -rf /etc/cni/net.mk"
+I0616 13:12:35.284114   13242 ssh_runner.go:194] Run: sh -c "sudo sed -i -r 's|^( *)conf_dir = .*$|\1conf_dir = "/etc/cni/net.d"|g' /etc/containerd/config.toml"
+I0616 13:12:35.301882   13242 ssh_runner.go:194] Run: sh -c "sudo sed -i '/^ *enable_unprivileged_ports = .*/d' /etc/containerd/config.toml"
+I0616 13:12:35.466145   13242 ssh_runner.go:194] Run: sh -c "sudo sed -i -r 's|^( *)\[plugins."io.containerd.grpc.v1.cri"\]|&\n\1  enable_unprivileged_ports = true|' /etc/containerd/config.toml"
+I0616 13:12:35.484597   13242 ssh_runner.go:194] Run: sudo sysctl net.bridge.bridge-nf-call-iptables
+I0616 13:12:35.499426   13242 ssh_runner.go:194] Run: sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+I0616 13:12:35.514790   13242 ssh_runner.go:194] Run: sudo systemctl daemon-reload
+I0616 13:12:35.877964   13242 ssh_runner.go:194] Run: sudo systemctl restart containerd
+
+
+==> Docker <==
+Jun 16 20:09:25 minikube dockerd[543]: time="2026-06-16T20:09:25.825569792Z" level=info msg="sbJoin: gwep4 ''->'', gwep6 ''->''" eid=e6a1a7a0219b ep=k8s_POD_postgres-deployment-59bd4c86fb-ls5ff_cyber-prod-env_0cbdd7f8-5b33-4b60-84ca-809cf2695c08_15 net=none nid=2f9ea0b1380d
+Jun 16 20:09:27 minikube cri-dockerd[917]: time="2026-06-16T20:09:27Z" level=info msg="Will attempt to re-write config file /var/lib/docker/containers/e4ff517a30beefff67dec05004b5f33e0a5d13a96768333bf37dd8e51633668a/resolv.conf as [nameserver 10.96.0.10 search django-prod.svc.cluster.local svc.cluster.local cluster.local options ndots:5]"
+Jun 16 20:09:28 minikube dockerd[543]: time="2026-06-16T20:09:28.259690237Z" level=info msg="sbJoin: gwep4 ''->'', gwep6 ''->''" eid=ca5ea856da5a ep=k8s_POD_django-deployment-66b878b95b-snxhl_cyber-prod-env_24102d36-410b-47c6-ad86-2306fdf8fe63_2 net=none nid=2f9ea0b1380d
+Jun 16 20:09:28 minikube cri-dockerd[917]: time="2026-06-16T20:09:28Z" level=info msg="Will attempt to re-write config file /var/lib/docker/containers/fbcd3a63acb146ecf30101b1ec716823eae039c38c4bfd46fdc03e172682df08/resolv.conf as [nameserver 10.96.0.10 search django-prod.svc.cluster.local svc.cluster.local cluster.local options ndots:5]"
+Jun 16 20:09:29 minikube cri-dockerd[917]: time="2026-06-16T20:09:29Z" level=info msg="Will attempt to re-write config file /var/lib/docker/containers/c407270bb210ced82122882cfbbded2f3bd793566a49090e1d6c06969dc385b6/resolv.conf as [nameserver 10.96.0.10 search kube-system.svc.cluster.local svc.cluster.local cluster.local options ndots:5]"
+Jun 16 20:09:31 minikube dockerd[543]: time="2026-06-16T20:09:31.482330661Z" level=info msg="sbJoin: gwep4 ''->'', gwep6 ''->''" eid=91f4de7554ef ep=k8s_POD_django-deployment-66b878b95b-xzpc5_cyber-prod-env_0e916fac-6f12-441b-a023-c1ae42d403d1_5 net=none nid=2f9ea0b1380d
+Jun 16 20:09:35 minikube cri-dockerd[917]: time="2026-06-16T20:09:35Z" level=info msg="Will attempt to re-write config file /var/lib/docker/containers/2eb178967b5b98fdcafb3ad200a9a1bed638a4416d516c5be91cbe748e122dd1/resolv.conf as [nameserver 10.96.0.10 search cyber-prod-env.svc.cluster.local svc.cluster.local cluster.local options ndots:5]"
+Jun 16 20:09:39 minikube cri-dockerd[917]: time="2026-06-16T20:09:39Z" level=info msg="Will attempt to re-write config file /var/lib/docker/containers/087aa01cb5ae439ef196fed7890f53fe67e71dda0017453afba60f8b8c8f1a5f/resolv.conf as [nameserver 10.96.0.10 search cyber-prod-env.svc.cluster.local svc.cluster.local cluster.local options ndots:5]"
+Jun 16 20:09:39 minikube dockerd[543]: time="2026-06-16T20:09:39.858103031Z" level=info msg="sbJoin: gwep4 ''->'', gwep6 ''->''" eid=90f7dc935907 ep=k8s_POD_postgres-deployment-7ddb444f5d-h966f_django-prod_16beb06c-e14f-408e-b733-c2b5c8c9b7ff_22 net=none nid=2f9ea0b1380d
+Jun 16 20:09:40 minikube cri-dockerd[917]: time="2026-06-16T20:09:40Z" level=info msg="Will attempt to re-write config file /var/lib/docker/containers/2a0f241bd3b5de72953134146068cceb58d9ae1425b94a491c038904034dd20d/resolv.conf as [nameserver 10.96.0.10 search cyber-prod-env.svc.cluster.local svc.cluster.local cluster.local options ndots:5]"
+Jun 16 20:09:44 minikube dockerd[543]: time="2026-06-16T20:09:44.460716408Z" level=info msg="sbJoin: gwep4 ''->'', gwep6 ''->''" eid=611ef70e5fe7 ep=k8s_POD_django-app-7dc56b5b7f-dptqr_default_4d7b042b-6744-45fd-bec3-fe45d524f46f_20 net=none nid=2f9ea0b1380d
+Jun 16 20:09:49 minikube dockerd[543]: time="2026-06-16T20:09:49.483193565Z" level=info msg="sbJoin: gwep4 ''->'', gwep6 ''->''" eid=3649857a13e2 ep=k8s_POD_django-deployment-6b9457795b-qrzv7_django-prod_bca2cef3-7131-4915-a6f9-31f8a3f7636e_22 net=none nid=2f9ea0b1380d
+Jun 16 20:09:49 minikube cri-dockerd[917]: time="2026-06-16T20:09:49Z" level=info msg="Will attempt to re-write config file /var/lib/docker/containers/3a4e142a9adad68859c587eebc7c6bca17621de0082edcfc57f02c022d3174aa/resolv.conf as [nameserver 10.96.0.10 search django-prod.svc.cluster.local svc.cluster.local cluster.local options ndots:5]"
+Jun 16 20:09:55 minikube dockerd[543]: time="2026-06-16T20:09:55.539041784Z" level=info msg="sbJoin: gwep4 ''->'', gwep6 ''->''" eid=28ee05d0e4e9 ep=k8s_POD_alertmanager-my-monitor-app-kube-promet-alertmanager-0_cyber-prod-env_898e0f9e-ce1e-4b9b-8910-35c1ba104f05_6 net=none nid=2f9ea0b1380d
+Jun 16 20:09:58 minikube cri-dockerd[917]: time="2026-06-16T20:09:58Z" level=error msg="error getting RW layer size for container ID 'c0dd8a2850db8665255778046f277ae1684ba952f3e98fb5896f863439d1254f': Error response from daemon: No such container: c0dd8a2850db8665255778046f277ae1684ba952f3e98fb5896f863439d1254f"
+Jun 16 20:09:58 minikube cri-dockerd[917]: time="2026-06-16T20:09:58Z" level=error msg="Set backoffDuration to : 1m0s for container ID 'c0dd8a2850db8665255778046f277ae1684ba952f3e98fb5896f863439d1254f'"
+Jun 16 20:10:00 minikube dockerd[543]: time="2026-06-16T20:10:00.374379147Z" level=info msg="sbJoin: gwep4 ''->'', gwep6 ''->''" eid=e6a832aa3997 ep=k8s_POD_django-deployment-66b878b95b-8c74l_cyber-prod-env_ca11b33c-8fb2-48a6-8e3a-396de99807c1_5 net=none nid=2f9ea0b1380d
+Jun 16 20:10:01 minikube cri-dockerd[917]: time="2026-06-16T20:10:01Z" level=error msg="error getting RW layer size for container ID 'c6dc76dd5a9a35d707e17d176bb291fa638218ddecb59cff4a006daf920e3272': Error response from daemon: No such container: c6dc76dd5a9a35d707e17d176bb291fa638218ddecb59cff4a006daf920e3272"
+Jun 16 20:10:01 minikube cri-dockerd[917]: time="2026-06-16T20:10:01Z" level=error msg="Set backoffDuration to : 1m0s for container ID 'c6dc76dd5a9a35d707e17d176bb291fa638218ddecb59cff4a006daf920e3272'"
+Jun 16 20:10:02 minikube dockerd[543]: time="2026-06-16T20:10:02.552479386Z" level=info msg="sbJoin: gwep4 ''->'', gwep6 ''->''" eid=d02b9cac4ace ep=k8s_POD_redis-deployment-75bd4b579c-qrnzt_cyber-prod-env_f9f4219f-a352-459d-be21-bf40beb7b2e8_9 net=none nid=2f9ea0b1380d
+Jun 16 20:10:02 minikube cri-dockerd[917]: time="2026-06-16T20:10:02Z" level=info msg="Will attempt to re-write config file /var/lib/docker/containers/6d2948c50eda528d4b745b2fd22a2d78455a8351e12a552e0994c20d05b3019e/resolv.conf as [nameserver 10.96.0.10 search django-prod.svc.cluster.local svc.cluster.local cluster.local options ndots:5]"
+Jun 16 20:10:03 minikube cri-dockerd[917]: time="2026-06-16T20:10:03Z" level=info msg="Will attempt to re-write config file /var/lib/docker/containers/a8d18ecdd1988a189d3cc4554451321c4349007f0d2ebdf0629824b9a1b82292/resolv.conf as [nameserver 10.96.0.10 search default.svc.cluster.local svc.cluster.local cluster.local options ndots:5]"
+Jun 16 20:10:09 minikube dockerd[543]: time="2026-06-16T20:10:09.175741399Z" level=info msg="sbJoin: gwep4 ''->'', gwep6 ''->''" eid=0f6d37737f88 ep=k8s_POD_django-deployment-66b878b95b-5dw7t_cyber-prod-env_1d535525-6c8a-4c7d-ab1c-627906393cd3_2 net=none nid=2f9ea0b1380d
+Jun 16 20:10:12 minikube dockerd[543]: time="2026-06-16T20:10:12.538931004Z" level=info msg="sbJoin: gwep4 ''->'', gwep6 ''->''" eid=5c8bcbbb897a ep=k8s_POD_prometheus-my-monitor-app-kube-promet-prometheus-0_cyber-prod-env_aad986b9-5226-4d9f-b021-6422d010bbd8_6 net=none nid=2f9ea0b1380d
+Jun 16 20:10:15 minikube dockerd[543]: time="2026-06-16T20:10:15.894721511Z" level=info msg="ignoring event" container=3601dc3b666d2ed10d6a926a4fc38d3f667c249ea0588820c8d9074f7a810a7d module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
+Jun 16 20:10:16 minikube cri-dockerd[917]: time="2026-06-16T20:10:16Z" level=info msg="Will attempt to re-write config file /var/lib/docker/containers/53aeeb8c13ba827ca33ab8aa04ceb499cae4e4ca72f9ac7a9d71e4f9a617675f/resolv.conf as [nameserver 10.96.0.10 search cyber-prod-env.svc.cluster.local svc.cluster.local cluster.local options ndots:5]"
+Jun 16 20:10:17 minikube cri-dockerd[917]: time="2026-06-16T20:10:17Z" level=info msg="Will attempt to re-write config file /var/lib/docker/containers/8d37a44321e1a3508dab95bdb914d04bfcf1c94de870164071ad5f45faf6eb9a/resolv.conf as [nameserver 10.96.0.10 search cyber-prod-env.svc.cluster.local svc.cluster.local cluster.local options ndots:5]"
+Jun 16 20:10:17 minikube cri-dockerd[917]: time="2026-06-16T20:10:17Z" level=info msg="Will attempt to re-write config file /var/lib/docker/containers/9fcbb32e92b192690e8850018cfb934a0be6730290ec0af6dcffea7e7a327d9d/resolv.conf as [nameserver 10.96.0.10 search cyber-prod-env.svc.cluster.local svc.cluster.local cluster.local options ndots:5]"
+Jun 16 20:10:17 minikube cri-dockerd[917]: time="2026-06-16T20:10:17Z" level=info msg="Will attempt to re-write config file /var/lib/docker/containers/6af568a28276264a455e4484f29f25e6ad7842fb18a59b86ddd0f7789573120d/resolv.conf as [nameserver 10.96.0.10 search cyber-prod-env.svc.cluster.local svc.cluster.local cluster.local options ndots:5]"
+Jun 16 20:10:19 minikube cri-dockerd[917]: time="2026-06-16T20:10:19Z" level=info msg="Will attempt to re-write config file /var/lib/docker/containers/344b4c5612aab2df0d8d0140ef8bd223b054af6c2e0fa8ee25c1c171582842e5/resolv.conf as [nameserver 10.96.0.10 search cyber-prod-env.svc.cluster.local svc.cluster.local cluster.local options ndots:5]"
+Jun 16 20:10:30 minikube dockerd[543]: time="2026-06-16T20:10:30.185171252Z" level=warning msg="Error getting v2 registry: Get \"https://registry-1.docker.io/v2/\": net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)"
+Jun 16 20:10:30 minikube dockerd[543]: time="2026-06-16T20:10:30.185260052Z" level=info msg="Attempting next endpoint for pull after error: Get \"https://registry-1.docker.io/v2/\": net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)"
+Jun 16 20:10:40 minikube dockerd[543]: time="2026-06-16T20:10:40.977082994Z" level=error msg="Handler for POST /v1.46/images/create returned error: Get \"https://registry-1.docker.io/v2/\": net/http: request canceled while waiting for connection (Client.Timeout exceeded while awaiting headers)"
+Jun 16 20:11:17 minikube dockerd[543]: time="2026-06-16T20:11:17.595137846Z" level=warning msg="Error getting v2 registry: Get \"https://registry-1.docker.io/v2/\": context deadline exceeded"
+Jun 16 20:11:17 minikube dockerd[543]: time="2026-06-16T20:11:17.595202946Z" level=info msg="Attempting next endpoint for pull after error: Get \"https://registry-1.docker.io/v2/\": context deadline exceeded"
+Jun 16 20:11:18 minikube dockerd[543]: time="2026-06-16T20:11:18.263896379Z" level=error msg="Handler for POST /v1.46/images/create returned error: Get \"https://registry-1.docker.io/v2/\": context deadline exceeded"
+Jun 16 20:11:44 minikube dockerd[543]: time="2026-06-16T20:11:44.314468298Z" level=info msg="ignoring event" container=ff4f35155c147e2ed6d2c4bf3268bb2e4848837eb068488171c875247f0995de module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
+Jun 16 20:11:45 minikube dockerd[543]: time="2026-06-16T20:11:45.736033104Z" level=info msg="ignoring event" container=be59972248e17b339b07acb2d1ac6a5dc62b92878664167982b58822676d3a15 module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
+Jun 16 20:11:47 minikube dockerd[543]: time="2026-06-16T20:11:47.715733021Z" level=info msg="Container failed to exit within 2s of signal 15 - using the force" container=be59972248e17b339b07acb2d1ac6a5dc62b92878664167982b58822676d3a15
+Jun 16 20:11:52 minikube dockerd[543]: time="2026-06-16T20:11:52.703848864Z" level=info msg="Container failed to exit within 30s of signal 15 - using the force" container=b43bf2292157a1d30c96215bd9a73970edc6a69c73d53b82b2ec4726a0f2525d
+Jun 16 20:11:54 minikube dockerd[543]: time="2026-06-16T20:11:54.564102162Z" level=info msg="ignoring event" container=02592299a631bfb8ec6103f752836d884e6c981f70be7986553accf76988f863 module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
+Jun 16 20:11:55 minikube cri-dockerd[917]: time="2026-06-16T20:11:55Z" level=error msg="error getting RW layer size for container ID 'c2ef71825ef098f93a789a23bc8a136d07132851395a9ae297c97723f269cad4': Error response from daemon: No such container: c2ef71825ef098f93a789a23bc8a136d07132851395a9ae297c97723f269cad4"
+Jun 16 20:11:55 minikube cri-dockerd[917]: time="2026-06-16T20:11:55Z" level=error msg="Set backoffDuration to : 1m0s for container ID 'c2ef71825ef098f93a789a23bc8a136d07132851395a9ae297c97723f269cad4'"
+Jun 16 20:11:56 minikube dockerd[543]: time="2026-06-16T20:11:56.565473806Z" level=info msg="ignoring event" container=b43bf2292157a1d30c96215bd9a73970edc6a69c73d53b82b2ec4726a0f2525d module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
+Jun 16 20:11:59 minikube dockerd[543]: time="2026-06-16T20:11:59.506459707Z" level=info msg="ignoring event" container=61cd16bfec652e15c931f35ccc48c9a86b6e5fb8471e0840542be65ad4814dca module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
+Jun 16 20:12:06 minikube dockerd[543]: time="2026-06-16T20:12:06.478543634Z" level=warning msg="Container failed to exit within 10s of kill - trying direct SIGKILL" container=b43bf2292157a1d30c96215bd9a73970edc6a69c73d53b82b2ec4726a0f2525d error="context deadline exceeded"
+Jun 16 20:12:17 minikube dockerd[543]: time="2026-06-16T20:12:17.070313127Z" level=info msg="ignoring event" container=cd8d1ff8acd8ba7cd6dca5be56dfc79eaa7c58f24be7034e08bd04339a33da42 module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
+Jun 16 20:12:23 minikube dockerd[543]: time="2026-06-16T20:12:23.082646793Z" level=info msg="ignoring event" container=24eaf5e1ecd950bd7c293489be9e42c36011111407532986c1f0b2c53debc549 module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
+Jun 16 20:12:23 minikube dockerd[543]: time="2026-06-16T20:12:23.158907695Z" level=info msg="ignoring event" container=e0fc73fb9452be4605721e62c70a6cd1b31343b34931687023e90ddfa1e3bfe7 module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
+Jun 16 20:12:26 minikube cri-dockerd[917]: time="2026-06-16T20:12:26Z" level=info msg="Stop pulling image alidevopsx/django_app:latest: Status: Image is up to date for alidevopsx/django_app:latest"
+Jun 16 20:12:33 minikube dockerd[543]: time="2026-06-16T20:12:33.596831498Z" level=info msg="Container failed to exit within 30s of signal 15 - using the force" container=3e693f69e5ae1fbd6d986d8ae3dd52b370d32f4e2688340872631f474ac3104b
+Jun 16 20:12:35 minikube dockerd[543]: time="2026-06-16T20:12:35.901010252Z" level=error msg="Failed to get event" error="rpc error: code = Unavailable desc = error reading from server: EOF" module=libcontainerd namespace=plugins.moby
+Jun 16 20:12:35 minikube dockerd[543]: time="2026-06-16T20:12:35.901196852Z" level=info msg="Waiting for containerd to be ready to restart event processing" module=libcontainerd namespace=plugins.moby
+Jun 16 20:12:35 minikube dockerd[543]: time="2026-06-16T20:12:35.901382652Z" level=error msg="Failed to get event" error="rpc error: code = Unavailable desc = error reading from server: EOF" module=libcontainerd namespace=moby
+Jun 16 20:12:35 minikube dockerd[543]: time="2026-06-16T20:12:35.901473352Z" level=info msg="Waiting for containerd to be ready to restart event processing" module=libcontainerd namespace=moby
+Jun 16 20:12:39 minikube dockerd[543]: time="2026-06-16T20:12:39.422197783Z" level=info msg="Container failed to exit within 30s of signal 15 - using the force" container=f31fd1d833d7dd1768aa4b0ce92dcb06cb10d7325ec46e354a1b5958f33c0d58
+Jun 16 20:12:54 minikube dockerd[543]: time="2026-06-16T20:12:54.877575900Z" level=info msg="Container failed to exit within 30s of signal 15 - using the force" container=e98f7b7a8a7deec6003ecf173dfc9f31395e24b201abd80e99db8659248249fa
+Jun 16 20:12:56 minikube cri-dockerd[917]: time="2026-06-16T20:12:56Z" level=error msg="error getting RW layer size for container ID 'b43bf2292157a1d30c96215bd9a73970edc6a69c73d53b82b2ec4726a0f2525d': Error response from daemon: No such container: b43bf2292157a1d30c96215bd9a73970edc6a69c73d53b82b2ec4726a0f2525d"
+Jun 16 20:12:56 minikube cri-dockerd[917]: time="2026-06-16T20:12:56Z" level=error msg="Set backoffDuration to : 1m0s for container ID 'b43bf2292157a1d30c96215bd9a73970edc6a69c73d53b82b2ec4726a0f2525d'"
+Jun 16 20:12:57 minikube dockerd[543]: time="2026-06-16T20:12:57.975394662Z" level=info msg="Container failed to exit within 30s of signal 15 - using the force" container=4725f69481c56c69a455a2d34c6a5755bb67692ce7fc978291739b8d0271cad8
+
+
+==> container status <==
+time="2026-06-16T20:13:08Z" level=fatal msg="validate service connection: validate CRI v1 runtime API for endpoint \"unix:///run/containerd/containerd.sock\": rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial unix /run/containerd/containerd.sock: connect: no such file or directory\""
+CONTAINER ID   IMAGE                                                COMMAND                  CREATED              STATUS                            PORTS     NAMES
+c9ef748eb7e4   0fc7e1e0ff1d                                         "/bin/prometheus --c…"   39 seconds ago       Created                                     k8s_prometheus_prometheus-my-monitor-app-kube-promet-prometheus-0_cyber-prod-env_aad986b9-5226-4d9f-b021-6422d010bbd8_5
+5f0b44cd0a14   8349dcbd5a88                                         "/bin/alertmanager -…"   39 seconds ago       Created                                     k8s_alertmanager_alertmanager-my-monitor-app-kube-promet-alertmanager-0_cyber-prod-env_898e0f9e-ce1e-4b9b-8910-35c1ba104f05_4
+59aee835fcae   6e38f40d628d                                         "/storage-provisioner"   40 seconds ago       Created                                     k8s_storage-provisioner_storage-provisioner_kube-system_40b06571-4831-46e1-a997-1d410f844ae7_208
+8871ba549aac   alidevopsx/django_app                                "/entrypoint.sh"         42 seconds ago       Created                                     k8s_django-container_django-app-7dc56b5b7f-dptqr_default_4d7b042b-6744-45fd-bec3-fe45d524f46f_16
+0e8db00f181f   aa5e3ebc0dfe                                         "/coredns -conf /etc…"   44 seconds ago       Created                                     k8s_coredns_coredns-7d764666f9-bn7pk_kube-system_2b364702-e086-46a6-a515-39ed21cac92b_51
+bb2d1bd04650   6f9eeb0cff98                                         "kube-apiserver --ad…"   46 seconds ago       Created                                     k8s_kube-apiserver_kube-apiserver-minikube_kube-system_a6dc00f40d27725f15407f95751ce5f7_57
+12bf10f0148d   e76b3f3568b7                                         "/metrics-server --s…"   About a minute ago   Up 45 seconds                               k8s_metrics-server_metrics-server-cf74d6dbb-knxft_kube-system_b53f853f-a8a0-4840-bfab-28e6a8f6fe7c_51
+a5ec0ace4767   97a7e90e1846                                         "/usr/bin/dumb-init …"   About a minute ago   Up 44 seconds                               k8s_controller_ingress-nginx-controller-596f8778bc-27km5_ingress-nginx_e707c369-5280-40b2-83e5-ad908faf2087_69
+02592299a631   8d7002962c48                                         "kube-controller-man…"   About a minute ago   Exited (1) About a minute ago               k8s_kube-controller-manager_kube-controller-manager-minikube_kube-system_740363cf4388c2d0df59fc97f96b889c_76
+e0fc73fb9452   c92477446e98                                         "/bin/prometheus-con…"   2 minutes ago        Exited (0) 45 seconds ago                   k8s_init-config-reloader_prometheus-my-monitor-app-kube-promet-prometheus-0_cyber-prod-env_aad986b9-5226-4d9f-b021-6422d010bbd8_6
+e98f7b7a8a7d   76b5670da381                                         "./entrypoint.sh"        2 minutes ago        Up 2 minutes                                k8s_django_django-deployment-66b878b95b-5dw7t_cyber-prod-env_1d535525-6c8a-4c7d-ab1c-627906393cd3_22
+f82d8950d3e3   487efc061638                                         "redis-server --requ…"   2 minutes ago        Up About a minute                           k8s_redis_redis-deployment-75bd4b579c-qrnzt_cyber-prod-env_f9f4219f-a352-459d-be21-bf40beb7b2e8_27
+4725f69481c5   76b5670da381                                         "./entrypoint.sh"        2 minutes ago        Up About a minute                           k8s_django_django-deployment-66b878b95b-8c74l_cyber-prod-env_ca11b33c-8fb2-48a6-8e3a-396de99807c1_31
+24eaf5e1ecd9   c92477446e98                                         "/bin/prometheus-con…"   2 minutes ago        Exited (0) 45 seconds ago                   k8s_init-config-reloader_alertmanager-my-monitor-app-kube-promet-alertmanager-0_cyber-prod-env_898e0f9e-ce1e-4b9b-8910-35c1ba104f05_6
+413bd49e3d87   9e9183dad882                                         "/entrypoint.sh"         3 minutes ago        Up 2 minutes                                k8s_django-app_django-deployment-6b9457795b-qrzv7_django-prod_bca2cef3-7131-4915-a6f9-31f8a3f7636e_20
+a6cf7a36a438   5cce759a2777                                         "docker-entrypoint.s…"   3 minutes ago        Up 2 minutes                                k8s_postgres_postgres-deployment-7ddb444f5d-h966f_django-prod_16beb06c-e14f-408e-b733-c2b5c8c9b7ff_20
+3e693f69e5ae   76b5670da381                                         "./entrypoint.sh"        3 minutes ago        Up 2 minutes                                k8s_django_django-deployment-66b878b95b-xzpc5_cyber-prod-env_0e916fac-6f12-441b-a023-c1ae42d403d1_37
+f31fd1d833d7   76b5670da381                                         "./entrypoint.sh"        3 minutes ago        Up 2 minutes                                k8s_django_django-deployment-66b878b95b-snxhl_cyber-prod-env_24102d36-410b-47c6-ad86-2306fdf8fe63_22
+a01614c60d55   5cce759a2777                                         "docker-entrypoint.s…"   3 minutes ago        Up 2 minutes                                k8s_postgres_postgres-deployment-59bd4c86fb-ls5ff_cyber-prod-env_0cbdd7f8-5b33-4b60-84ca-809cf2695c08_28
+ff4f35155c14   e76b3f3568b7                                         "/metrics-server --s…"   3 minutes ago        Exited (2) About a minute ago               k8s_metrics-server_metrics-server-cf74d6dbb-knxft_kube-system_b53f853f-a8a0-4840-bfab-28e6a8f6fe7c_50
+5a49d19b2f99   9e9183dad882                                         "/entrypoint.sh"         3 minutes ago        Up 2 minutes                                k8s_django-app_django-deployment-6b9457795b-zqvc9_django-prod_8f56782a-2177-448b-9a87-bba423dc9add_20
+e7463756e781   9e9183dad882                                         "/entrypoint.sh"         3 minutes ago        Up 2 minutes                                k8s_django-app_django-deployment-6b9457795b-25kwn_django-prod_c9981d8c-f601-4ebf-a6e5-84e860f062c4_20
+be59972248e1   97a7e90e1846                                         "/usr/bin/dumb-init …"   3 minutes ago        Exited (143) About a minute ago             k8s_controller_ingress-nginx-controller-596f8778bc-27km5_ingress-nginx_e707c369-5280-40b2-83e5-ad908faf2087_68
+61cd16bfec65   6e38f40d628d                                         "/storage-provisioner"   3 minutes ago        Exited (1) About a minute ago               k8s_storage-provisioner_storage-provisioner_kube-system_40b06571-4831-46e1-a997-1d410f844ae7_207
+1d1160e8ac60   76b5670da381                                         "/usr/local/bin/cele…"   4 minutes ago        Up 3 minutes                                k8s_celery_celery-deployment-75fc6b796f-swzr5_cyber-prod-env_480fa00c-ed06-4c57-873b-89b4f4524a8d_41
+4ef112981012   6521110cdb01                                         "/usr/local/bin/kube…"   4 minutes ago        Up 3 minutes                                k8s_kube-proxy_kube-proxy-w8mwr_kube-system_bddaa1b2-1098-407e-84f0-484186f6e51f_30
+344b4c5612aa   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 3 minutes                                k8s_POD_prometheus-my-monitor-app-kube-promet-prometheus-0_cyber-prod-env_aad986b9-5226-4d9f-b021-6422d010bbd8_6
+53aeeb8c13ba   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 3 minutes                                k8s_POD_alertmanager-my-monitor-app-kube-promet-alertmanager-0_cyber-prod-env_898e0f9e-ce1e-4b9b-8910-35c1ba104f05_6
+9fcbb32e92b1   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 3 minutes                                k8s_POD_django-deployment-66b878b95b-8c74l_cyber-prod-env_ca11b33c-8fb2-48a6-8e3a-396de99807c1_5
+6af568a28276   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 3 minutes                                k8s_POD_django-deployment-66b878b95b-5dw7t_cyber-prod-env_1d535525-6c8a-4c7d-ab1c-627906393cd3_2
+8d37a44321e1   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 3 minutes                                k8s_POD_redis-deployment-75bd4b579c-qrnzt_cyber-prod-env_f9f4219f-a352-459d-be21-bf40beb7b2e8_9
+3a4e142a9ada   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 3 minutes                                k8s_POD_postgres-deployment-7ddb444f5d-h966f_django-prod_16beb06c-e14f-408e-b733-c2b5c8c9b7ff_22
+a8d18ecdd198   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 3 minutes                                k8s_POD_django-app-7dc56b5b7f-dptqr_default_4d7b042b-6744-45fd-bec3-fe45d524f46f_20
+6d2948c50eda   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 3 minutes                                k8s_POD_django-deployment-6b9457795b-qrzv7_django-prod_bca2cef3-7131-4915-a6f9-31f8a3f7636e_22
+2a0f241bd3b5   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 3 minutes                                k8s_POD_django-deployment-66b878b95b-xzpc5_cyber-prod-env_0e916fac-6f12-441b-a023-c1ae42d403d1_5
+2eb178967b5b   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 3 minutes                                k8s_POD_postgres-deployment-59bd4c86fb-ls5ff_cyber-prod-env_0cbdd7f8-5b33-4b60-84ca-809cf2695c08_15
+c407270bb210   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 3 minutes                                k8s_POD_metrics-server-cf74d6dbb-knxft_kube-system_b53f853f-a8a0-4840-bfab-28e6a8f6fe7c_5
+087aa01cb5ae   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 3 minutes                                k8s_POD_django-deployment-66b878b95b-snxhl_cyber-prod-env_24102d36-410b-47c6-ad86-2306fdf8fe63_2
+fbcd3a63acb1   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 4 minutes                                k8s_POD_django-deployment-6b9457795b-zqvc9_django-prod_8f56782a-2177-448b-9a87-bba423dc9add_21
+e4ff517a30be   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 4 minutes                                k8s_POD_django-deployment-6b9457795b-25kwn_django-prod_c9981d8c-f601-4ebf-a6e5-84e860f062c4_22
+00b4818f017a   registry.k8s.io/pause:3.10.1                         "/pause"                 4 minutes ago        Up 4 minutes                                k8s_POD_coredns-7d764666f9-bn7pk_kube-system_2b364702-e086-46a6-a515-39ed21cac92b_31
+b2bf8960270e   registry.k8s.io/pause:3.10.1                         "/pause"                 5 minutes ago        Up 4 minutes                                k8s_POD_ingress-nginx-controller-596f8778bc-27km5_ingress-nginx_e707c369-5280-40b2-83e5-ad908faf2087_18
+b9b846cfb2b3   registry.k8s.io/pause:3.10.1                         "/pause"                 5 minutes ago        Up 4 minutes                                k8s_POD_celery-deployment-75fc6b796f-swzr5_cyber-prod-env_480fa00c-ed06-4c57-873b-89b4f4524a8d_17
+d4ffdf33a9f4   registry.k8s.io/pause:3.10.1                         "/pause"                 5 minutes ago        Up 4 minutes                                k8s_POD_storage-provisioner_kube-system_40b06571-4831-46e1-a997-1d410f844ae7_30
+34755032781c   registry.k8s.io/pause:3.10.1                         "/pause"                 5 minutes ago        Up 4 minutes                                k8s_POD_kube-proxy-w8mwr_kube-system_bddaa1b2-1098-407e-84f0-484186f6e51f_30
+de4e74a9bc14   5f2a969bc7a4                                         "kube-scheduler --au…"   6 minutes ago        Up 6 minutes                                k8s_kube-scheduler_kube-scheduler-minikube_kube-system_1c7123a121598343200ffd5b015ca580_30
+a129f7f6f9eb   0a108f718956                                         "etcd --advertise-cl…"   6 minutes ago        Up 6 minutes                                k8s_etcd_etcd-minikube_kube-system_5ff8e3b06bbaa8cb7ebc2bf531e48a2f_30
+0f830348aa8e   registry.k8s.io/pause:3.10.1                         "/pause"                 7 minutes ago        Up 6 minutes                                k8s_POD_kube-scheduler-minikube_kube-system_1c7123a121598343200ffd5b015ca580_30
+0867ca1fb88e   registry.k8s.io/pause:3.10.1                         "/pause"                 7 minutes ago        Up 6 minutes                                k8s_POD_etcd-minikube_kube-system_5ff8e3b06bbaa8cb7ebc2bf531e48a2f_30
+fdecb69278a8   registry.k8s.io/pause:3.10.1                         "/pause"                 7 minutes ago        Up 6 minutes                                k8s_POD_kube-apiserver-minikube_kube-system_a6dc00f40d27725f15407f95751ce5f7_30
+f1d38d30ed09   registry.k8s.io/pause:3.10.1                         "/pause"                 7 minutes ago        Up 7 minutes                                k8s_POD_kube-controller-manager-minikube_kube-system_740363cf4388c2d0df59fc97f96b889c_30
+545d24e944a9   76b5670da381                                         "./entrypoint.sh"        38 minutes ago       Exited (0) 35 minutes ago                   k8s_django_django-deployment-66b878b95b-snxhl_cyber-prod-env_24102d36-410b-47c6-ad86-2306fdf8fe63_21
+9454293cc335   76b5670da381                                         "./entrypoint.sh"        46 minutes ago       Exited (255) 9 minutes ago                  k8s_django_django-deployment-66b878b95b-xzpc5_cyber-prod-env_0e916fac-6f12-441b-a023-c1ae42d403d1_36
+2e32e1233f4e   5cce759a2777                                         "docker-entrypoint.s…"   About an hour ago    Exited (255) 9 minutes ago                  k8s_postgres_postgres-deployment-59bd4c86fb-ls5ff_cyber-prod-env_0cbdd7f8-5b33-4b60-84ca-809cf2695c08_27
+f25f33b8a5c5   c92477446e98                                         "/bin/prometheus-con…"   About an hour ago    Exited (255) 9 minutes ago                  k8s_config-reloader_prometheus-my-monitor-app-kube-promet-prometheus-0_cyber-prod-env_aad986b9-5226-4d9f-b021-6422d010bbd8_4
+47a44a4400f8   c92477446e98                                         "/bin/prometheus-con…"   About an hour ago    Exited (255) 9 minutes ago                  k8s_config-reloader_alertmanager-my-monitor-app-kube-promet-alertmanager-0_cyber-prod-env_898e0f9e-ce1e-4b9b-8910-35c1ba104f05_3
+da90a8339da5   8349dcbd5a88                                         "/bin/alertmanager -…"   About an hour ago    Exited (255) 9 minutes ago                  k8s_alertmanager_alertmanager-my-monitor-app-kube-promet-alertmanager-0_cyber-prod-env_898e0f9e-ce1e-4b9b-8910-35c1ba104f05_3
+823077d91894   0fc7e1e0ff1d                                         "/bin/prometheus --c…"   About an hour ago    Exited (255) 9 minutes ago                  k8s_prometheus_prometheus-my-monitor-app-kube-promet-prometheus-0_cyber-prod-env_aad986b9-5226-4d9f-b021-6422d010bbd8_4
+a0b6cb911505   9e9183dad882                                         "/entrypoint.sh"         About an hour ago    Exited (255) 9 minutes ago                  k8s_django-app_django-deployment-6b9457795b-25kwn_django-prod_c9981d8c-f601-4ebf-a6e5-84e860f062c4_19
+7c09da792922   5cce759a2777                                         "docker-entrypoint.s…"   About an hour ago    Exited (255) 9 minutes ago                  k8s_postgres_postgres-deployment-7ddb444f5d-h966f_django-prod_16beb06c-e14f-408e-b733-c2b5c8c9b7ff_19
+b298ec5ccb2f   9e9183dad882                                         "/entrypoint.sh"         About an hour ago    Exited (255) 9 minutes ago                  k8s_django-app_django-deployment-6b9457795b-qrzv7_django-prod_bca2cef3-7131-4915-a6f9-31f8a3f7636e_19
+7e94f3fc240e   9e9183dad882                                         "/entrypoint.sh"         About an hour ago    Exited (255) 9 minutes ago                  k8s_django-app_django-deployment-6b9457795b-zqvc9_django-prod_8f56782a-2177-448b-9a87-bba423dc9add_19
+3bbaee12e903   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_metrics-server-cf74d6dbb-knxft_kube-system_b53f853f-a8a0-4840-bfab-28e6a8f6fe7c_4
+430ede14ab3f   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_prometheus-my-monitor-app-kube-promet-prometheus-0_cyber-prod-env_aad986b9-5226-4d9f-b021-6422d010bbd8_5
+e76cd81cdbdd   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_ingress-nginx-controller-596f8778bc-27km5_ingress-nginx_e707c369-5280-40b2-83e5-ad908faf2087_17
+5e8f7fcfcb43   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_django-deployment-66b878b95b-snxhl_cyber-prod-env_24102d36-410b-47c6-ad86-2306fdf8fe63_1
+e9ca9db126a2   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_postgres-deployment-7ddb444f5d-h966f_django-prod_16beb06c-e14f-408e-b733-c2b5c8c9b7ff_21
+d0299ee504c9   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_alertmanager-my-monitor-app-kube-promet-alertmanager-0_cyber-prod-env_898e0f9e-ce1e-4b9b-8910-35c1ba104f05_5
+459b3336ed97   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_postgres-deployment-59bd4c86fb-ls5ff_cyber-prod-env_0cbdd7f8-5b33-4b60-84ca-809cf2695c08_14
+eb0a09587e1b   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_django-deployment-6b9457795b-25kwn_django-prod_c9981d8c-f601-4ebf-a6e5-84e860f062c4_21
+e4d83241e4c6   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_django-app-7dc56b5b7f-dptqr_default_4d7b042b-6744-45fd-bec3-fe45d524f46f_19
+f9bd3046325b   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_django-deployment-66b878b95b-xzpc5_cyber-prod-env_0e916fac-6f12-441b-a023-c1ae42d403d1_4
+0e2037018212   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_coredns-7d764666f9-bn7pk_kube-system_2b364702-e086-46a6-a515-39ed21cac92b_30
+cf2a09a502cb   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_django-deployment-6b9457795b-qrzv7_django-prod_bca2cef3-7131-4915-a6f9-31f8a3f7636e_21
+7bdc672d54e7   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_django-deployment-6b9457795b-zqvc9_django-prod_8f56782a-2177-448b-9a87-bba423dc9add_20
+b9a2078c5260   0a108f718956                                         "etcd --advertise-cl…"   About an hour ago    Exited (255) 9 minutes ago                  k8s_etcd_etcd-minikube_kube-system_5ff8e3b06bbaa8cb7ebc2bf531e48a2f_29
+aa2e38c2e897   5f2a969bc7a4                                         "kube-scheduler --au…"   About an hour ago    Exited (255) 9 minutes ago                  k8s_kube-scheduler_kube-scheduler-minikube_kube-system_1c7123a121598343200ffd5b015ca580_29
+45c3f61a6f69   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_kube-apiserver-minikube_kube-system_a6dc00f40d27725f15407f95751ce5f7_29
+2edbaa4e5a28   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_etcd-minikube_kube-system_5ff8e3b06bbaa8cb7ebc2bf531e48a2f_29
+a5862fd1015a   registry.k8s.io/pause:3.10.1                         "/pause"                 About an hour ago    Exited (255) 9 minutes ago                  k8s_POD_kube-scheduler-minikube_kube-system_1c7123a121598343200ffd5b015ca580_29
+505da5f405f3   d898bd44bc7b                                         "/kube-webhook-certg…"   8 days ago           Exited (0) 8 days ago                       k8s_patch_ingress-nginx-admission-patch-24dvw_ingress-nginx_4790d968-291b-48a3-be51-3338be3489b8_1
+4161663426d3   registry.k8s.io/ingress-nginx/kube-webhook-certgen   "/kube-webhook-certg…"   8 days ago           Exited (0) 8 days ago                       k8s_create_ingress-nginx-admission-create-slj7q_ingress-nginx_03b0fa27-9d83-4896-abd8-9f854634d973_0
+67d4ce611a01   registry.k8s.io/pause:3.10.1                         "/pause"                 8 days ago           Exited (0) 8 days ago                       k8s_POD_ingress-nginx-admission-create-slj7q_ingress-nginx_03b0fa27-9d83-4896-abd8-9f854634d973_0
+97490040fd10   registry.k8s.io/pause:3.10.1                         "/pause"                 8 days ago           Exited (0) 8 days ago                       k8s_POD_ingress-nginx-admission-patch-24dvw_ingress-nginx_4790d968-291b-48a3-be51-3338be3489b8_0
+1992b5fcd79e   busybox                                              "wget -qO- http://dj…"   3 weeks ago          Exited (1) 3 weeks ago                      k8s_test-pod_test-pod_django-prod_18969822-008a-4186-a64f-939a3894c2bb_0
+223a22aca858   registry.k8s.io/pause:3.10.1                         "/pause"                 3 weeks ago          Exited (0) 3 weeks ago                      k8s_POD_test-pod_django-prod_18969822-008a-4186-a64f-939a3894c2bb_0
+
+
+==> controller_ingress [a5ec0ace4767] <==
+-------------------------------------------------------------------------------
+NGINX Ingress controller
+  Release:       v1.14.3
+  Build:         b4ab41015421ae27f3a96d73f013183b7e166735
+  Repository:    https://github.com/kubernetes/ingress-nginx
+  nginx version: nginx/1.27.1
+
+-------------------------------------------------------------------------------
+
+W0616 20:13:03.670488       7 client_config.go:682] Neither --kubeconfig nor --master was specified.  Using the inClusterConfig.  This might not work.
+I0616 20:13:03.892500       7 main.go:205] "Creating API client" host="https://10.96.0.1:443"
+
+
+==> controller_ingress [be59972248e1] <==
+
+
+==> coredns [0e8db00f181f] <==
+
+
+==> coredns [cd8d1ff8acd8] <==
+command /bin/bash -c "docker logs --tail 60 cd8d1ff8acd8" failed with error: /bin/bash -c "docker logs --tail 60 cd8d1ff8acd8": Process exited with status 1
+stdout:
+
+stderr:
+Error response from daemon: No such container: cd8d1ff8acd8
+
+
+==> describe nodes <==
+command /bin/bash -c "sudo /var/lib/minikube/binaries/v1.35.1/kubectl describe nodes --kubeconfig=/var/lib/minikube/kubeconfig" failed with error: /bin/bash -c "sudo /var/lib/minikube/binaries/v1.35.1/kubectl describe nodes --kubeconfig=/var/lib/minikube/kubeconfig": Process exited with status 1
+stdout:
+
+stderr:
+The connection to the server localhost:8443 was refused - did you specify the right host or port?
+
+
+==> dmesg <==
+[Jun16 19:56] MDS CPU bug present and SMT on, data leak possible. See https://www.kernel.org/doc/html/latest/admin-guide/hw-vuln/mds.html for more details.
+[  +0.006204] PCI: Fatal: No config space access function found
+[  +0.054297] PCI: System does not support PCI
+[  +0.218627] device-mapper: core: CONFIG_IMA_DISABLE_HTABLE is disabled. Duplicate IMA measurements will not be recorded in the IMA log.
+[  +2.036445] hv_balloon: Cold memory discard hypercall failed with status 1000000005
+[  +0.000871] hv_balloon: Underlying Hyper-V does not support order less than 9. Hypercall failed
+[  +0.000871] hv_balloon: Defaulting to page_reporting_order 9
+[Jun16 19:57] WSL (190) ERROR: CheckConnection: getaddrinfo() failed: -5
+[ +38.041021] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.257993] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.260547] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.260013] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.258813] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.257963] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.257441] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.257650] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.260235] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.013711] systemd-sysv-generator[50]: SysV service '/etc/init.d/isc-dhcp-server' lacks a native systemd unit file, automatically generating a unit file for compatibility.
+[  +0.003315] systemd-sysv-generator[50]: Please update package to include a native systemd unit file.
+[  +0.001675] systemd-sysv-generator[50]: ! This compatibility logic is deprecated, expect removal soon. !
+[  +0.242453] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.260697] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.263544] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.276425] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.259288] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.258828] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.261050] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.259481] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.259463] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.260014] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.257344] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.260232] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.264220] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.257276] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.257190] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.257606] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.257159] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.258216] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.259789] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.258137] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.261357] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.259984] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.259804] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.002282] WSL (2 - init-systemd(kali-linux)) ERROR: WaitForBootProcess:3432: /sbin/init failed to start within 10000ms
+[  +0.065012] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.161700] weston[210]: memfd_create() called without MFD_EXEC or MFD_NOEXEC_SEAL set
+[  +0.102028] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.266769] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.259044] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.281563] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.258779] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.260732] Failed to connect to system scope bus via local transport: No such file or directory
+[  +0.266573] Failed to connect to system scope bus via local transport: No such file or directory
+[  +1.933116] systemd-journald[174]: File /var/log/journal/5e91118635724e4ba187e0e1e063b8f2/system.journal corrupted or uncleanly shut down, renaming and replacing.
+[Jun16 19:58] WSL (2 - Interop) ERROR: CreateLoginSession:2766: Timed out waiting for user session for uid=1000
+
+
+==> etcd [a129f7f6f9eb] <==
+{"level":"info","ts":"2026-06-16T20:11:27.444455Z","caller":"traceutil/trace.go:172","msg":"trace[20042307] range","detail":"{range_begin:/registry/controllerrevisions; range_end:; response_count:0; response_revision:287197; }","duration":"2.996658158s","start":"2026-06-16T20:11:24.447775Z","end":"2026-06-16T20:11:27.444433Z","steps":["trace[20042307] 'agreement among raft nodes before linearized reading'  (duration: 2.996289258s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:27.444519Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:24.447753Z","time spent":"2.996746558s","remote":"127.0.0.1:40204","response type":"/etcdserverpb.KV/Range","request count":0,"request size":33,"response count":0,"response size":30,"request content":"key:\"/registry/controllerrevisions\" limit:1 "}
+{"level":"warn","ts":"2026-06-16T20:11:27.444121Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"3.229531424s","expected-duration":"100ms","prefix":"read-only range ","request":"key:\"/registry/controllerrevisions\" limit:1 ","response":"range_response_count:0 size:6"}
+{"level":"info","ts":"2026-06-16T20:11:27.444879Z","caller":"traceutil/trace.go:172","msg":"trace[73267527] range","detail":"{range_begin:/registry/controllerrevisions; range_end:; response_count:0; response_revision:287197; }","duration":"3.230302024s","start":"2026-06-16T20:11:24.214564Z","end":"2026-06-16T20:11:27.444866Z","steps":["trace[73267527] 'agreement among raft nodes before linearized reading'  (duration: 3.229484524s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:27.444181Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"3.180270731s","expected-duration":"100ms","prefix":"read-only range ","request":"limit:1 keys_only:true ","response":"range_response_count:0 size:6"}
+{"level":"info","ts":"2026-06-16T20:11:27.446317Z","caller":"traceutil/trace.go:172","msg":"trace[1778252014] range","detail":"{range_begin:; range_end:; response_count:0; response_revision:287197; }","duration":"3.182405431s","start":"2026-06-16T20:11:24.263896Z","end":"2026-06-16T20:11:27.446301Z","steps":["trace[1778252014] 'agreement among raft nodes before linearized reading'  (duration: 3.180252131s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:27.446342Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:24.214540Z","time spent":"3.231778924s","remote":"127.0.0.1:40204","response type":"/etcdserverpb.KV/Range","request count":0,"request size":33,"response count":0,"response size":30,"request content":"key:\"/registry/controllerrevisions\" limit:1 "}
+{"level":"warn","ts":"2026-06-16T20:11:27.451573Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"2.758493594s","expected-duration":"100ms","prefix":"read-only range ","request":"key:\"/registry/csidrivers\" limit:1 ","response":"range_response_count:0 size:6"}
+{"level":"info","ts":"2026-06-16T20:11:27.451721Z","caller":"traceutil/trace.go:172","msg":"trace[1614984545] range","detail":"{range_begin:/registry/csidrivers; range_end:; response_count:0; response_revision:287197; }","duration":"2.758655294s","start":"2026-06-16T20:11:24.693047Z","end":"2026-06-16T20:11:27.451702Z","steps":["trace[1614984545] 'agreement among raft nodes before linearized reading'  (duration: 2.750812395s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:27.451823Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:24.693000Z","time spent":"2.758799394s","remote":"127.0.0.1:40042","response type":"/etcdserverpb.KV/Range","request count":0,"request size":24,"response count":0,"response size":30,"request content":"key:\"/registry/csidrivers\" limit:1 "}
+{"level":"info","ts":"2026-06-16T20:11:27.452411Z","caller":"traceutil/trace.go:172","msg":"trace[789981420] transaction","detail":"{read_only:false; response_revision:287198; number_of_response:1; }","duration":"3.864994431s","start":"2026-06-16T20:11:23.587364Z","end":"2026-06-16T20:11:27.452358Z","steps":["trace[789981420] 'process raft request'  (duration: 3.857672332s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:27.452592Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:23.587333Z","time spent":"3.865118931s","remote":"127.0.0.1:39558","response type":"/etcdserverpb.KV/Txn","request count":1,"request size":4423,"response count":0,"response size":42,"request content":"compare:<target:MOD key:\"/registry/pods/kube-system/storage-provisioner\" mod_revision:287065 > success:<request_put:<key:\"/registry/pods/kube-system/storage-provisioner\" value_size:4369 >> failure:<request_range:<key:\"/registry/pods/kube-system/storage-provisioner\" > >"}
+{"level":"warn","ts":"2026-06-16T20:11:27.453054Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"3.59697927s","expected-duration":"100ms","prefix":"read-only range ","request":"key:\"/registry/resourcequotas\" limit:1 ","response":"range_response_count:0 size:6"}
+{"level":"info","ts":"2026-06-16T20:11:27.453136Z","caller":"traceutil/trace.go:172","msg":"trace[223557107] range","detail":"{range_begin:/registry/resourcequotas; range_end:; response_count:0; response_revision:287197; }","duration":"3.59705797s","start":"2026-06-16T20:11:23.856063Z","end":"2026-06-16T20:11:27.453121Z","steps":["trace[223557107] 'agreement among raft nodes before linearized reading'  (duration: 3.589317971s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:27.453214Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:23.856031Z","time spent":"3.59716947s","remote":"127.0.0.1:39380","response type":"/etcdserverpb.KV/Range","request count":0,"request size":28,"response count":0,"response size":30,"request content":"key:\"/registry/resourcequotas\" limit:1 "}
+{"level":"warn","ts":"2026-06-16T20:11:27.453734Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"3.87104883s","expected-duration":"100ms","prefix":"read-only range ","request":"key:\"/registry/events/kube-system/kube-scheduler-minikube.18b9a88ad8144759\" limit:1 ","response":"range_response_count:1 size:777"}
+{"level":"info","ts":"2026-06-16T20:11:27.453814Z","caller":"traceutil/trace.go:172","msg":"trace[742578200] range","detail":"{range_begin:/registry/events/kube-system/kube-scheduler-minikube.18b9a88ad8144759; range_end:; response_count:1; response_revision:287197; }","duration":"3.87109183s","start":"2026-06-16T20:11:23.582672Z","end":"2026-06-16T20:11:27.453764Z","steps":["trace[742578200] 'agreement among raft nodes before linearized reading'  (duration: 3.862725231s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:27.453860Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:23.582607Z","time spent":"3.87123983s","remote":"127.0.0.1:39356","response type":"/etcdserverpb.KV/Range","request count":0,"request size":73,"response count":1,"response size":801,"request content":"key:\"/registry/events/kube-system/kube-scheduler-minikube.18b9a88ad8144759\" limit:1 "}
+{"level":"warn","ts":"2026-06-16T20:11:27.454726Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"3.860761031s","expected-duration":"100ms","prefix":"read-only range ","request":"key:\"/registry/rolebindings/kube-public/system:controller:bootstrap-signer\" limit:1 ","response":"range_response_count:1 size:742"}
+{"level":"info","ts":"2026-06-16T20:11:27.454818Z","caller":"traceutil/trace.go:172","msg":"trace[102902756] range","detail":"{range_begin:/registry/rolebindings/kube-public/system:controller:bootstrap-signer; range_end:; response_count:1; response_revision:287197; }","duration":"3.87116423s","start":"2026-06-16T20:11:23.583600Z","end":"2026-06-16T20:11:27.454764Z","steps":["trace[102902756] 'agreement among raft nodes before linearized reading'  (duration: 3.860602531s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:27.454913Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:23.583487Z","time spent":"3.87136353s","remote":"127.0.0.1:39884","response type":"/etcdserverpb.KV/Range","request count":0,"request size":73,"response count":1,"response size":766,"request content":"key:\"/registry/rolebindings/kube-public/system:controller:bootstrap-signer\" limit:1 "}
+{"level":"warn","ts":"2026-06-16T20:11:27.729758Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"1.999992805s","expected-duration":"100ms","prefix":"read-only range ","request":"key:\"/registry/health\" ","response":"","error":"context deadline exceeded"}
+{"level":"info","ts":"2026-06-16T20:11:27.729846Z","caller":"traceutil/trace.go:172","msg":"trace[1510611811] range","detail":"{range_begin:/registry/health; range_end:; }","duration":"2.000089705s","start":"2026-06-16T20:11:25.729733Z","end":"2026-06-16T20:11:27.729823Z","steps":["trace[1510611811] 'agreement among raft nodes before linearized reading'  (duration: 1.999989105s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:27.729923Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:25.729713Z","time spent":"2.000189405s","remote":"127.0.0.1:39330","response type":"/etcdserverpb.KV/Range","request count":0,"request size":18,"response count":0,"response size":0,"request content":"key:\"/registry/health\" "}
+{"level":"warn","ts":"2026-06-16T20:11:27.944922Z","caller":"etcdserver/v3_server.go:911","msg":"waiting for ReadIndex response took too long, retrying","sent-request-id":8128046052479751386,"retry-timeout":"500ms"}
+{"level":"warn","ts":"2026-06-16T20:11:28.445835Z","caller":"etcdserver/v3_server.go:911","msg":"waiting for ReadIndex response took too long, retrying","sent-request-id":8128046052479751386,"retry-timeout":"500ms"}
+{"level":"warn","ts":"2026-06-16T20:11:28.946099Z","caller":"etcdserver/v3_server.go:911","msg":"waiting for ReadIndex response took too long, retrying","sent-request-id":8128046052479751386,"retry-timeout":"500ms"}
+{"level":"warn","ts":"2026-06-16T20:11:29.446438Z","caller":"wal/wal.go:845","msg":"slow fdatasync","took":"2.002781205s","expected-duration":"1s"}
+{"level":"warn","ts":"2026-06-16T20:11:29.446474Z","caller":"etcdserver/v3_server.go:911","msg":"waiting for ReadIndex response took too long, retrying","sent-request-id":8128046052479751386,"retry-timeout":"500ms"}
+{"level":"info","ts":"2026-06-16T20:11:29.446804Z","caller":"traceutil/trace.go:172","msg":"trace[1641248818] linearizableReadLoop","detail":"{readStateIndex:359388; appliedIndex:359388; }","duration":"2.002949905s","start":"2026-06-16T20:11:27.443830Z","end":"2026-06-16T20:11:29.446780Z","steps":["trace[1641248818] 'read index received'  (duration: 2.002940905s)","trace[1641248818] 'applied index is now lower than readState.Index'  (duration: 7.5µs)"],"step_count":2}
+{"level":"warn","ts":"2026-06-16T20:11:29.446900Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"3.53141648s","expected-duration":"100ms","prefix":"read-only range ","request":"key:\"/registry/persistentvolumes\" limit:1 ","response":"range_response_count:0 size:6"}
+{"level":"info","ts":"2026-06-16T20:11:29.446934Z","caller":"traceutil/trace.go:172","msg":"trace[1921327670] range","detail":"{range_begin:/registry/persistentvolumes; range_end:; response_count:0; response_revision:287198; }","duration":"3.53148778s","start":"2026-06-16T20:11:25.915437Z","end":"2026-06-16T20:11:29.446924Z","steps":["trace[1921327670] 'agreement among raft nodes before linearized reading'  (duration: 3.53137138s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:29.446966Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"3.759251346s","expected-duration":"100ms","prefix":"read-only range ","request":"key:\"/registry/persistentvolumeclaims/cyber-prod-env/pvc-media\" limit:1 ","response":"range_response_count:1 size:1622"}
+{"level":"warn","ts":"2026-06-16T20:11:29.446987Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:25.915411Z","time spent":"3.53156168s","remote":"127.0.0.1:39490","response type":"/etcdserverpb.KV/Range","request count":0,"request size":31,"response count":0,"response size":30,"request content":"key:\"/registry/persistentvolumes\" limit:1 "}
+{"level":"info","ts":"2026-06-16T20:11:29.447027Z","caller":"traceutil/trace.go:172","msg":"trace[1501919527] range","detail":"{range_begin:/registry/persistentvolumeclaims/cyber-prod-env/pvc-media; range_end:; response_count:1; response_revision:287198; }","duration":"3.759289946s","start":"2026-06-16T20:11:25.687703Z","end":"2026-06-16T20:11:29.446993Z","steps":["trace[1501919527] 'agreement among raft nodes before linearized reading'  (duration: 3.759117646s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:29.447035Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"3.761578046s","expected-duration":"100ms","prefix":"read-only range ","request":"key:\"/registry/masterleases/192.168.49.2\" limit:1 ","response":"range_response_count:0 size:6"}
+{"level":"info","ts":"2026-06-16T20:11:29.447066Z","caller":"traceutil/trace.go:172","msg":"trace[956716577] range","detail":"{range_begin:/registry/masterleases/192.168.49.2; range_end:; response_count:0; response_revision:287198; }","duration":"3.761608746s","start":"2026-06-16T20:11:25.685449Z","end":"2026-06-16T20:11:29.447058Z","steps":["trace[956716577] 'agreement among raft nodes before linearized reading'  (duration: 3.761559346s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:29.447073Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:25.687683Z","time spent":"3.759369746s","remote":"127.0.0.1:39500","response type":"/etcdserverpb.KV/Range","request count":0,"request size":61,"response count":1,"response size":1646,"request content":"key:\"/registry/persistentvolumeclaims/cyber-prod-env/pvc-media\" limit:1 "}
+{"level":"warn","ts":"2026-06-16T20:11:29.447096Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:25.685426Z","time spent":"3.761660846s","remote":"127.0.0.1:39228","response type":"/etcdserverpb.KV/Range","request count":0,"request size":39,"response count":0,"response size":30,"request content":"key:\"/registry/masterleases/192.168.49.2\" limit:1 "}
+{"level":"warn","ts":"2026-06-16T20:11:29.447262Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"2.449873539s","expected-duration":"100ms","prefix":"read-only range ","request":"key:\"/registry/roles\" limit:1 ","response":"range_response_count:0 size:6"}
+{"level":"info","ts":"2026-06-16T20:11:29.447292Z","caller":"traceutil/trace.go:172","msg":"trace[1316179258] range","detail":"{range_begin:/registry/roles; range_end:; response_count:0; response_revision:287198; }","duration":"2.449904839s","start":"2026-06-16T20:11:26.997379Z","end":"2026-06-16T20:11:29.447284Z","steps":["trace[1316179258] 'agreement among raft nodes before linearized reading'  (duration: 2.449856539s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:29.446880Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"4.058904902s","expected-duration":"100ms","prefix":"read-only range ","request":"key:\"/registry/jobs\" limit:1 ","response":"range_response_count:0 size:6"}
+{"level":"warn","ts":"2026-06-16T20:11:29.447323Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:26.997355Z","time spent":"2.449959639s","remote":"127.0.0.1:39872","response type":"/etcdserverpb.KV/Range","request count":0,"request size":19,"response count":0,"response size":30,"request content":"key:\"/registry/roles\" limit:1 "}
+{"level":"info","ts":"2026-06-16T20:11:29.447339Z","caller":"traceutil/trace.go:172","msg":"trace[878396821] range","detail":"{range_begin:/registry/jobs; range_end:; response_count:0; response_revision:287198; }","duration":"4.059370802s","start":"2026-06-16T20:11:25.387960Z","end":"2026-06-16T20:11:29.447331Z","steps":["trace[878396821] 'agreement among raft nodes before linearized reading'  (duration: 4.058884502s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:29.447375Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:25.387936Z","time spent":"4.059429102s","remote":"127.0.0.1:39644","response type":"/etcdserverpb.KV/Range","request count":0,"request size":18,"response count":0,"response size":30,"request content":"key:\"/registry/jobs\" limit:1 "}
+{"level":"info","ts":"2026-06-16T20:11:29.447789Z","caller":"traceutil/trace.go:172","msg":"trace[44835367] transaction","detail":"{read_only:false; response_revision:287199; number_of_response:1; }","duration":"2.123414187s","start":"2026-06-16T20:11:27.324357Z","end":"2026-06-16T20:11:29.447772Z","steps":["trace[44835367] 'process raft request'  (duration: 2.123285287s)"],"step_count":1}
+{"level":"warn","ts":"2026-06-16T20:11:29.447881Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:27.324329Z","time spent":"2.123498687s","remote":"127.0.0.1:40376","response type":"/etcdserverpb.KV/Txn","request count":1,"request size":2142,"response count":0,"response size":42,"request content":"compare:<target:MOD key:\"/registry/apiregistration.k8s.io/apiservices/v1beta1.metrics.k8s.io\" mod_revision:287187 > success:<request_put:<key:\"/registry/apiregistration.k8s.io/apiservices/v1beta1.metrics.k8s.io\" value_size:2067 >> failure:<request_range:<key:\"/registry/apiregistration.k8s.io/apiservices/v1beta1.metrics.k8s.io\" > >"}
+{"level":"warn","ts":"2026-06-16T20:11:29.948160Z","caller":"etcdserver/v3_server.go:911","msg":"waiting for ReadIndex response took too long, retrying","sent-request-id":8128046052479751388,"retry-timeout":"500ms"}
+{"level":"info","ts":"2026-06-16T20:11:30.228049Z","caller":"traceutil/trace.go:172","msg":"trace[1424423181] linearizableReadLoop","detail":"{readStateIndex:359389; appliedIndex:359389; }","duration":"781.060785ms","start":"2026-06-16T20:11:29.446837Z","end":"2026-06-16T20:11:30.227898Z","steps":["trace[1424423181] 'read index received'  (duration: 781.049485ms)","trace[1424423181] 'applied index is now lower than readState.Index'  (duration: 10.3µs)"],"step_count":2}
+{"level":"warn","ts":"2026-06-16T20:11:31.231377Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"2.26091582s","expected-duration":"100ms","prefix":"read-only range ","request":"key:\"/registry/endpointslices\" limit:1 ","response":"range_response_count:0 size:6"}
+{"level":"info","ts":"2026-06-16T20:11:31.231467Z","caller":"traceutil/trace.go:172","msg":"trace[1969677290] range","detail":"{range_begin:/registry/endpointslices; range_end:; response_count:0; response_revision:287199; }","duration":"2.26102052s","start":"2026-06-16T20:11:28.970426Z","end":"2026-06-16T20:11:31.231447Z","steps":["trace[1969677290] 'agreement among raft nodes before linearized reading'  (duration: 1.257524615s)","trace[1969677290] 'range keys from in-memory index tree'  (duration: 1.003350305s)"],"step_count":2}
+{"level":"warn","ts":"2026-06-16T20:11:31.231529Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:28.970397Z","time spent":"2.26110982s","remote":"127.0.0.1:39718","response type":"/etcdserverpb.KV/Range","request count":0,"request size":28,"response count":0,"response size":30,"request content":"key:\"/registry/endpointslices\" limit:1 "}
+{"level":"warn","ts":"2026-06-16T20:11:31.231767Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"3.763822998s","expected-duration":"100ms","prefix":"read-only range ","request":"key:\"/registry/pods/cyber-prod-env/postgres-deployment-59bd4c86fb-ls5ff\" limit:1 ","response":"range_response_count:1 size:4974"}
+{"level":"info","ts":"2026-06-16T20:11:31.231816Z","caller":"traceutil/trace.go:172","msg":"trace[354498208] range","detail":"{range_begin:/registry/pods/cyber-prod-env/postgres-deployment-59bd4c86fb-ls5ff; range_end:; response_count:1; response_revision:287199; }","duration":"3.763875698s","start":"2026-06-16T20:11:27.467926Z","end":"2026-06-16T20:11:31.231802Z","steps":["trace[354498208] 'agreement among raft nodes before linearized reading'  (duration: 2.760102693s)","trace[354498208] 'range keys from in-memory index tree'  (duration: 1.003620005s)"],"step_count":2}
+{"level":"warn","ts":"2026-06-16T20:11:31.231878Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:27.467904Z","time spent":"3.763957198s","remote":"127.0.0.1:39558","response type":"/etcdserverpb.KV/Range","request count":0,"request size":70,"response count":1,"response size":4998,"request content":"key:\"/registry/pods/cyber-prod-env/postgres-deployment-59bd4c86fb-ls5ff\" limit:1 "}
+{"level":"warn","ts":"2026-06-16T20:11:31.232059Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"3.773448297s","expected-duration":"100ms","prefix":"read-only range ","request":"limit:1 keys_only:true ","response":"range_response_count:0 size:6"}
+{"level":"info","ts":"2026-06-16T20:11:31.232161Z","caller":"traceutil/trace.go:172","msg":"trace[1551544772] range","detail":"{range_begin:; range_end:; response_count:0; response_revision:287199; }","duration":"3.773546697s","start":"2026-06-16T20:11:27.458598Z","end":"2026-06-16T20:11:31.232145Z","steps":["trace[1551544772] 'agreement among raft nodes before linearized reading'  (duration: 2.769530492s)","trace[1551544772] 'range keys from in-memory index tree'  (duration: 1.003902905s)"],"step_count":2}
+{"level":"warn","ts":"2026-06-16T20:11:31.232315Z","caller":"txn/util.go:93","msg":"apply request took too long","took":"1.004239805s","expected-duration":"100ms","prefix":"","request":"header:<ID:8128046052479751387 username:\"kube-apiserver-etcd-client\" auth_revision:1 > txn:<compare:<target:MOD key:\"/registry/events/kube-system/kube-scheduler-minikube.18b9a88ad8144759\" mod_revision:287196 > success:<request_put:<key:\"/registry/events/kube-system/kube-scheduler-minikube.18b9a88ad8144759\" value_size:672 lease:8128046052479751327 >> failure:<request_range:<key:\"/registry/events/kube-system/kube-scheduler-minikube.18b9a88ad8144759\" > >>","response":"size:18"}
+{"level":"info","ts":"2026-06-16T20:11:31.232388Z","caller":"traceutil/trace.go:172","msg":"trace[371465401] transaction","detail":"{read_only:false; response_revision:287200; number_of_response:1; }","duration":"3.764219198s","start":"2026-06-16T20:11:27.468157Z","end":"2026-06-16T20:11:31.232376Z","steps":["trace[371465401] 'process raft request'  (duration: 2.759858793s)","trace[371465401] 'compare'  (duration: 1.003543705s)"],"step_count":2}
+{"level":"warn","ts":"2026-06-16T20:11:31.232615Z","caller":"v3rpc/interceptor.go:202","msg":"request stats","start time":"2026-06-16T20:11:27.468142Z","time spent":"3.764286898s","remote":"127.0.0.1:39356","response type":"/etcdserverpb.KV/Txn","request count":1,"request size":759,"response count":0,"response size":42,"request content":"compare:<target:MOD key:\"/registry/events/kube-system/kube-scheduler-minikube.18b9a88ad8144759\" mod_revision:287196 > success:<request_put:<key:\"/registry/events/kube-system/kube-scheduler-minikube.18b9a88ad8144759\" value_size:672 lease:8128046052479751327 >> failure:<request_range:<key:\"/registry/events/kube-system/kube-scheduler-minikube.18b9a88ad8144759\" > >"}
+
+
+==> etcd [b9a2078c5260] <==
+command /bin/bash -c "docker logs --tail 60 b9a2078c5260" failed with error: /bin/bash -c "docker logs --tail 60 b9a2078c5260": Process exited with status 1
+stdout:
+
+stderr:
+failed to connect to the docker API at unix:///var/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /var/run/docker.sock: connect: no such file or directory
+
+
+==> kernel <==
+ 20:14:14 up 17 min,  0 user,  load average: 13.67, 12.14, 6.69
+Linux minikube 6.6.87.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025 x86_64 GNU/Linux
+PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
+
+
+==> kube-apiserver [bb2d1bd04650] <==
+command /bin/bash -c "docker logs --tail 60 bb2d1bd04650" failed with error: /bin/bash -c "docker logs --tail 60 bb2d1bd04650": Process exited with status 1
+stdout:
+
+stderr:
+failed to connect to the docker API at unix:///var/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /var/run/docker.sock: connect: no such file or directory
+
+
+==> kube-controller-manager [02592299a631] <==
+command /bin/bash -c "docker logs --tail 60 02592299a631" failed with error: /bin/bash -c "docker logs --tail 60 02592299a631": Process exited with status 1
+stdout:
+
+stderr:
+failed to connect to the docker API at unix:///var/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /var/run/docker.sock: connect: no such file or directory
+
+
+==> kube-proxy [4ef112981012] <==
+command /bin/bash -c "docker logs --tail 60 4ef112981012" failed with error: /bin/bash -c "docker logs --tail 60 4ef112981012": Process exited with status 1
+stdout:
+
+stderr:
+failed to connect to the docker API at unix:///var/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /var/run/docker.sock: connect: no such file or directory
+
+
+==> kube-scheduler [aa2e38c2e897] <==
+command /bin/bash -c "docker logs --tail 60 aa2e38c2e897" failed with error: /bin/bash -c "docker logs --tail 60 aa2e38c2e897": Process exited with status 1
+stdout:
+
+stderr:
+failed to connect to the docker API at unix:///var/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /var/run/docker.sock: connect: no such file or directory
+
+
+==> kube-scheduler [de4e74a9bc14] <==
+command /bin/bash -c "docker logs --tail 60 de4e74a9bc14" failed with error: /bin/bash -c "docker logs --tail 60 de4e74a9bc14": Process exited with status 1
+stdout:
+
+stderr:
+failed to connect to the docker API at unix:///var/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /var/run/docker.sock: connect: no such file or directory
+
+
+==> kubelet <==
+Jun 16 20:14:15 minikube kubelet[1175]: E0616 20:14:15.636188    1175 kuberuntime_manager.go:1664] "Unhandled Error" err="container django start failed in pod django-deployment-66b878b95b-8c74l_cyber-prod-env(ca11b33c-8fb2-48a6-8e3a-396de99807c1): ImageInspectError: Failed to inspect image \"\": rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" logger="UnhandledError"
+Jun 16 20:14:15 minikube kubelet[1175]: E0616 20:14:15.637457    1175 pod_workers.go:1324] "Error syncing pod, skipping" err="failed to \"StartContainer\" for \"django\" with ImageInspectError: \"Failed to inspect image \\\"\\\": rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?\"" pod="cyber-prod-env/django-deployment-66b878b95b-xzpc5" podUID="0e916fac-6f12-441b-a023-c1ae42d403d1"
+Jun 16 20:14:15 minikube kubelet[1175]: E0616 20:14:15.637524    1175 pod_workers.go:1324] "Error syncing pod, skipping" err="failed to \"StartContainer\" for \"django\" with ImageInspectError: \"Failed to inspect image \\\"\\\": rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?\"" pod="cyber-prod-env/django-deployment-66b878b95b-5dw7t" podUID="1d535525-6c8a-4c7d-ab1c-627906393cd3"
+Jun 16 20:14:15 minikube kubelet[1175]: E0616 20:14:15.637542    1175 pod_workers.go:1324] "Error syncing pod, skipping" err="failed to \"StartContainer\" for \"django\" with ImageInspectError: \"Failed to inspect image \\\"\\\": rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?\"" pod="cyber-prod-env/django-deployment-66b878b95b-8c74l" podUID="ca11b33c-8fb2-48a6-8e3a-396de99807c1"
+Jun 16 20:14:15 minikube kubelet[1175]: E0616 20:14:15.865075    1175 log.go:32] "ListPodSandbox with filter from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" filter="<nil>"
+Jun 16 20:14:15 minikube kubelet[1175]: E0616 20:14:15.865189    1175 kuberuntime_sandbox.go:297] "Failed to list pod sandboxes" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:15 minikube kubelet[1175]: E0616 20:14:15.865230    1175 generic.go:254] "GenericPLEG: Unable to retrieve pods" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:16 minikube kubelet[1175]: E0616 20:14:16.186270    1175 log.go:32] "ListContainers with filter from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" filter=""
+Jun 16 20:14:16 minikube kubelet[1175]: E0616 20:14:16.186394    1175 container_log_manager.go:154] "Failed to rotate container logs" err="failed to list containers: rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:16 minikube kubelet[1175]: E0616 20:14:16.700516    1175 kubelet_node_status.go:474] "Error updating node status, will retry" err="failed to patch status \"{\\\"status\\\":{\\\"$setElementOrder/conditions\\\":[{\\\"type\\\":\\\"MemoryPressure\\\"},{\\\"type\\\":\\\"DiskPressure\\\"},{\\\"type\\\":\\\"PIDPressure\\\"},{\\\"type\\\":\\\"Ready\\\"}],\\\"conditions\\\":[{\\\"lastHeartbeatTime\\\":\\\"2026-06-16T20:14:16Z\\\",\\\"type\\\":\\\"MemoryPressure\\\"},{\\\"lastHeartbeatTime\\\":\\\"2026-06-16T20:14:16Z\\\",\\\"type\\\":\\\"DiskPressure\\\"},{\\\"lastHeartbeatTime\\\":\\\"2026-06-16T20:14:16Z\\\",\\\"type\\\":\\\"PIDPressure\\\"},{\\\"lastHeartbeatTime\\\":\\\"2026-06-16T20:14:16Z\\\",\\\"type\\\":\\\"Ready\\\"}],\\\"images\\\":[{\\\"names\\\":[\\\"grafana/grafana@sha256:5dad0df181cb644a14e13617b913b261a54f7d4fd4510721dba420929f35bea2\\\",\\\"grafana/grafana:13.0.2\\\"],\\\"sizeBytes\\\":1075133251},{\\\"names\\\":[],\\\"sizeBytes\\\":804497355},{\\\"names\\\":[\\\"postgres@sha256:1b92e7a80c021647bf70f5d3eb66066a998e4f5cf43c07bb9dc9f729782cf88e\\\",\\\"postgres:15\\\"],\\\"sizeBytes\\\":444607778},{\\\"names\\\":[\\\"quay.io/prometheus/prometheus@sha256:f39df5334dee301b885f77e0ff1159f5d8a43bf9db518f885544594799a1e3c2\\\",\\\"quay.io/prometheus/prometheus:v3.12.0-distroless\\\"],\\\"sizeBytes\\\":435626078},{\\\"names\\\":[\\\"registry.k8s.io/ingress-nginx/controller@sha256:82917be97c0939f6ada1717bb39aa7e66c229d6cfb10dcfc8f1bd42f9efe0f81\\\"],\\\"sizeBytes\\\":332374677},{\\\"names\\\":[\\\"django-secure-app:latest\\\"],\\\"sizeBytes\\\":305090644},{\\\"names\\\":[],\\\"sizeBytes\\\":305090604},{\\\"names\\\":[\\\"postgres@sha256:df7bca0066e6f60cc3dd32faa70caddec20e2c22b58932f79498e5704b23854a\\\",\\\"postgres:15-alpine\\\"],\\\"sizeBytes\\\":273975719},{\\\"names\\\":[\\\"alidevopsx/django_app@sha256:82ec96a287498efb831438e0ce373e0324d74c41f1b227f61de2ff3d5fb34014\\\",\\\"alidevopsx/django_app:latest\\\"],\\\"sizeBytes\\\":209233417},{\\\"names\\\":[\\\"quay.io/kiwigrid/k8s-sidecar@sha256:694950d736c8b532eba4006527ccbdac98fefc9f30b3346ba2de50b6cad91c94\\\",\\\"quay.io/kiwigrid/k8s-sidecar:2.7.3\\\"],\\\"sizeBytes\\\":97018506},{\\\"names\\\":[\\\"registry.k8s.io/kube-apiserver@sha256:011838b85f65454b95a013b2b902dd506789fd07f9abc84e52eb2b6a044cd392\\\",\\\"registry.k8s.io/kube-apiserver:v1.35.1\\\"],\\\"sizeBytes\\\":89776935},{\\\"names\\\":[\\\"registry.k8s.io/metrics-server/metrics-server@sha256:b2d2efaf5ac3b366ed0f839d2412a2c4279d4fc2a2a733f12c52133faed36c41\\\",\\\"registry.k8s.io/metrics-server/metrics-server:v0.8.1\\\"],\\\"sizeBytes\\\":82837395},{\\\"names\\\":[\\\"quay.io/prometheus/alertmanager@sha256:af26fbe4dd1886ac0efd7bd55cd9027da262e105b137a376522b7c14c3626e4a\\\",\\\"quay.io/prometheus/alertmanager:v0.33.0\\\"],\\\"sizeBytes\\\":80069767},{\\\"names\\\":[\\\"registry.k8s.io/coredns/coredns@sha256:9b9128672209474da07c91439bf15ed704ae05ad918dd6454e5b6ae14e35fee6\\\",\\\"registry.k8s.io/coredns/coredns:v1.13.1\\\"],\\\"sizeBytes\\\":78114624},{\\\"names\\\":[\\\"registry.k8s.io/kube-controller-manager@sha256:9fb295baa9d68543d7bbecc23e16fcdf85c8c06680f91e628535aa6fbe180dbd\\\",\\\"registry.k8s.io/kube-controller-manager:v1.35.1\\\"],\\\"sizeBytes\\\":75818118},{\\\"names\\\":[\\\"quay.io/prometheus-operator/prometheus-operator@sha256:9e53e13139218aca79ee000172de73355e9174ef2904585bfad9497fc71aae2d\\\",\\\"quay.io/prometheus-operator/prometheus-operator:v0.91.0\\\"],\\\"sizeBytes\\\":70798593},{\\\"names\\\":[\\\"registry.k8s.io/kube-proxy@sha256:a832f1cece7252b2e52294be5a59b7579ccde35202ad63e09e9f4f04c5676435\\\",\\\"registry.k8s.io/kube-proxy:v1.35.1\\\"],\\\"sizeBytes\\\":70410261},{\\\"names\\\":[\\\"registry.k8s.io/etcd@sha256:60a30b5d81b2217555e2cfb9537f655b7ba97220b99c39ee2e162a7127225890\\\",\\\"registry.k8s.io/etcd:3.6.6-0\\\"],\\\"sizeBytes\\\":62520851},{\\\"names\\\":[\\\"registry.k8s.io/kube-state-metrics/kube-state-metrics@sha256:85108987d044b18a098126732f98602df408888c0f7d456241f5abefb9744bc1\\\",\\\"registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1\\\"],\\\"sizeBytes\\\":62267655},{\\\"names\\\":[\\\"registry.k8s.io/kube-scheduler@sha256:fc251ed4b8a03830bb8f75fb5fe983b3b0b5cc15a9c066d8f6c5d2e547deece8\\\",\\\"registry.k8s.io/kube-scheduler:v1.35.1\\\"],\\\"sizeBytes\\\":51688582},{\\\"names\\\":[\\\"quay.io/prometheus-operator/prometheus-config-reloader@sha256:7d9e4eea5f1139e602508871f422b0116c60e87c662f3dcd234d5ab60cd0d8c1\\\",\\\"quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0\\\"],\\\"sizeBytes\\\":42126593},{\\\"names\\\":[\\\"redis@sha256:6ab0b6e7381779332f97b8ca76193e45b0756f38d4c0dcda72dbb3c32061ab99\\\",\\\"redis:7-alpine\\\"],\\\"sizeBytes\\\":39088753},{\\\"names\\\":[\\\"registry.k8s.io/ingress-nginx/kube-webhook-certgen@sha256:7c74a715af2c94cb734785b4d3ea1357b4f02b88e1e123c622a9cb68b62f669c\\\"],\\\"sizeBytes\\\":38579981},{\\\"names\\\":[\\\"gcr.io/k8s-minikube/storage-provisioner@sha256:18eb69d1418e854ad5a19e399310e52808a8321e4c441c1dddad8977a0d7a944\\\",\\\"gcr.io/k8s-minikube/storage-provisioner:v5\\\"],\\\"sizeBytes\\\":31465472},{\\\"names\\\":[\\\"ghcr.io/jkroepke/kube-webhook-certgen@sha256:8ce13c365c8e9ced0aad5ef350a53c50b7ca5817f99d856b9eec895db1056728\\\",\\\"ghcr.io/jkroepke/kube-webhook-certgen:1.8.3\\\"],\\\"sizeBytes\\\":27123874},{\\\"names\\\":[\\\"quay.io/prometheus/node-exporter@sha256:6112664fd761bb964d8a2d3d0119d6c8402618a89edbb3a43c8f7b4090fb53c9\\\",\\\"quay.io/prometheus/node-exporter:v1.11.1-distroless\\\"],\\\"sizeBytes\\\":25948333},{\\\"names\\\":[\\\"busybox@sha256:fd8d9aa63ba2f0982b5304e1ee8d3b90a210bc1ffb5314d980eb6962f1a9715d\\\",\\\"busybox:latest\\\"],\\\"sizeBytes\\\":4445830},{\\\"names\\\":[\\\"registry.k8s.io/pause@sha256:278fb9dbcca9518083ad1e11276933a2e96f23de604a3a08cc3c80002767d24c\\\",\\\"registry.k8s.io/pause:3.10.1\\\"],\\\"sizeBytes\\\":735760}]}}\" for node \"minikube\": Patch \"https://192.168.49.2:8443/api/v1/nodes/minikube/status?timeout=10s\": dial tcp 192.168.49.2:8443: connect: connection refused"
+Jun 16 20:14:16 minikube kubelet[1175]: E0616 20:14:16.701340    1175 kubelet_node_status.go:474] "Error updating node status, will retry" err="error getting node \"minikube\": Get \"https://192.168.49.2:8443/api/v1/nodes/minikube?timeout=10s\": dial tcp 192.168.49.2:8443: connect: connection refused"
+Jun 16 20:14:16 minikube kubelet[1175]: E0616 20:14:16.701943    1175 kubelet_node_status.go:474] "Error updating node status, will retry" err="error getting node \"minikube\": Get \"https://192.168.49.2:8443/api/v1/nodes/minikube?timeout=10s\": dial tcp 192.168.49.2:8443: connect: connection refused"
+Jun 16 20:14:16 minikube kubelet[1175]: E0616 20:14:16.702431    1175 kubelet_node_status.go:474] "Error updating node status, will retry" err="error getting node \"minikube\": Get \"https://192.168.49.2:8443/api/v1/nodes/minikube?timeout=10s\": dial tcp 192.168.49.2:8443: connect: connection refused"
+Jun 16 20:14:16 minikube kubelet[1175]: E0616 20:14:16.702873    1175 kubelet_node_status.go:474] "Error updating node status, will retry" err="error getting node \"minikube\": Get \"https://192.168.49.2:8443/api/v1/nodes/minikube?timeout=10s\": dial tcp 192.168.49.2:8443: connect: connection refused"
+Jun 16 20:14:16 minikube kubelet[1175]: E0616 20:14:16.702929    1175 kubelet_node_status.go:461] "Unable to update node status" err="update node status exceeds retry count"
+Jun 16 20:14:16 minikube kubelet[1175]: E0616 20:14:16.868301    1175 log.go:32] "ListPodSandbox with filter from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" filter="<nil>"
+Jun 16 20:14:16 minikube kubelet[1175]: E0616 20:14:16.868416    1175 kuberuntime_sandbox.go:297] "Failed to list pod sandboxes" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:16 minikube kubelet[1175]: E0616 20:14:16.868452    1175 generic.go:254] "GenericPLEG: Unable to retrieve pods" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:17 minikube kubelet[1175]: E0616 20:14:17.250203    1175 controller.go:201] "Failed to ensure lease exists, will retry" err="Get \"https://192.168.49.2:8443/apis/coordination.k8s.io/v1/namespaces/kube-node-lease/leases/minikube?timeout=10s\": dial tcp 192.168.49.2:8443: connect: connection refused" interval="7s"
+Jun 16 20:14:17 minikube kubelet[1175]: E0616 20:14:17.553173    1175 log.go:32] "ListPodSandbox with filter from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" filter="state:{}"
+Jun 16 20:14:17 minikube kubelet[1175]: E0616 20:14:17.553286    1175 kuberuntime_sandbox.go:297] "Failed to list pod sandboxes" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:17 minikube kubelet[1175]: E0616 20:14:17.553313    1175 kubelet_pods.go:1263] "Error listing containers" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:17 minikube kubelet[1175]: E0616 20:14:17.553329    1175 kubelet.go:2687] "Failed cleaning pods" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:17 minikube kubelet[1175]: E0616 20:14:17.824865    1175 log.go:32] "Get ImageStatus from image service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" image="registry.k8s.io/ingress-nginx/controller:v1.14.3@sha256:82917be97c0939f6ada1717bb39aa7e66c229d6cfb10dcfc8f1bd42f9efe0f81"
+Jun 16 20:14:17 minikube kubelet[1175]: E0616 20:14:17.824919    1175 kuberuntime_image.go:79] "Failed to get image status" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" image="registry.k8s.io/ingress-nginx/controller:v1.14.3@sha256:82917be97c0939f6ada1717bb39aa7e66c229d6cfb10dcfc8f1bd42f9efe0f81"
+Jun 16 20:14:17 minikube kubelet[1175]: E0616 20:14:17.825045    1175 kuberuntime_manager.go:1664] "Unhandled Error" err="container controller start failed in pod ingress-nginx-controller-596f8778bc-27km5_ingress-nginx(e707c369-5280-40b2-83e5-ad908faf2087): ImageInspectError: Failed to inspect image \"\": rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" logger="UnhandledError"
+Jun 16 20:14:17 minikube kubelet[1175]: E0616 20:14:17.825115    1175 pod_workers.go:1324] "Error syncing pod, skipping" err="failed to \"StartContainer\" for \"controller\" with ImageInspectError: \"Failed to inspect image \\\"\\\": rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?\"" pod="ingress-nginx/ingress-nginx-controller-596f8778bc-27km5" podUID="e707c369-5280-40b2-83e5-ad908faf2087"
+Jun 16 20:14:17 minikube kubelet[1175]: E0616 20:14:17.871220    1175 log.go:32] "ListPodSandbox with filter from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" filter="<nil>"
+Jun 16 20:14:17 minikube kubelet[1175]: E0616 20:14:17.871324    1175 kuberuntime_sandbox.go:297] "Failed to list pod sandboxes" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:17 minikube kubelet[1175]: E0616 20:14:17.871360    1175 generic.go:254] "GenericPLEG: Unable to retrieve pods" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:17 minikube kubelet[1175]: E0616 20:14:17.877687    1175 log.go:32] "ListContainers with filter from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" filter=""
+Jun 16 20:14:17 minikube kubelet[1175]: E0616 20:14:17.877786    1175 eviction_manager.go:297] "Eviction manager: failed to get summary stats" err="failed to list pod stats: failed to get pod or container map: failed to list all containers: rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:18 minikube kubelet[1175]: E0616 20:14:18.874302    1175 log.go:32] "ListPodSandbox with filter from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" filter="<nil>"
+Jun 16 20:14:18 minikube kubelet[1175]: E0616 20:14:18.874416    1175 kuberuntime_sandbox.go:297] "Failed to list pod sandboxes" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:18 minikube kubelet[1175]: E0616 20:14:18.874447    1175 generic.go:254] "GenericPLEG: Unable to retrieve pods" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:19 minikube kubelet[1175]: E0616 20:14:19.556182    1175 log.go:32] "ListPodSandbox with filter from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" filter="state:{}"
+Jun 16 20:14:19 minikube kubelet[1175]: E0616 20:14:19.556320    1175 kuberuntime_sandbox.go:297] "Failed to list pod sandboxes" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:19 minikube kubelet[1175]: E0616 20:14:19.556364    1175 kubelet_pods.go:1263] "Error listing containers" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:19 minikube kubelet[1175]: E0616 20:14:19.556394    1175 kubelet.go:2687] "Failed cleaning pods" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:19 minikube kubelet[1175]: E0616 20:14:19.882142    1175 log.go:32] "ListPodSandbox with filter from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" filter="<nil>"
+Jun 16 20:14:19 minikube kubelet[1175]: E0616 20:14:19.882259    1175 kuberuntime_sandbox.go:297] "Failed to list pod sandboxes" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:19 minikube kubelet[1175]: E0616 20:14:19.882305    1175 generic.go:254] "GenericPLEG: Unable to retrieve pods" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:20 minikube kubelet[1175]: E0616 20:14:20.552023    1175 log.go:32] "ExecSync cmd from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" containerID="f82d8950d3e372de5c505fc269783571d1e1a9f5f373d3bd15b3f55e03fb7783" cmd=["redis-cli","-a","$(POSTGRES_PASSWORD)","ping"]
+Jun 16 20:14:20 minikube kubelet[1175]: E0616 20:14:20.553186    1175 log.go:32] "ExecSync cmd from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" containerID="f82d8950d3e372de5c505fc269783571d1e1a9f5f373d3bd15b3f55e03fb7783" cmd=["redis-cli","-a","$(POSTGRES_PASSWORD)","ping"]
+Jun 16 20:14:20 minikube kubelet[1175]: E0616 20:14:20.554367    1175 log.go:32] "ExecSync cmd from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" containerID="f82d8950d3e372de5c505fc269783571d1e1a9f5f373d3bd15b3f55e03fb7783" cmd=["redis-cli","-a","$(POSTGRES_PASSWORD)","ping"]
+Jun 16 20:14:20 minikube kubelet[1175]: E0616 20:14:20.654283    1175 log.go:32] "Get ImageStatus from image service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" image="postgres:15-alpine"
+Jun 16 20:14:20 minikube kubelet[1175]: E0616 20:14:20.654386    1175 kuberuntime_image.go:79] "Failed to get image status" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" image="postgres:15-alpine"
+Jun 16 20:14:20 minikube kubelet[1175]: E0616 20:14:20.654555    1175 kuberuntime_manager.go:1664] "Unhandled Error" err="container postgres start failed in pod postgres-deployment-59bd4c86fb-ls5ff_cyber-prod-env(0cbdd7f8-5b33-4b60-84ca-809cf2695c08): ImageInspectError: Failed to inspect image \"\": rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" logger="UnhandledError"
+Jun 16 20:14:20 minikube kubelet[1175]: E0616 20:14:20.654631    1175 pod_workers.go:1324] "Error syncing pod, skipping" err="failed to \"StartContainer\" for \"postgres\" with ImageInspectError: \"Failed to inspect image \\\"\\\": rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?\"" pod="cyber-prod-env/postgres-deployment-59bd4c86fb-ls5ff" podUID="0cbdd7f8-5b33-4b60-84ca-809cf2695c08"
+Jun 16 20:14:20 minikube kubelet[1175]: E0616 20:14:20.893135    1175 log.go:32] "ListPodSandbox with filter from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" filter="<nil>"
+Jun 16 20:14:20 minikube kubelet[1175]: E0616 20:14:20.893228    1175 kuberuntime_sandbox.go:297] "Failed to list pod sandboxes" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:20 minikube kubelet[1175]: E0616 20:14:20.893296    1175 generic.go:254] "GenericPLEG: Unable to retrieve pods" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:21 minikube kubelet[1175]: E0616 20:14:21.556188    1175 log.go:32] "ListPodSandbox with filter from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" filter="state:{}"
+Jun 16 20:14:21 minikube kubelet[1175]: E0616 20:14:21.556495    1175 kuberuntime_sandbox.go:297] "Failed to list pod sandboxes" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:21 minikube kubelet[1175]: E0616 20:14:21.556550    1175 kubelet_pods.go:1263] "Error listing containers" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:21 minikube kubelet[1175]: E0616 20:14:21.556585    1175 kubelet.go:2687] "Failed cleaning pods" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:21 minikube kubelet[1175]: E0616 20:14:21.895931    1175 log.go:32] "ListPodSandbox with filter from runtime service failed" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?" filter="<nil>"
+Jun 16 20:14:21 minikube kubelet[1175]: E0616 20:14:21.896019    1175 kuberuntime_sandbox.go:297] "Failed to list pod sandboxes" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:21 minikube kubelet[1175]: E0616 20:14:21.896040    1175 generic.go:254] "GenericPLEG: Unable to retrieve pods" err="rpc error: code = Unknown desc = Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?"
+Jun 16 20:14:21 minikube kubelet[1175]: E0616 20:14:21.945621    1175 event.go:368] "Unable to write event (may retry after sleeping)" err="Patch \"https://192.168.49.2:8443/api/v1/namespaces/kube-system/events/kube-scheduler-minikube.18b9a88ad8144759\": dial tcp 192.168.49.2:8443: connect: connection refused" event="&Event{ObjectMeta:{kube-scheduler-minikube.18b9a88ad8144759  kube-system   287200 0 0001-01-01 00:00:00 +0000 UTC <nil> <nil> map[] map[] [] [] []},InvolvedObject:ObjectReference{Kind:Pod,Namespace:kube-system,Name:kube-scheduler-minikube,UID:1c7123a121598343200ffd5b015ca580,APIVersion:v1,ResourceVersion:,FieldPath:spec.containers{kube-scheduler},},Reason:Unhealthy,Message:Readiness probe failed: HTTP probe failed with statuscode: 500,Source:EventSource{Component:kubelet,Host:minikube,},FirstTimestamp:2026-06-16 20:07:21 +0000 UTC,LastTimestamp:2026-06-16 20:07:34.887503772 +0000 UTC m=+128.488924816,Count:14,Type:Warning,EventTime:0001-01-01 00:00:00 +0000 UTC,Series:nil,Action:,Related:nil,ReportingController:kubelet,ReportingInstance:minikube,}"
+
+
+==> storage-provisioner [59aee835fcae] <==
+command /bin/bash -c "docker logs --tail 60 59aee835fcae" failed with error: /bin/bash -c "docker logs --tail 60 59aee835fcae": Process exited with status 1
+stdout:
+
+stderr:
+failed to connect to the docker API at unix:///var/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /var/run/docker.sock: connect: no such file or directory
+
+
+==> storage-provisioner [61cd16bfec65] <==
+command /bin/bash -c "docker logs --tail 60 61cd16bfec65" failed with error: /bin/bash -c "docker logs --tail 60 61cd16bfec65": Process exited with status 1
+stdout:
+
+stderr:
+failed to connect to the docker API at unix:///var/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /var/run/docker.sock: connect: no such file or directory
+

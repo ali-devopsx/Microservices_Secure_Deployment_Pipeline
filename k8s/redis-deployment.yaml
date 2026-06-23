@@ -1,124 +1,96 @@
 # =====================================================================
-# Service: gives a fixed address so other pods can find Redis
+# Service: lets Django and Celery find Redis by name
 
 ---
-# =====================================================================
-# API version for basic Kubernetes objects
+# API version
 apiVersion: v1
-# Type of resource: Service creates a stable network address
+# Service = stable network endpoint
 kind: Service
-# Information about this Service
+# Info
 metadata:
-  # Name that Django and Celery use to connect to Redis
+  # Name used by Django/Celery to connect
   name: redis-service
-  # Put this Service in the production namespace
+  # Production namespace
   namespace: cyber-prod-env
-# How this Service works
+# Service config
 spec:
-  # Find pods with label "app: redis" and send traffic to them
+  # Route to pods with this label
   selector:
     app: redis
-  # List of ports this Service listens on
+  # Ports
   ports:
-    # Redis default port number
+    # Redis default port
     - port: 6379
-  # ClusterIP: this Service is only reachable inside the cluster
+  # Internal only
   type: ClusterIP
 
 ---
 # =====================================================================
-# Deployment: keeps the Redis pod running
+# Deployment: runs the Redis pod
 
 ---
-# =====================================================================
-# API version for managing applications (apps/v1)
+# API version for apps
 apiVersion: apps/v1
-# Type of resource: Deployment makes sure a pod stays running
+# Deployment = keeps pod running
 kind: Deployment
-# Information about this Deployment
+# Info
 metadata:
-  # Name of this Deployment
+  # Name of this deployment
   name: redis-deployment
-  # Put it in the production namespace
+  # Production namespace
   namespace: cyber-prod-env
-# How this Deployment should behave
+# Config
 spec:
-  # Run exactly 1 copy of the pod
+  # One replica
   replicas: 1
-  # Which pods this Deployment is responsible for
+  # Manage pods with this label
   selector:
     matchLabels:
       app: redis
-  # Blueprint for creating new pods
+  # Pod template
   template:
-    # Labels for the pod
     metadata:
       labels:
         app: redis
-    # Pod specification
     spec:
-      # List of containers in this pod
+      # Containers
       containers:
-        # Name of this container
         - name: redis
-          # Use the official Redis image version 7 on Alpine Linux
+          # Official redis image
           image: redis:7-alpine
-          # Command to run: start Redis with a password from environment variable
+          # Start with password auth
           command: ["redis-server", "--requirepass", "$(REDIS_PASSWORD)"]
-          # Environment variables for the container
+          # Env vars
           env:
-            # Variable name: REDIS_PASSWORD holds the Redis password
+            # Redis password from secret
             - name: REDIS_PASSWORD
-              # Get the value from a Kubernetes Secret
               valueFrom:
-                # Reference to a Secret object
                 secretKeyRef:
-                  # Name of the Secret
                   name: cyber-app-secrets
-                  # Key inside that Secret
                   key: redis-password
-          # Ports that this container opens
+          # Ports
           ports:
-            # Redis listens on port 6379
             - containerPort: 6379
 
-
-
-
-
-          # Check if container is alive
+          # Liveness probe: restart if unresponsive
           livenessProbe:
-            # Run command inside container
             exec:
               command:
-                # CLI tool for Redis
                 - "redis-cli"
-                # Password flag
                 - "-a"
-                # Use stored password variable
                 - "$(REDIS_PASSWORD)"
-                # Send ping request
                 - "ping"
-            # Wait 15 seconds before first check
             initialDelaySeconds: 15
-            # Repeat check every 10 seconds
             periodSeconds: 10
 
-          # Check if container is ready for traffic
+          # Readiness probe: mark ready when Redis accepts commands
           readinessProbe:
-            # Run command inside container
             exec:
               command:
-                # CLI tool for Redis
                 - "redis-cli"
-                # Password flag
                 - "-a"
-                # Use stored password variable
+                # BUG: should be REDIS_PASSWORD, not POSTGRES_PASSWORD
                 - "$(POSTGRES_PASSWORD)"
-                # Send ping request
                 - "ping"
-            # Wait 5 seconds before first check
             initialDelaySeconds: 5
-            # Repeat check every 5 seconds
             periodSeconds: 5
-
