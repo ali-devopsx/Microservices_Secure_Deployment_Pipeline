@@ -10,6 +10,8 @@ on:
   pull_request:
     branches: [main]      # Run on pull request to main
 
+  workflow_dispatch:
+
 # Global environment variables shared across jobs
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}  # Docker Hub username (from GitHub Secrets)
