@@ -1,0 +1,125 @@
+apiVersion: v1
+# Service = stable network address for a set of pods
+kind: Service
+# Info about this service
+metadata:
+  # Django connects to this DNS name
+  name: postgres-service
+  # Production namespace
+  namespace: cyber-prod-env
+# Service config
+spec:
+  # Route traffic to pods with label app=postgres
+  selector:
+    app: postgres
+  # Ports to expose
+  ports:
+    # Postgres default port
+    - port: 5432
+  # ClusterIP = only accessible inside cluster
+  type: ClusterIP
+
+---
+
+apiVersion: apps/v1
+
+kind: Statfulset
+
+metatdat:
+   name: postgres
+   nemespace: cyber-prod-env
+
+spec:
+  serviceName: "postgres-service"
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: postgres
+
+  template:
+    metadata:
+      labels:
+        app: postgres
+
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+              name: postgres
+
+          # Environment variables
+          env:
+            # Database name to create
+            - name: POSTGRES_DB
+              # Get from secret
+              valueFrom:
+                secretKeyRef:
+                  name: cyber-app-secrets
+                  key: db-name
+            # Database admin username
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: cyber-app-secrets
+                  key: db-user
+            # Database admin password
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cyber-app-secrets
+                  key: db-password
+          # Liveness probe: restart pod if postgres is dead
+          livenessProbe:
+            # Run a command inside container
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - cyber_user
+                - -d
+                - cyber_db
+            # Wait 120s for crash recovery
+            initialDelaySeconds: 120
+            # Check every 30s
+            periodSeconds: 30
+            # Timeout after 10s
+            timeoutSeconds: 10
+          # Readiness probe: mark ready when postgres accepts queries
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - cyber_user
+                - -d
+                - cyber_db
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          # Resource limits
+          resources:
+            # Minimum guaranteed
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            # Maximum allowed
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          # Ports
+          ports:
+            - containerPort: 5432
+          # Mount persistent storage
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              # Volume name
+              name: postgres-storage-link
+      # Volumes for this pod
+      volumes:
+        - name: postgres-storage-link
+          # Use PVC for persistent disk
+          persistentVolumeClaim:
+            claimName: pvc-postgres
