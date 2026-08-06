@@ -28,3 +28,13 @@ data:
   DJANGO_DEBUG: "False"
   # Which domains are allowed to connect
   DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1,ali-devsecops.local"
+
+  # Directory where MinIO stores data
+  MINIO_DATA_PATH: "/data"
+  # Port used for the MinIO Web Console
+  MINIO_CONSOLE_ADDRESS: ":9001"
+
+  # expose API on port 9000
+  MINIO_API_PORT: "9000"
+# Expose Web Console on port 9001
+  MINIO_CONSOLE_PORT: "9001"
