@@ -2,8 +2,8 @@ apiVersion: velero.io/v1
 
 kind: Schedule
 
-metadat:
-  name: dily-app-backup
+metadata:
+  name: daily-app-backup
   namespace: velero
 
 
@@ -11,13 +11,13 @@ metadat:
 spec:
 
   # Cron expression: run daily at 2 AM
-  schedule: "* 2 * * *"
+  schedule: "0 2 * * *"
 
 # Template for the backup task
   template:
 
     # target namespaces to BACKUP
-    includedNamespace:
+    includedNamespaces:
       - cyber-prod-env
 
     # TimeToLeve: keep backup for 7D

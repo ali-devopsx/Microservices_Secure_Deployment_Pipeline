@@ -23,11 +23,11 @@ spec:
 
 apiVersion: apps/v1
 
-kind: Statfulset
+kind: StatefulSet
 
-metatdat:
+metadata:
    name: postgres
-   nemespace: cyber-prod-env
+   namespace: cyber-prod-env
 
 spec:
   serviceName: "postgres-service"
@@ -109,9 +109,6 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "500m"
-          # Ports
-          ports:
-            - containerPort: 5432
           # Mount persistent storage
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
