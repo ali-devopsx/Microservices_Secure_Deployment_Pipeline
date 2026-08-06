@@ -53,7 +53,7 @@ kubectl rollout status statefulset/postgres -n $NAMESPACE --timeout=120s
 # Core Application [Django & Celery)
 echo "--> Deploying Django Application..."
 kubectl apply -f $K8S_DIR/django-deployment.yaml
-kubectl apply -f $K8S_DIR/django-hpa.yaml
+#kubectl apply -f $K8S_DIR/django-hpa.yaml
 
 
 echo "Waiting for Django pods..."
@@ -67,6 +67,16 @@ kubectl apply -f $K8S_DIR/django-ingress.yaml
 kubectl apply -f $K8S_DIR/django-monitor.yaml
 
 
+# auto-detect velero / Disaster Recovery
+
+if [ -d "$K8S_DIR/velero" ]; then
+    echo "-> Setting up Backup infrastructure..."
+    kubectl apply -f $K8S_DIR/velero/minio-setup.yaml
+    
+    if kubectl get crd schedules.velero.io &> /dev/null; then
+        kubectl apply -f $K8S_DIR/velero/velero-schedule.yaml
+    fi
+fi
 
 
 echo " Deployment Finished Successfully!"
