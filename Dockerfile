@@ -11,11 +11,17 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Prevent Python from buffering stdout and stderr (helps in logging)
 ENV PYTHONUNBUFFERED=1
 
+# Delete PIP Cache & Prevent Version_Check
+ENV PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
 # Set the working directory inside the container for stage 1
 WORKDIR /app
 
 # 🔥 Upgrade apt-get update && apt-get upgrade (fix vulnerabilities) & Install system dependencies needed to compile some Python packages
-RUN apt-get update && apt-get upgrade -y --no-install-recommends && \ 
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && apt-get upgrade -y --no-install-recommends && \ 
     apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
@@ -62,7 +68,9 @@ RUN pip install --upgrade pip==25.3 wheel==0.46.2 setuptools
 
 
 # 🔥 Upgrade apt-get update && apt-get upgrade (fix vulnerabilities) & Install only minimal runtime libraries needed for PostgreSQL database
-RUN apt-get update && apt-get upgrade -y --no-install-recommends && \ 
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && apt-get upgrade -y --no-install-recommends && \ 
     apt-get install -y --no-install-recommends \
     libpq5 \
     netcat-openbsd \
@@ -88,6 +96,10 @@ RUN mkdir -p /app/staticfiles && chown -R ali:ali /app/staticfiles
 
 # Switch from root user to the newly created secure user
 USER ali
+
+# Verify Container HealthCheck
+HEALTHCHECK --interval=30s --timeout=5s --start-peroid=10s --retries=3 \
+    CMD curl -f http://localhost:8000/health/ || exit 1
 
 # Inform Docker that the container listens on port 8000 at runtime
 EXPOSE 8000
