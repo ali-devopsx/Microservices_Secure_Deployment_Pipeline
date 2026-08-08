@@ -17,3 +17,10 @@ media/
 trash/
 compose.yml
 compose.yml.bak
+
+# Local secrets & editor temp files
+secret_grafana.txt
+*.swp
+
+# Backup dumps
+backups/
