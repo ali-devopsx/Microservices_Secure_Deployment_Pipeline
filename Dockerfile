@@ -98,7 +98,7 @@ RUN mkdir -p /app/staticfiles && chown -R ali:ali /app/staticfiles
 USER ali
 
 # healthcheck that checks every 30 seconds if the app is working
-HEALTHCHECK --interval=30s --timeout=5s --start-peroid=10s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
     CMD curl -f http://localhost:8000/health/ || exit 1
 
 # the app uses port 8000
