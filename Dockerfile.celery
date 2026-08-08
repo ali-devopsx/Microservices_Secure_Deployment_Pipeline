@@ -1,24 +1,35 @@
+# my celery worker dockerfile
+# i use the same python image as the main one
+
 FROM python:3.11-slim
 
+# same env vars as the main dockerfile
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
+# install the postgres library that celery needs
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
     libpq5 \
     && rm -rf /var/lib/apt/lists/*
 
+# this removes perl and makes the image smaller
 RUN apt-get purge -y perl-base && apt-get autoremove -y
 
+# install the requirements first
 COPY app/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# copy the app code
 COPY app/ .
 
+# make the ali user and give him the app folder
 RUN useradd -u 8888 -m ali && chown -R ali:ali /app
 
+# run as ali not root
 USER ali
 
+# this is the celery worker command
 CMD ["celery", "-A", "cyber_portfolio", "worker", "--loglevel=info"]
