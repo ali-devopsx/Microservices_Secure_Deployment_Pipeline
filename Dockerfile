@@ -18,7 +18,7 @@ ENV PIP_NO_CACHE_DIR=1 \
 # Set the working directory inside the container for stage 1
 WORKDIR /app
 
-# 🔥 Upgrade apt-get update && apt-get upgrade (fix vulnerabilities) & Install system dependencies needed to compile some Python packages
+# Upgrade apt-get update && apt-get upgrade (fix vulnerabilities) & Install system dependencies needed to compile some Python packages
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && apt-get upgrade -y --no-install-recommends && \ 
@@ -31,7 +31,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 COPY app/requirements.txt .
 
 
-# 🔥 Upgrade build tools FIRST (fix vulnerabilities)
+# Upgrade build tools FIRST (fix vulnerabilities)
 RUN pip install --upgrade pip==25.3 wheel==0.46.2 setuptools
 
 
@@ -63,11 +63,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # Set the official working directory for the application
 WORKDIR /app
 
-# 🔥 FIX SECURITY: upgrade runtime tools
+# FIX SECURITY: upgrade runtime tools
 RUN pip install --upgrade pip==25.3 wheel==0.46.2 setuptools
 
 
-# 🔥 Upgrade apt-get update && apt-get upgrade (fix vulnerabilities) & Install only minimal runtime libraries needed for PostgreSQL database
+# Upgrade apt-get update && apt-get upgrade (fix vulnerabilities) & Install only minimal runtime libraries needed for PostgreSQL database
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && apt-get upgrade -y --no-install-recommends && \ 
