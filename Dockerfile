@@ -1,100 +1,112 @@
-# ===================================
-# STAGE 1: Builder
-# ===================================
+# my dockerfile for the django project
+# i learned docker from some tutorials on youtube and this is my own version of it
 
-# Use official lightweight Python image to build dependencies
+# =============================================
+# PART 1 : build stage (installing everything)
+# =============================================
+
+# i use python 3.11 slim because it is smaller than the normal python image
 FROM python:3.11-slim AS builder
 
-# Prevent Python from writing .pyc files to disc
+# this stops python from creating .pyc files on disk
 ENV PYTHONDONTWRITEBYTECODE=1
 
-# Prevent Python from buffering stdout and stderr (helps in logging)
+# this makes the logs show up right away (no buffering)
 ENV PYTHONUNBUFFERED=1
 
-# Set the working directory inside the container for stage 1
+# dont save the pip cache and dont check pip version everytime
+ENV PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# this is the folder that we will use inside the container
 WORKDIR /app
 
-# 🔥 Upgrade apt-get update && apt-get upgrade (fix vulnerabilities) & Install system dependencies needed to compile some Python packages
-RUN apt-get update && apt-get upgrade -y --no-install-recommends && \ 
+# update apt and install the tools that we need to compile some python packages
+# --no-install-recommends means it will not install extra things we dont need
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && apt-get upgrade -y --no-install-recommends && \
     apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy only the requirements file first to utilize Docker caching
+# first i copy only the requirements file and nothing else
+# because if this file changes docker will only rebuild from here not from the start
 COPY app/requirements.txt .
 
-
-# 🔥 Upgrade build tools FIRST (fix vulnerabilities)
+# upgrade pip and the build tools first (they were giving me errors before)
 RUN pip install --upgrade pip==25.3 wheel==0.46.2 setuptools
 
-
-# Build Python packages and install bandit (Security Tool) + Gunicorn
+# now install all the packages that are inside requirements.txt
+# and also install bandit (security scanner) and gunicorn (the server)
 RUN pip install --no-cache-dir -r requirements.txt && \
     pip install --no-cache-dir bandit gunicorn
 
-
-
-# Copy all source code to stage 1 so bandit can check it
+# copy my whole app so that bandit can scan all the files
 COPY app/ .
 
-# RUN SECURITY SCAN: Bandit will scan the code. If it finds severe bugs, build fails
+# run bandit and if it finds a high level problem the build will stop
 RUN bandit -r . -x ./venv,./env,./tests --severity-level high || exit 1
 
 
+# =============================================
+# PART 2 : final stage (the actual app image)
+# =============================================
 
-# =====================================
-# STAGE 2: Final Runtime
-# =====================================
-
-# Use the same slim Python image for the clean final container
+# another python image for the final version of the container
 FROM python:3.11-slim AS final
 
-# Re-defined environment variables for safety
+# i put the same env vars here again just to be safe
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
-# Set the official working directory for the application
+# working directory again
 WORKDIR /app
 
-# 🔥 FIX SECURITY: upgrade runtime tools
+# upgrade pip again in the final image too
 RUN pip install --upgrade pip==25.3 wheel==0.46.2 setuptools
 
-
-# 🔥 Upgrade apt-get update && apt-get upgrade (fix vulnerabilities) & Install only minimal runtime libraries needed for PostgreSQL database
-RUN apt-get update && apt-get upgrade -y --no-install-recommends && \ 
+# install only the runtime packages here (keeps the image smaller)
+# libpq5 is for postgresql and netcat is used to check if the database is up
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && apt-get upgrade -y --no-install-recommends && \
     apt-get install -y --no-install-recommends \
     libpq5 \
     netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
 
-# Create a home directory for user ali first to store the secure packages
+# make a new user named ali because i dont want to run the app as root
 RUN useradd -u 8888 -m ali
 
-
-# (this ensures Django and all dependencies are visible to Python runtime)
+# copy everything that we installed in part 1 to this image
 COPY --from=builder /usr/local /usr/local
 
-
-
-# Copy all your clean Django source code into the container
+# copy my app code into the container
+# --chown=ali:ali means the user ali owns these files
 COPY --chown=ali:ali app/ .
 
-# Security (OSCP): Create a restricted system user to run the app
+# give ali permission to everything in the app folder
 RUN chown -R ali:ali /app
 
-# FIX PERMISSIONS: Create staticfiles directory and give ownership to ali before switching users
+# make the staticfiles folder and give it to ali
+# (django needs this folder for the css and js files)
 RUN mkdir -p /app/staticfiles && chown -R ali:ali /app/staticfiles
 
-# Switch from root user to the newly created secure user
+# now we switch to the ali user (not root anymore)
 USER ali
 
-# Inform Docker that the container listens on port 8000 at runtime
+# healthcheck that checks every 30 seconds if the app is working
+HEALTHCHECK --interval=30s --timeout=5s --start-peroid=10s --retries=3 \
+    CMD curl -f http://localhost:8000/health/ || exit 1
+
+# the app uses port 8000
 EXPOSE 8000
 
-# Copy the entrypoint script and make sure it has execution privileges
+# copy the entrypoint script and make it runnable
 COPY --chown=ali:ali entrypoint.sh .
 RUN chmod +x entrypoint.sh
 
-# Execute the entrypoint script when the container boots up
+# when the container starts run the entrypoint script
 ENTRYPOINT ["./entrypoint.sh"]
