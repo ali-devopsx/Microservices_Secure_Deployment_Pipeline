@@ -89,8 +89,7 @@ spec:
               command:
                 - "redis-cli"
                 - "-a"
-                # BUG: should be REDIS_PASSWORD, not POSTGRES_PASSWORD
-                - "$(POSTGRES_PASSWORD)"
+                - "$(REDIS_PASSWORD)"
                 - "ping"
             initialDelaySeconds: 5
             periodSeconds: 5
