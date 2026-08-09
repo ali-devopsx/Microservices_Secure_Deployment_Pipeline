@@ -150,6 +150,12 @@ spec:
                   name: cyber-app-config
                   # Key inside the ConfigMap to extract
                   key: DJANGO_ALLOWED_HOSTS
+            # Django secret key from the Secret
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cyber-app-secrets
+                  key: django-secret-key
 
            # Allowed hosts: security setting, only these domains can connect
 #            - name: DJANGO_ALLOWED_HOSTS
@@ -304,3 +310,9 @@ spec:
                 secretKeyRef:
                   name: cyber-app-secrets
                   key: redis-password
+            # Django secret key from the Secret
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cyber-app-secrets
+                  key: django-secret-key

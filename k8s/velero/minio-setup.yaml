@@ -76,7 +76,7 @@ spec:
 
             # Root password (matches cyber-app-secrets value)
             - name: MINIO_ROOT_PASSWORD
-              value: "minio123"
+              value: "xFdNFPYbLy9pm9KYVg4gppk-9EWEhJwa"
 
           # Run shell & Create storage folder then start MinIO
           command:
