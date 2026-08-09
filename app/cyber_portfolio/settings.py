@@ -13,11 +13,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # In production, use environment variables to store this
-SECRET_KEY = 'my_ultra_secret_production_key_2026'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "my_ultra_secret_production_key_2026")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Set to False when deploying to production
-DEBUG = True
+DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() in ("true", "1", "yes")
 
 # In production, add your domain here (e.g., 'example.com', 'www.example.com')
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1']
