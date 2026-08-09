@@ -12,6 +12,14 @@ on:
 
   workflow_dispatch:
 
+# Run only one pipeline at a time for the same branch.
+# If we push again, cancel the old run and start a new one.
+concurrency:
+  # Give every workflow + branch its own group
+  group: ${{ github.workflow }}-${{ github.ref }}
+  # Kill the running job so we do not waste minutes on old work
+  cancel-in-progress: true
+
 # Global environment variables shared across jobs
 env:
   IMAGE_NAME: cyber-portfolio                      # Docker image name
