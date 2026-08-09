@@ -14,8 +14,6 @@ on:
 
 # Global environment variables shared across jobs
 env:
-  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}  # Docker Hub username (from GitHub Secrets)
-  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  # Docker Hub password (from GitHub Secrets)
   IMAGE_NAME: cyber-portfolio                      # Docker image name
   DJANGO_SECRET_KEY: ci-test-key                   # Django key for testing only
 
