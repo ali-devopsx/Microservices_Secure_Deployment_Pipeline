@@ -64,7 +64,10 @@ kubectl rollout status deployment/django-deployment -n $NAMESPACE --timeout=120s
 # ingress and Monitoring
 echo "--> Applying Ingress and Monitoring..."
 kubectl apply -f $K8S_DIR/django-ingress.yaml
-kubectl apply -f $K8S_DIR/django-monitor.yaml
+
+if kubectl get crd podmonitors.monitoring.coreos.com &> /dev/null; then
+    kubectl apply -f $K8S_DIR/django-monitor.yaml
+fi
 
 
 # auto-detect velero / Disaster Recovery
