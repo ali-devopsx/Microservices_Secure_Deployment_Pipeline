@@ -22,5 +22,10 @@ compose.yml.bak
 secret_grafana.txt
 *.swp
 
+# Log files & OS junk
+*.log
+.DS_Store
+Thumbs.db
+
 # Backup dumps
 backups/
