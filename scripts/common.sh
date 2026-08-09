@@ -84,6 +84,3 @@ prepare_workspace() {
 
 }
 
-test="Script success"
-echo -e "${GREEN}[OK]${NC} ${test}"
-
