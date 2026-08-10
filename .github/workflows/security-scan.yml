@@ -1,0 +1,44 @@
+# =========================
+# SECURITY SCAN WORKFLOW
+# =========================
+name: Security Scan
+
+# Trigger on push or PR to main branch
+on:
+  push:
+    branches: [main]      # Run when code pushed to main
+  pull_request:
+    branches: [main]      # Run on pull request to main
+
+  workflow_dispatch:
+
+  # also run every night to check for new problems
+  schedule:
+    - cron: "0 2 * * *"     # scan at 2am
+
+# =========================
+# JOBS
+# =========================
+jobs:
+
+  # =========================
+  # 1. CODE SCAN (BANDIT)
+  # =========================
+  code-scan:
+    name: Code Scan (Bandit)   # check the code for bad stuffs
+    runs-on: ubuntu-latest     # use ubuntu runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4   # download repo code to runner
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Bandit
+        run: pip install bandit          # install security scanner
+
+      - name: Run Bandit scan
+        run: bandit -r app/ -x app/venv,app/env,app/tests --severity-level high
