@@ -16,6 +16,10 @@ on:
   schedule:
     - cron: "0 2 * * *"     # scan at 2am
 
+permissions:
+  contents: read      # read the repo
+  packages: write     # push the docker image
+
 env:
   IMAGE_NAME: cyber-portfolio
   PYTHON_VERSION: "3.11"
@@ -37,8 +41,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4   # download repo code to runner
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up Python uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 

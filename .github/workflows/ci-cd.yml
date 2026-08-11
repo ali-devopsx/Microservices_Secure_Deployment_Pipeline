@@ -20,6 +20,10 @@ concurrency:
   # Kill the running job so we do not waste minutes on old work
   cancel-in-progress: true
 
+permissions:
+  contents: read      # read the repo
+  packages: write     # push the docker image
+
 # Global ENV_VAR
 env:
   IMAGE_NAME: cyber-portfolio
