@@ -64,8 +64,8 @@ spec:
         - name: django
           # Use your custom Django image built locally
           image: alidevopsx/cyber-portfolio:latest
-          # Pull from Docker Hub if not already on the node
-          imagePullPolicy: IfNotPresent
+          # Always pull the newest image
+          imagePullPolicy: Always
           # Environment variables for Django
           env:
             # Database name for Django to connect
@@ -268,8 +268,8 @@ spec:
         - name: celery
           # Use the same Django image but run a different command
           image: alidevopsx/cyber-portfolio:latest
-          # Pull from Docker Hub if not already on the node
-          imagePullPolicy: IfNotPresent
+          # Always pull the newest image
+          imagePullPolicy: Always
           # Override default: start Celery worker instead of Django
           command: ["/usr/local/bin/celery", "-A", "cyber_portfolio", "worker", "--loglevel=info"]
           # Environment variables (same as Django web)
