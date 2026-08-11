@@ -14,4 +14,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Apply
-        run: kubectl apply -f k8s/deployment.yaml
+        run: kubectl apply -f k8s/django-deployment.yaml
