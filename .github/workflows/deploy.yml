@@ -1,0 +1,18 @@
+# Deploy the app to the cluster
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-pus
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Apply
+        run: kubectl apply -f k8s/deployment.yaml
