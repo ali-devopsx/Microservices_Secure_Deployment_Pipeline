@@ -20,10 +20,13 @@ concurrency:
   # Kill the running job so we do not waste minutes on old work
   cancel-in-progress: true
 
-# Global environment variables shared across jobs
+# Global ENV_VAR
 env:
-  IMAGE_NAME: cyber-portfolio                      # Docker image name
-  DJANGO_SECRET_KEY: ci-test-key                   # Django key for testing only
+  IMAGE_NAME: cyber-portfolio
+  PYTHON_VERSION: "3.11"
+  PIP_DESABLE: "true"
+  DJANGO_SECRET_KEY: ci-test-key
+
 
 # =========================
 # JOBS
