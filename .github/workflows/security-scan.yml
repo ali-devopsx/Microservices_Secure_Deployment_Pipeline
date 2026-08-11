@@ -16,6 +16,11 @@ on:
   schedule:
     - cron: "0 2 * * *"     # scan at 2am
 
+env:
+  IMAGE_NAME: cyber-portfolio
+  PYTHON_VERSION: "3.11"
+  PIP_DESABLE: "true"
+
 # =========================
 # JOBS
 # =========================
@@ -35,9 +40,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install Bandit
+        env:
+          PIP_DISABLE_PIP_VERSION_CHECK: ${{ env.PIP_DESABLE }}
         run: pip install bandit          # install security scanner
 
       - name: Run Bandit scan
@@ -50,8 +57,6 @@ jobs:
   image-scan:
     name: Image Scan (Trivy)
     runs-on: ubuntu-latest
-    env:
-      IMAGE_NAME: cyber-portfolio
 
     steps:
       - name: Checkout code
