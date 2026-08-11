@@ -43,7 +43,6 @@ jobs:
   tests:
     name: Run Tests                   # Run Django unit tests
     runs-on: ubuntu-latest
-    needs: security-scan              # Run only after security scan passes
 
     # Spin up PostgreSQL container as a service
     services:
@@ -68,7 +67,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "${{ env.PYTHON_VERASION}}"
+          python-version: "${{ env.PYTHON_VERSION }}"
 
       - name: Install dependencies
         working-directory: app             # requirements.txt is inside app/
