@@ -50,11 +50,10 @@ jobs:
   image-scan:
     name: Image Scan (Trivy)
     runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: cyber-portfolio
 
     steps:
-      env:
-        IMAGE_NAME: cyber-portfolio
-
       - name: Checkout code
         uses: actions/checkout@v4
 
