@@ -191,8 +191,10 @@ spec:
               httpHeaders:
                 - name: Host
                   value: "ali-devsecops.local"
-            initialDelaySeconds: 60
+            initialDelaySeconds: 90
             periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
 
           # Automated check to see if Django is fully ready
           readinessProbe:
@@ -204,6 +206,8 @@ spec:
                   value: "ali-devsecops.local"
             initialDelaySeconds: 30
             periodSeconds: 5         # Check every 5 seconds
+            timeoutSeconds: 5
+            failureThreshold: 3
 
           # Resource limits to prevent using too much memory/CPU
           resources:
