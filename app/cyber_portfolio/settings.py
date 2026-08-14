@@ -1,10 +1,3 @@
-"""
-Django settings for cyber_portfolio project.
-This module contains all configuration settings including database, installed apps,
-middleware, static/media file paths, and security settings.
-For production, update DEBUG=False and set ALLOWED_HOSTS appropriately.
-"""
-
 from pathlib import Path
 import os
 
@@ -40,13 +33,13 @@ INSTALLED_APPS = [
 # ===== MIDDLEWARE =====
 # Standard Django middleware for handling requests/responses
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.security.SecurityMiddleware', # ex: HTTPS redirect, Security headers, prevent some_security_issues
+    'django.contrib.sessions.middleware.SessionMiddleware',  # Save User Session
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',  # Review CSRF Token
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # Knowing Users form Session
+    'django.contrib.messages.middleware.MessageMiddleware',     # ex: msg -> Login successful
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',   # protect from attacks like Clickjacking
 ]
 
 # Root URL configuration
