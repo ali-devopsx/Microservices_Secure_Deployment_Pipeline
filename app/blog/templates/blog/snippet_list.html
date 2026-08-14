@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Code Snippets | Ali Mahmoud{% endblock %}
+
+{% block content %}
+<section class="blog-section">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-code"></i> DevOps Code Snippets</h2>
+            <p class="section-copy">Reusable scripts, configs, and automation snippets</p>
+        </div>
+
+        {% if categories %}
+        <div class="blog-filters">
+            <a href="{% url "blog:snippet_list" %}" class="filter-btn active">All</a>
+            {% for cat in categories %}
+                <a href="{% url "blog:snippet_list" %}?category={{ cat.slug }}" class="filter-btn">
+                    <i class="fas {{ cat.icon }}"></i> {{ cat.name }}
+                </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="blog-grid">
+            {% for snippet in snippets %}
+            <article class="blog-card fade-in">
+                <div class="blog-card-header">
+                    <span class="blog-badge">{{ snippet.language }}</span>
+                    {% if snippet.category %}
+                        <span class="blog-category"><i class="fas {{ snippet.category.icon }}"></i> {{ snippet.category.name }}</span>
+                    {% endif %}
+                </div>
+                <h3 class="blog-card-title">{{ snippet.title }}</h3>
+                {% if snippet.description %}
+                <p class="blog-card-desc">{{ snippet.description|truncatewords:30 }}</p>
+                {% endif %}
+                <pre class="blog-code-preview"><code>{{ snippet.code|truncatewords:20 }}</code></pre>
+                <div class="blog-card-footer">
+                    <span class="blog-date"><i class="far fa-calendar-alt"></i> {{ snippet.created_at|date:"M d, Y" }}</span>
+                    <a href="{% url "blog:snippet_detail" snippet.pk %}" class="blog-read-more">Read more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+            {% empty %}
+            <div class="blog-empty">
+                <i class="fas fa-code fa-3x"></i>
+                <p>No snippets yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

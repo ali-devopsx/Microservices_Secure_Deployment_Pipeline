@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Demos | Ali Mahmoud{% endblock %}
+
+{% block content %}
+<section class="blog-section">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-video"></i> Demos</h2>
+            <p class="section-copy">Video demonstrations of tools, setups, and walkthroughs</p>
+        </div>
+
+        <div class="blog-grid">
+            {% for demo in demos %}
+            <article class="blog-card fade-in">
+                <div class="demo-embed">
+                    <iframe src="{{ demo.video_url }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="blog-card-body">
+                    <h3 class="blog-card-title">{{ demo.title }}</h3>
+                    {% if demo.description %}
+                    <p class="blog-card-desc">{{ demo.description|truncatewords:30 }}</p>
+                    {% endif %}
+                    <div class="blog-card-footer">
+                        <span class="blog-date"><i class="far fa-calendar-alt"></i> {{ demo.created_at|date:"M d, Y" }}</span>
+                        <a href="{% url "blog:demo_detail" demo.pk %}" class="blog-read-more">View demo <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
+            {% empty %}
+            <div class="blog-empty">
+                <i class="fas fa-video fa-3x"></i>
+                <p>No demos yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

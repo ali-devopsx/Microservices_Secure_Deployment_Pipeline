@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ demo.title }} | Demos{% endblock %}
+
+{% block content %}
+<section class="blog-section">
+    <div class="container">
+        <div class="blog-detail">
+            <div class="blog-detail-header">
+                <a href="{% url "blog:demo_list" %}" class="blog-back"><i class="fas fa-arrow-left"></i> Back to demos</a>
+                <span class="blog-date"><i class="far fa-calendar-alt"></i> {{ demo.created_at|date:"M d, Y" }}</span>
+            </div>
+
+            <h1 class="blog-detail-title">{{ demo.title }}</h1>
+
+            {% if demo.description %}
+            <div class="blog-detail-desc">
+                <p>{{ demo.description }}</p>
+            </div>
+            {% endif %}
+
+            <div class="demo-embed detail">
+                <iframe src="{{ demo.video_url }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        {% include "blog/partials/comment_section.html" with object=demo content_type_name="demo" %}
+    </div>
+</section>
+{% endblock %}

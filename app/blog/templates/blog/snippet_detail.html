@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ snippet.title }} | Code Snippets{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+{% endblock %}
+
+{% block content %}
+<section class="blog-section">
+    <div class="container">
+        <div class="blog-detail">
+            <div class="blog-detail-header">
+                <a href="{% url "blog:snippet_list" %}" class="blog-back"><i class="fas fa-arrow-left"></i> Back to snippets</a>
+                <div class="blog-meta">
+                    <span class="blog-badge">{{ snippet.language }}</span>
+                    {% if snippet.category %}
+                        <span class="blog-category"><i class="fas {{ snippet.category.icon }}"></i> {{ snippet.category.name }}</span>
+                    {% endif %}
+                    <span class="blog-date"><i class="far fa-calendar-alt"></i> {{ snippet.created_at|date:"M d, Y" }}</span>
+                </div>
+            </div>
+
+            <h1 class="blog-detail-title">{{ snippet.title }}</h1>
+
+            {% if snippet.description %}
+            <div class="blog-detail-desc">
+                <p>{{ snippet.description }}</p>
+            </div>
+            {% endif %}
+
+            <div class="code-wrapper">
+                <div class="code-toolbar">
+                    <span class="code-lang">{{ snippet.language }}</span>
+                    <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                </div>
+                <pre><code class="language-{{ snippet.language }}">{{ snippet.code }}</code></pre>
+            </div>
+        </div>
+
+        {% include "blog/partials/comment_section.html" with object=snippet content_type_name="codesnippet" %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>
+function copyCode(btn) {
+    const code = btn.closest(".code-wrapper").querySelector("code").textContent;
+    navigator.clipboard.writeText(code).then(() => {
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => { btn.innerHTML = '<i class="far fa-copy"></i> Copy'; }, 2000);
+    });
+}
+</script>
+{% endblock %}

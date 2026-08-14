@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ error.title }} | Errors & Solutions{% endblock %}
+
+{% block content %}
+<section class="blog-section">
+    <div class="container">
+        <div class="blog-detail">
+            <div class="blog-detail-header">
+                <a href="{% url "blog:error_list" %}" class="blog-back"><i class="fas fa-arrow-left"></i> Back to errors</a>
+                <span class="blog-date"><i class="far fa-calendar-alt"></i> {{ error.created_at|date:"M d, Y" }}</span>
+            </div>
+
+            <h1 class="blog-detail-title"><i class="fas fa-bug"></i> {{ error.title }}</h1>
+
+            {% if error.tags %}
+            <div class="blog-tags">
+                {% for tag in error.tag_list %}
+                <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="error-section">
+                <h3><i class="fas fa-question-circle"></i> Description</h3>
+                <div class="error-card-detail">{{ error.description|linebreaks }}</div>
+            </div>
+
+            <div class="error-section">
+                <h3><i class="fas fa-search"></i> Cause</h3>
+                <div class="error-card-detail cause">{{ error.cause|linebreaks }}</div>
+            </div>
+
+            <div class="error-section">
+                <h3><i class="fas fa-wrench"></i> Solution</h3>
+                <div class="error-card-detail solution">{{ error.solution|linebreaks }}</div>
+            </div>
+        </div>
+
+        {% include "blog/partials/comment_section.html" with object=error content_type_name="errorsolution" %}
+    </div>
+</section>
+{% endblock %}

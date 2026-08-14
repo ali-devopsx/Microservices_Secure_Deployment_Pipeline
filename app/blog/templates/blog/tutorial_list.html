@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Tutorials | Ali Mahmoud{% endblock %}
+
+{% block content %}
+<section class="blog-section">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-chalkboard-teacher"></i> Tutorials</h2>
+            <p class="section-copy">Step-by-step guides on DevOps, security, and automation</p>
+        </div>
+
+        <div class="blog-grid">
+            {% for tutorial in tutorials %}
+            <article class="blog-card fade-in">
+                {% if tutorial.image %}
+                <div class="blog-card-image">
+                    <img src="{{ tutorial.image.url }}" alt="{{ tutorial.title }}">
+                </div>
+                {% endif %}
+                <div class="blog-card-body">
+                    <h3 class="blog-card-title">{{ tutorial.title }}</h3>
+                    <p class="blog-card-desc">{{ tutorial.content|striptags|truncatewords:35 }}</p>
+                    <div class="blog-card-footer">
+                        <span class="blog-date"><i class="far fa-calendar-alt"></i> {{ tutorial.created_at|date:"M d, Y" }}</span>
+                        <a href="{% url "blog:tutorial_detail" tutorial.pk %}" class="blog-read-more">Read tutorial <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
+            {% empty %}
+            <div class="blog-empty">
+                <i class="fas fa-chalkboard-teacher fa-3x"></i>
+                <p>No tutorials yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

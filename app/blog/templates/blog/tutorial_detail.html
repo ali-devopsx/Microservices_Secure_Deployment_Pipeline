@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ tutorial.title }} | Tutorials{% endblock %}
+
+{% block content %}
+<section class="blog-section">
+    <div class="container">
+        <div class="blog-detail">
+            <div class="blog-detail-header">
+                <a href="{% url "blog:tutorial_list" %}" class="blog-back"><i class="fas fa-arrow-left"></i> Back to tutorials</a>
+                <span class="blog-date"><i class="far fa-calendar-alt"></i> {{ tutorial.created_at|date:"M d, Y" }}</span>
+            </div>
+
+            <h1 class="blog-detail-title">{{ tutorial.title }}</h1>
+
+            {% if tutorial.image %}
+            <div class="blog-detail-image">
+                <img src="{{ tutorial.image.url }}" alt="{{ tutorial.title }}">
+            </div>
+            {% endif %}
+
+            <div class="blog-detail-content">
+                {{ tutorial.content|safe }}
+            </div>
+        </div>
+
+        {% include "blog/partials/comment_section.html" with object=tutorial content_type_name="tutorial" %}
+    </div>
+</section>
+{% endblock %}
