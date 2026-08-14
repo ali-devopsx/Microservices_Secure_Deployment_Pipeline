@@ -66,7 +66,12 @@ spec:
           image: alidevopsx/cyber-portfolio:latest
           # Always pull the newest image
           imagePullPolicy: Always
-          # Environment variables for Django
+
+          # Container security settings
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+
           env:
             # Database name for Django to connect
             - name: DB_NAME
@@ -207,7 +212,7 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 5         # Check every 5 seconds
             timeoutSeconds: 5
-            failureThreshold: 3
+            failureThreshold: 3      # Fail after 3 consecutive checks
 
           # Resource limits to prevent using too much memory/CPU
           resources:
