@@ -188,6 +188,16 @@ spec:
           ports:
             # Django runs on port 8000
             - containerPort: 8000
+
+          # Give Django time to start before other probes
+          startupProbe:
+            httpGet:
+              path: /
+              port: 8000
+            failureThreshold: 30
+            periodSeconds: 10
+
+
           # Automated check to see if the container is still alive
           livenessProbe:
             httpGet:
