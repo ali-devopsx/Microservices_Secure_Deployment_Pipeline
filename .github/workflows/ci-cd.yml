@@ -28,8 +28,7 @@ permissions:
 env:
   IMAGE_NAME: cyber-portfolio
   PYTHON_VERSION: "3.11"
-  PIP_DESABLE: "true"
-  DJANGO_SECRET_KEY: ci-test-key
+  PIP_DISABLE: "true"
 
 
 # =========================
