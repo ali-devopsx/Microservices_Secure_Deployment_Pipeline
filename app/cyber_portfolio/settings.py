@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # In production, use environment variables to store this
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "my_ultra_secret_production_key_2026")
+SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Set to False when deploying to production
@@ -86,9 +86,9 @@ WSGI_APPLICATION = 'cyber_portfolio.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'cyber_db'),
-        'USER': os.environ.get('DB_USER', 'cyber_user'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'cyber_pass'),
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASSWORD'],
         'HOST': os.environ.get('DB_HOST', 'db'),
         'PORT': os.environ.get('DB_PORT', '5432'),
     }
