@@ -82,6 +82,7 @@ jobs:
           DB_PORT: 5432
           DJANGO_DEBUG: "False"
           DJANGO_ALLOWED_HOSTS: localhost
+          DJANGO_SECRET_KEY: ci-test-secret-key-for-testing-only
         run: python manage.py test
 
 
