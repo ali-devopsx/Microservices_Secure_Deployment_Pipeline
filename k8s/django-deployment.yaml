@@ -311,18 +311,30 @@ spec:
                 secretKeyRef:
                   name: cyber-app-secrets
                   key: db-password
-            # Database host: use the Postgres Service name
+            # Database host: use ConfigMap
             - name: DB_HOST
-              value: "postgres-service"
-            # Database port
+              valueFrom:
+                configMapKeyRef:
+                  name: cyber-app-config
+                  key: DB_HOST
+            # Database port: use ConfigMap
             - name: DB_PORT
-              value: "5432"
-            # Redis host: use the Redis Service name
+              valueFrom:
+                configMapKeyRef:
+                  name: cyber-app-config
+                  key: DB_PORT
+            # Redis host: use ConfigMap
             - name: REDIS_HOST
-              value: "redis-service"
-            # Redis port
+              valueFrom:
+                configMapKeyRef:
+                  name: cyber-app-config
+                  key: REDIS_HOST
+            # Redis port: use ConfigMap
             - name: REDIS_PORT
-              value: "6379"
+              valueFrom:
+                configMapKeyRef:
+                  name: cyber-app-config
+                  key: REDIS_PORT
             # Redis password
             - name: REDIS_PASSWORD
               valueFrom:
