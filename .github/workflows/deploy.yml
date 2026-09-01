@@ -4,6 +4,16 @@ name: Deploy
 on:
   push:
     branches: [main]
+    # Only deploy when the actual app code changes, not for docs-only commits
+    paths:
+      - 'app/**'
+      - 'Dockerfile'
+      - 'Dockerfile.celery'
+      - 'entrypoint.sh'
+      - 'k8s/**'
+      - 'nginx/**'
+      - 'docker-compose.yml'
+      - 'docker-compose.monitoring.yml'
 
 jobs:
   deploy:
